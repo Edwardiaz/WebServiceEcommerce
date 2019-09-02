@@ -14,8 +14,6 @@ import org.springframework.stereotype.Component;
 import com.ecommerce.configuration.HibernateUtil;
 import com.ecommerce.entity.Products;
 
-
-
 @Component
 public class ProductoDaoImpl implements InterfaceProductoDao{
 

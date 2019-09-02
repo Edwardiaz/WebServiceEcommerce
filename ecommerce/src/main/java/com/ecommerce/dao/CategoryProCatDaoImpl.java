@@ -1,0 +1,113 @@
+package com.ecommerce.dao;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.springframework.stereotype.Component;
+
+import com.ecommerce.configuration.HibernateUtil;
+import com.ecommerce.entity.Category;
+import com.ecommerce.entity.Products;
+import com.ecommerce.entity.ProductsCategory;
+
+@Component
+public class CategoryProCatDaoImpl implements InterfaceCategoryDao, InterfaceProCatDao{
+
+	@Override
+	public Category saveCategory(Category cat) {
+		Transaction transaction = null;
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+			transaction = session.beginTransaction();
+			session.save(cat);
+			transaction.commit();
+			return cat;
+		}catch(Exception e) {
+			if(transaction != null) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<Category> findAllCategory() {
+		try(Session sesion = HibernateUtil.getSessionFactory().openSession()){
+			return sesion.createQuery("from Category", Category.class).list();	
+		}
+	}
+
+	@Override
+	public Category findByIdCategory(Long id) {
+		try(Session sesion = HibernateUtil.getSessionFactory().openSession()){
+			Category cat = sesion.get(Category.class, id);
+			return cat;
+		}
+	}
+
+	@Override
+	public void deteleCategory(Long id) {
+		Transaction transaction = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Category cat = session.load(Category.class, id);
+		transaction = session.beginTransaction();
+		if(null != cat) {
+			session.delete(cat);
+			transaction.commit();
+		}	
+	}
+
+	@Override
+	public Category updateCategory(Category cat) {
+		Transaction transaccion = null;
+		try(Session sesion = HibernateUtil.getSessionFactory().openSession()) {
+			transaccion = sesion.beginTransaction();
+			sesion.update(cat);
+			transaccion.commit();
+			return cat;
+		}
+	}
+// ************************************************************* \\
+
+	@Override
+	public ProductsCategory updateProCat(ProductsCategory pro) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ProductsCategory findByIdProCat(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ProductsCategory> listProCat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ProductsCategory saveProCat(ProductsCategory procat) {
+		Transaction transaction = null;
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+			transaction = session.beginTransaction();
+			session.save(procat);
+			transaction.commit();
+			return procat;
+		}catch(Exception e) {
+			if(transaction != null) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public void deteleProCat(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+}
