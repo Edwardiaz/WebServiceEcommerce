@@ -22,7 +22,7 @@ public class ProductsCategory implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "idProductCategory")
-	private Integer idProductsCategory;
+	private Long idProductsCategory;
 	@Column(name = "idProducts")
 	private int idPro;
 	@Column(name = "idCategory")
@@ -40,15 +40,15 @@ public class ProductsCategory implements Serializable{
 		
 	}
 	
-	public ProductsCategory(Integer idProductsCategory) {
+	public ProductsCategory(Long idProductsCategory) {
 		this.idProductsCategory = idProductsCategory;
 	}
 
-	public Integer getIdProductsCategory() {
+	public Long getIdProductsCategory() {
 		return idProductsCategory;
 	}
 
-	public void setIdProductsCategory(Integer idProductsCategory) {
+	public void setIdProductsCategory(Long idProductsCategory) {
 		this.idProductsCategory = idProductsCategory;
 	}
 

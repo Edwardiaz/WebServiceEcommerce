@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.entity.Category;
 import com.ecommerce.entity.Products;
@@ -16,6 +17,7 @@ import com.ecommerce.entity.ProductsCategory;
 import com.ecommerce.service.CategoryService;
 import com.ecommerce.service.ProductoService;
 
+@RestController
 public class CategoryProCatRestController {
 
 	private CategoryService catService;

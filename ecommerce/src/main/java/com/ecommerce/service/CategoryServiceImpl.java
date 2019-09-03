@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ecommerce.dao.InterfaceCategoryDao;
 import com.ecommerce.dao.InterfaceProCatDao;
@@ -30,11 +31,13 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Category> findAllCategory() {
 		return interCatDao.findAllCategory();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Category findByIdCategory(Long id) {
 		return interCatDao.findByIdCategory(id);
 	}
@@ -56,11 +59,13 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<ProductsCategory> findAllProductsCategory() {
 		return interProCatDao.findAllProCat();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public ProductsCategory findByIdProductsCategory(Long id) {
 		return interProCatDao.findByIdProCat(id);
 	}

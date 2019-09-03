@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.demo.*")
+@ComponentScan("com.ecommerce.*")
 public class WebMvcConfig implements WebMvcConfigurer {
  
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
