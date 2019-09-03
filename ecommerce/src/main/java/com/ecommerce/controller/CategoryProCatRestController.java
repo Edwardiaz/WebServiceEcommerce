@@ -10,38 +10,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ecommerce.entity.Category;
 import com.ecommerce.entity.Products;
+import com.ecommerce.entity.ProductsCategory;
+import com.ecommerce.service.CategoryService;
 import com.ecommerce.service.ProductoService;
 
 public class CategoryProCatRestController {
 
-	private ProductoService proService;
+	private CategoryService catService;
+	
+	private ProductsCategory proCatService;
 
 	@Autowired
-	public CategoryProCatRestController(ProductoService proService) {
-		this.proService = proService;
+	public CategoryProCatRestController(CategoryService catService) {
+		this.catService = catService;
+	}
+	
+	@Autowired
+	public CategoryProCatRestController(ProductsCategory proCatService) {
+		this.proCatService = proCatService;
 	}
 
 	// metodo insertar
-	@RequestMapping(value = "/producto", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/categoria", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public Products saveProducts(@RequestBody Products pro) {
-		return proService.saveProducts(pro);
+	public Category saveCategory(@RequestBody Category cat) {
+		return catService.saveCategory(cat);
 	}
 
 	// metodo consultar
-	@RequestMapping(value = "/producto", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/categoria", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public List<Products> getProducts() {
-		List<Products> list = proService.findAll();
+	public List<Category> getCategoria() {
+		List<Category> list = catService.findAllCategory();
 		return list;
 	}
 
 	// metodo find by id
-	@RequestMapping(value = "/producto/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public Products getProductById(@PathVariable("id") Long id) {
-		return proService.findByIdProducts(id);
+	public Category getProductById(@PathVariable("id") Long id) {
+		return catService.findByIdCategory(id);
 	}
 
 	// metodo delete
