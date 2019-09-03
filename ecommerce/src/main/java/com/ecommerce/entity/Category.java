@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -31,6 +33,13 @@ public class Category implements Serializable{
 	
 	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private Set<ProductsCategory> productsCategorySet;
+	
+	@JoinColumn(name = "idCategoryPadre", insertable = false, updatable = false)
+	@ManyToOne
+	private Category idCatPadre;
+	
+	@OneToMany(mappedBy = "idCatPadre", fetch = FetchType.EAGER)
+	private Set<Category> categoriaSet;
 	
 	public Category(){
 	}
@@ -79,12 +88,12 @@ public class Category implements Serializable{
 		this.idCategoryPadre = idCategoryPadre;
 	}
 
-	public Set<ProductsCategory> getProductsCategorySet() {
-		return productsCategorySet;
-	}
-
-	public void setProductsCategorySet(Set<ProductsCategory> productsCategorySet) {
-		this.productsCategorySet = productsCategorySet;
-	}
+//	public Set<ProductsCategory> getProductsCategorySet() {
+//		return productsCategorySet;
+//	}
+//
+//	public void setProductsCategorySet(Set<ProductsCategory> productsCategorySet) {
+//		this.productsCategorySet = productsCategorySet;
+//	}
 	
 }
