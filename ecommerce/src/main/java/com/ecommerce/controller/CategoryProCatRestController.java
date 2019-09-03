@@ -25,11 +25,6 @@ public class CategoryProCatRestController {
 		this.catService = catService;
 	}
 	
-//	@Autowired
-//	public CategoryProCatRestController(ProductsCategory proCatService) {
-//		this.proCatService = proCatService;
-//	}
-
 	// metodo insertar
 	@RequestMapping(value = "/categoria", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
