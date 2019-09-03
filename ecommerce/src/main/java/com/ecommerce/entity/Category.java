@@ -34,13 +34,14 @@ public class Category implements Serializable{
 	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private Set<ProductsCategory> productsCategorySet;
 	
+	/* realcion especial*/
 	@JoinColumn(name = "idCategoryPadre", insertable = false, updatable = false)
 	@ManyToOne
 	private Category idCatPadre;
 	
 	@OneToMany(mappedBy = "idCatPadre", fetch = FetchType.EAGER)
 	private Set<Category> categoriaSet;
-	
+	/*Termina relacion especial*/
 	public Category(){
 	}
 	
