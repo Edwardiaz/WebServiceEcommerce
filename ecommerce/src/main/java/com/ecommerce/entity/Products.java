@@ -69,6 +69,31 @@ public class Products implements Serializable {
 	public Products() {
 	}
 
+	public Products(Integer idProducts, char productCode, String sku, String nameProducts, String description,
+			String colour, String updateDate, double price, int quantity, double taxes, double additionalShippingCost,
+			double wholeSalePrice, String productDeliveryDate, float width, float height, float depth, float weight,
+			int idOrders) {
+		super();
+		this.idProducts = idProducts;
+		this.productCode = productCode;
+		this.sku = sku;
+		this.nameProducts = nameProducts;
+		this.description = description;
+		this.colour = colour;
+		this.updateDate = updateDate;
+		this.price = price;
+		this.quantity = quantity;
+		this.taxes = taxes;
+		this.additionalShippingCost = additionalShippingCost;
+		this.wholeSalePrice = wholeSalePrice;
+		this.productDeliveryDate = productDeliveryDate;
+		this.width = width;
+		this.height = height;
+		this.depth = depth;
+		this.weight = weight;
+		this.idOrders = idOrders;
+	}
+
 	public Products(Integer idProducts) {
 		this.idProducts = idProducts;
 	}

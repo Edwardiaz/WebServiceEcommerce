@@ -40,6 +40,13 @@ public class ProductsCategory implements Serializable{
 		
 	}
 	
+	public ProductsCategory(Long idProductsCategory, int idPro, int idCat) {
+		super();
+		this.idProductsCategory = idProductsCategory;
+		this.idPro = idPro;
+		this.idCat = idCat;
+	}
+
 	public ProductsCategory(Long idProductsCategory) {
 		this.idProductsCategory = idProductsCategory;
 	}
