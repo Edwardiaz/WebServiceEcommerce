@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import com.ecommerce.configuration.HibernateUtil;
 import com.ecommerce.entity.Category;
-import com.ecommerce.entity.Products;
 import com.ecommerce.entity.ProductsCategory;
 
 @Component
@@ -90,15 +89,15 @@ public class CategoryProCatDaoImpl implements InterfaceCategoryDao, InterfacePro
 	@Override
 	public ProductsCategory findByIdProCat(Long id) {
 		try(Session sesion = HibernateUtil.getSessionFactory().openSession()){
-			return sesion.createQuery("from ProductsCategory", ProductsCategory.class).list();	
+			ProductsCategory pro = sesion.get(ProductsCategory.class, id);
+			return pro;
 		}
 	}
 
 	@Override
-	public List<ProductsCategory> listProCat() {
+	public List<ProductsCategory> findAllProCat() {
 		try(Session sesion = HibernateUtil.getSessionFactory().openSession()){
-			ProductsCategory procat = sesion.get(ProductsCategory.class, id);
-			return procat;
+			return sesion.createQuery("from ProductsCategory", ProductsCategory.class).list();	
 		}
 	}
 
@@ -120,8 +119,14 @@ public class CategoryProCatDaoImpl implements InterfaceCategoryDao, InterfacePro
 	}
 
 	@Override
-	public void deteleProCat(Long id) {
-		// TODO Auto-generated method stub
-		
+	public void deleteProCat(Long id) {
+		Transaction transaction = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		ProductsCategory proCat = session.load(ProductsCategory.class, id);
+		transaction = session.beginTransaction();
+		if(null != proCat) {
+			session.delete(proCat);
+			transaction.commit();
+		}
 	}
 }

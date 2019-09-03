@@ -12,9 +12,9 @@ public interface InterfaceProCatDao{
 
 	public ProductsCategory saveProCat(ProductsCategory cat);
 
-	public List<ProductsCategory> listProCat();
+	public List<ProductsCategory> findAllProCat();
 
-	public void deteleProCat(Long id);
+	public void deleteProCat(Long id);
 
 	
 }
