@@ -71,21 +71,35 @@ public class CategoryProCatDaoImpl implements InterfaceCategoryDao, InterfacePro
 // ************************************************************* \\
 
 	@Override
-	public ProductsCategory updateProCat(ProductsCategory pro) {
-		// TODO Auto-generated method stub
-		return null;
+	public ProductsCategory updateProCat(ProductsCategory proCat) {
+		Transaction transaction = null;
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+			transaction = session.beginTransaction();
+			session.save(proCat);
+			transaction.commit();
+			return proCat;
+		}catch(Exception e) {
+			if(transaction != null) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public ProductsCategory findByIdProCat(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		try(Session sesion = HibernateUtil.getSessionFactory().openSession()){
+			return sesion.createQuery("from ProductsCategory", ProductsCategory.class).list();	
+		}
 	}
 
 	@Override
 	public List<ProductsCategory> listProCat() {
-		// TODO Auto-generated method stub
-		return null;
+		try(Session sesion = HibernateUtil.getSessionFactory().openSession()){
+			ProductsCategory procat = sesion.get(ProductsCategory.class, id);
+			return procat;
+		}
 	}
 
 	@Override

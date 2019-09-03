@@ -20,7 +20,7 @@ public class CategoryProCatRestController {
 
 	private CategoryService catService;
 	
-	private ProductsCategory proCatService;
+	private ProductsCategoryService proCatService;
 
 	@Autowired
 	public CategoryProCatRestController(CategoryService catService) {
@@ -53,20 +53,55 @@ public class CategoryProCatRestController {
 	public Category getProductById(@PathVariable("id") Long id) {
 		return catService.findByIdCategory(id);
 	}
-
+ 
 	// metodo delete
-	@RequestMapping(value = "/producto/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public void deleteProducts(@PathVariable("id") Long id) {
-		proService.delete(id);
+	public void deleteCategory(@PathVariable("id") Long id) {
+		catService.deleteCategory(id);
 	}
 
 	//metodo update
-	@RequestMapping(value = "/producto/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public Products updateProducts(@RequestBody Products pro) {
-		return proService.updateProducts(pro);
+	public Category updateCategory(@RequestBody Category cat) {
+		return catService.updateCategory(cat);
 	}
 	
-	///*******************************************
+	///******************************************* 
+	
+	@RequestMapping(value = "/categoria", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ProductsCategory saveProCat(@RequestBody ProductsCategory cat) {
+		return proCatService.saveProCat(cat);
+	}
+
+	// metodo consultar
+	@RequestMapping(value = "/categoria", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public List<Category> getCategoria() {
+		List<Category> list = catService.findAllCategory();
+		return list;
+	}
+
+	// metodo find by id
+	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public Category getProductById(@PathVariable("id") Long id) {
+		return catService.findByIdCategory(id);
+	}
+ 
+	// metodo delete
+	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public void deleteCategory(@PathVariable("id") Long id) {
+		catService.deleteCategory(id);
+	}
+
+	//metodo update
+	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public Category updateCategory(@RequestBody Category cat) {
+		return catService.updateCategory(cat);
+	}
 }
