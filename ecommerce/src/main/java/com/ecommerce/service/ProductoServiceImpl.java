@@ -13,46 +13,47 @@ import com.ecommerce.dao.InterfaceProductoDao;
 import com.ecommerce.entity.Products;
 
 @Service
-public class ProductoServiceImpl implements ProductoService{
+public class ProductoServiceImpl implements ProductoService {
 
 	private InterfaceProductoDao interProDao;
-	
-	//inyeccion de dependencias	
+
+	// inyeccion de dependencias
 	@Autowired
 	public ProductoServiceImpl(InterfaceProductoDao interProDao) {
 		this.interProDao = interProDao;
 	}
-	
-	//CRUD
-	
-	//metodo guardar
+
+	// CRUD
+
+	// metodo guardar
 	@Override
 	public Products saveProducts(Products pro) {
 		return interProDao.save(pro);
 	}
-	
-	//metodo find All
+
+	// metodo find All
 	@Override
 	@Transactional(readOnly = true)
 	public List<Products> findAll() {
 		return interProDao.findAll();
 	}
 
-	//metodo delete
+	// metodo delete
 	@Override
-	public void delete(Long id) {
-		interProDao.deleteById(id);
+	public String deletePro(Long id) {
+		return interProDao.deletePro(id);
 	}
-	
-	//metodo find por id
+
+	// metodo find por id
 	@Override
 	public Products findByIdProducts(Long id) {
 		return interProDao.findByIdProducts(id);
 	}
 
-	//metodo update
+	// metodo update
 	@Override
 	public Products updateProducts(Products pro) {
 		return interProDao.updateProducts(pro);
 	}
+
 }

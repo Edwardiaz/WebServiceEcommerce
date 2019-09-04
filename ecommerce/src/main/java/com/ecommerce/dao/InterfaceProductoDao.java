@@ -10,5 +10,6 @@ public interface InterfaceProductoDao extends JpaRepository<Products, Long>{
 	
 	public Products findByIdProducts(Long id);
 	
+	public String deletePro(Long id);
 	
 }

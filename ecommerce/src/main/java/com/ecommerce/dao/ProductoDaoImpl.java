@@ -62,6 +62,21 @@ public class ProductoDaoImpl implements InterfaceProductoDao{
 	}
 	
 	@Override
+	public String deletePro(Long id) {
+		Transaction transaction = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Products pro = session.load(Products.class, id);
+		transaction = session.beginTransaction();
+		if(null != pro) {
+			session.delete(pro);
+			transaction.commit();
+			return "ok";
+		}else {
+		return "error";
+		}
+	}
+	
+	@Override
 	public Products updateProducts(Products pro) {
 		Transaction transaccion = null;
 		try(Session sesion = HibernateUtil.getSessionFactory().openSession()) {
@@ -198,5 +213,7 @@ public class ProductoDaoImpl implements InterfaceProductoDao{
 		return null;
 	}
 // *************************************************** \\
+
+
 	
 }

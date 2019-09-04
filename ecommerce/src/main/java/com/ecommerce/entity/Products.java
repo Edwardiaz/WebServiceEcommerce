@@ -26,7 +26,7 @@ public class Products implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "idProducts")
-	private Integer idProducts;
+	private Long idProducts;
 	@Column(name = "productCode")
 	private char productCode;
 	@Column(name = "sku")
@@ -69,7 +69,7 @@ public class Products implements Serializable {
 	public Products() {
 	}
 
-	public Products(Integer idProducts, char productCode, String sku, String nameProducts, String description,
+	public Products(Long idProducts, char productCode, String sku, String nameProducts, String description,
 			String colour, String updateDate, double price, int quantity, double taxes, double additionalShippingCost,
 			double wholeSalePrice, String productDeliveryDate, float width, float height, float depth, float weight,
 			int idOrders) {
@@ -94,15 +94,15 @@ public class Products implements Serializable {
 		this.idOrders = idOrders;
 	}
 
-	public Products(Integer idProducts) {
+	public Products(Long idProducts) {
 		this.idProducts = idProducts;
 	}
 
-	public Integer getIdProducts() {
+	public Long getIdProducts() {
 		return idProducts;
 	}
 
-	public void setIdProducts(Integer idProducts) {
+	public void setIdProducts(Long idProducts) {
 		this.idProducts = idProducts;
 	}
 

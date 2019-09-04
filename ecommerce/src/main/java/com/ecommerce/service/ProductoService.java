@@ -12,7 +12,7 @@ public interface ProductoService {
 	
 	public Products findByIdProducts(Long id);
 	
-	public void delete(Long id);
+	public String deletePro(Long id);
 	
 	public Products updateProducts(Products pro);
 }
