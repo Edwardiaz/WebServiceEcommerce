@@ -58,8 +58,8 @@ public class ProductoRestController {
 	}
 	
 	@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Content doesn't exist or some parameters are invalid")
-	public void error() {
-		
+	public String error() {
+		return "Error";
 	}
 	
 	@RequestMapping(value = "/producto/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -77,18 +77,18 @@ public class ProductoRestController {
 	// metodo delete
 	@RequestMapping(value = "/producto/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public void deleteProducts(@PathVariable("id") Long id) {
-//		String pro = proService.deletePro(id);
+	public ResponseEntity<?> deleteProducts(@PathVariable("id") Long id) {
+		String pro = proService.deletePro(id);
 		
-//		if (pro.equalsIgnoreCase("ok")) {
-//			return new ResponseEntity<>(pro, HttpStatus.OK);
-//		} else if(pro.equalsIgnoreCase("error")){
-//			return new ResponseEntity<>(pro, HttpStatus.NOT_FOUND);
-//		}else {
-//			return null;
-//		}
-		proService.deletePro(id);
-		
+		if (pro.equalsIgnoreCase("ok")) {
+			return new ResponseEntity<>(pro, HttpStatus.OK);
+		} if(pro.equalsIgnoreCase("error")) {
+			return new ResponseEntity<>(pro, HttpStatus.NO_CONTENT);
+		}
+		else {
+			return null;
+		}
+//		proService.deletePro(id);
 	}
 
 	// metodo update
