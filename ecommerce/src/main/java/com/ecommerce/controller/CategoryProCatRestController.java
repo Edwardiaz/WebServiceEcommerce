@@ -33,7 +33,7 @@ public class CategoryProCatRestController {
 	@ResponseBody
 	public ResponseEntity<?> saveCategory(@RequestBody Category cat) {
 				
-		if(cat != null) {
+		if(cat.getIdCategory() == null || cat.getIdCategory() == 0) {
 			return new ResponseEntity<>(catService.saveCategory(cat), HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<>(catService.saveCategory(cat), HttpStatus.BAD_REQUEST);
@@ -83,14 +83,22 @@ public class CategoryProCatRestController {
 	//metodo update
 	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public ResponseEntity<?> updateCategory(@RequestBody Category cat) {
+	public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody Category cat) {
 		
-		if(cat != null) {
-			return new ResponseEntity<>(catService.updateCategory(cat), HttpStatus.OK);
-		}else{
-	        return new ResponseEntity<>(catService.updateCategory(cat), HttpStatus.BAD_REQUEST);
-	    }
-		
+		if(cat.getIdCategory() == id) {
+			Category cate = catService.updateCategory(cat);
+			if(cate != null && cat.getIdCategory() != null) {
+				return new ResponseEntity<>(catService.updateCategory(cat), HttpStatus.OK); 
+			}else if(cate == null && cat.getIdCategory() != null) {
+				return new ResponseEntity<>("NO SE ENCUENTRA EL REGISTRO", HttpStatus.NOT_FOUND);
+			}else if(cate == null && cat.getIdCategory() == null) {
+				return new ResponseEntity<>("Algunos parametros son invalidos", HttpStatus.BAD_REQUEST);
+			}else {
+				return new ResponseEntity<>("Parametros invalidos o mala sintaxis en la peticion", HttpStatus.BAD_REQUEST);
+			}
+		}else {
+			return new ResponseEntity<>("ID NO COINCIDEN", HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	///******************************************* \\
@@ -100,10 +108,10 @@ public class CategoryProCatRestController {
 	@ResponseBody
 	public ResponseEntity<?> saveProCat(@RequestBody ProductsCategory cat) {
 		
-		if(cat != null) {
+		if(cat.getIdProductsCategory() == null || cat.getIdProductsCategory() == 0) {
 			return new ResponseEntity<>(catService.saveProductsCategory(cat), HttpStatus.CREATED);
 		}else {
-			return new ResponseEntity<>(catService.saveProductsCategory(cat), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(cat, HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -149,12 +157,21 @@ public class CategoryProCatRestController {
 	//metodo update
 	@RequestMapping(value = "/procat/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public ResponseEntity<?> updateProCat(@RequestBody ProductsCategory cat) {
-		 
-		if(cat != null) {
-			return new ResponseEntity<>(catService.updateProductsCategory(cat), HttpStatus.OK);
-		}else{
-	        return new ResponseEntity<>(catService.updateProductsCategory(cat), HttpStatus.BAD_REQUEST);
-	    }
+	public ResponseEntity<?> updateProCat(@PathVariable("id") Long id, @RequestBody ProductsCategory cat) {
+		
+		if(cat.getIdProductsCategory() == id) {
+			ProductsCategory procat = catService.updateProductsCategory(cat);
+			if(procat != null && cat.getIdProductsCategory() != null) {
+				return new ResponseEntity<>(catService.updateProductsCategory(cat), HttpStatus.OK); 
+			}else if(procat == null && cat.getIdProductsCategory() != null) {
+				return new ResponseEntity<>("NO SE ENCUENTRA EL REGISTRO", HttpStatus.NOT_FOUND);
+			}else if(procat == null && cat.getIdProductsCategory() == null) {
+				return new ResponseEntity<>("Algunos parametros son invalidos", HttpStatus.BAD_REQUEST);
+			}else {
+				return new ResponseEntity<>("Parametros invalidos o mala sintaxis en la peticion", HttpStatus.BAD_REQUEST);
+			}
+		}else {
+			return new ResponseEntity<>("ID NO COINCIDEN", HttpStatus.BAD_REQUEST);
+		}
 	}
 }

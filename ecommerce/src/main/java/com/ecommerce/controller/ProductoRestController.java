@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 //import org.springframework.web.server.ResponseStatusException;
 
 import com.ecommerce.entity.Products;
+import com.ecommerce.entity.ProductsCategory;
 import com.ecommerce.service.ProductoService;
 
 @RestController
@@ -35,7 +36,7 @@ public class ProductoRestController {
 	@ResponseBody
 	public ResponseEntity<?> saveProducts(@RequestBody Products pro) {
 //		Products prod = proService.saveProducts(pro);
-		if(pro != null) {
+		if(pro.getIdProducts() == null || pro.getIdProducts() == 0) {
 		return new ResponseEntity<>(proService.saveProducts(pro), HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<>(proService.saveProducts(pro), HttpStatus.BAD_REQUEST);
@@ -96,14 +97,29 @@ public class ProductoRestController {
 	@RequestMapping(value = "/producto/{id}", method = RequestMethod.PUT, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public ResponseEntity<?> updateProducts(@RequestBody Products pro) {
+	public ResponseEntity<?> updateProducts(@PathVariable Long id, @RequestBody Products pro) {
 //		Products prod = proService.updateProducts(pro);
 		
-		if(pro != null) {
-			return new ResponseEntity<>(proService.updateProducts(pro), HttpStatus.OK);
-		}else{
-	        return new ResponseEntity<>(proService.updateProducts(pro), HttpStatus.BAD_REQUEST);
-	    }
+//		if(pro != null) {
+//			return new ResponseEntity<>(proService.updateProducts(pro), HttpStatus.OK);
+//		}else{
+//	        return new ResponseEntity<>(proService.updateProducts(pro), HttpStatus.BAD_REQUEST);
+//	    }
+		
+		if(pro.getIdProducts() == id) {
+			Products prod = proService.updateProducts(pro);
+			if(prod != null && pro.getIdProducts() != null) {
+				return new ResponseEntity<>(proService.updateProducts(pro), HttpStatus.OK); 
+			}else if(prod == null && pro.getIdProducts() != null) {
+				return new ResponseEntity<>("NO SE ENCUENTRA EL REGISTRO", HttpStatus.NOT_FOUND);
+			}else if(prod == null && pro.getIdProducts() == null) {
+				return new ResponseEntity<>("Algunos parametros son invalidos", HttpStatus.BAD_REQUEST);
+			}else {
+				return new ResponseEntity<>("Parametros invalidos o mala sintaxis en la peticion", HttpStatus.BAD_REQUEST);
+			}
+		}else {
+			return new ResponseEntity<>("ID NO COINCIDEN", HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	/// *******************************************
