@@ -43,8 +43,8 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
-	public void deleteCategory(Long id) {
-		interCatDao.deteleCategory(id);
+	public String deleteCategory(Long id) {
+		return interCatDao.deteleCategory(id);
 	}
 
 	@Override
@@ -71,8 +71,8 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
-	public void deleteProductsCategory(Long id) {
-		interProCatDao.deleteProCat(id);
+	public String deleteProductsCategory(Long id) {
+		return interProCatDao.deleteProCat(id);
 	}
 
 	@Override

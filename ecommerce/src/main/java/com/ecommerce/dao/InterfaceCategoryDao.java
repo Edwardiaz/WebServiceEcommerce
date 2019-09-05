@@ -12,7 +12,7 @@ public interface InterfaceCategoryDao{
 	
 	public Category findByIdCategory(Long id);
 	
-	public void deteleCategory(Long id);
+	public String deteleCategory(Long id);
 
 	public Category updateCategory(Category cat);
 }

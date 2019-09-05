@@ -37,7 +37,6 @@ public class Products implements Serializable {
 	private String description;
 	@Column(name = "colour")
 	private String colour;
-//	@Temporal(TemporalType.DATE)
 	@Column(name = "updateDate")
 	private String updateDate;
 	@Column(name = "price")

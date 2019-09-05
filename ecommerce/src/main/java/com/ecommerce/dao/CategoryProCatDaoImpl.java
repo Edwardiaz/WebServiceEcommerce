@@ -46,15 +46,18 @@ public class CategoryProCatDaoImpl implements InterfaceCategoryDao, InterfacePro
 	}
 
 	@Override
-	public void deteleCategory(Long id) {
+	public String deteleCategory(Long id) {
 		Transaction transaction = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		Category cat = session.load(Category.class, id);
+		Category cat = session.get(Category.class, id);
 		transaction = session.beginTransaction();
 		if(null != cat) {
 			session.delete(cat);
 			transaction.commit();
-		}	
+			return "ok";
+		}else {
+			return "error";
+		}
 	}
 
 	@Override
@@ -74,7 +77,7 @@ public class CategoryProCatDaoImpl implements InterfaceCategoryDao, InterfacePro
 		Transaction transaction = null;
 		try(Session session = HibernateUtil.getSessionFactory().openSession()){
 			transaction = session.beginTransaction();
-			session.save(proCat);
+			session.update(proCat);
 			transaction.commit();
 			return proCat;
 		}catch(Exception e) {
@@ -119,14 +122,16 @@ public class CategoryProCatDaoImpl implements InterfaceCategoryDao, InterfacePro
 	}
 
 	@Override
-	public void deleteProCat(Long id) {
+	public String deleteProCat(Long id) {
 		Transaction transaction = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		ProductsCategory proCat = session.load(ProductsCategory.class, id);
+		ProductsCategory proCat = session.get(ProductsCategory.class, id);
 		transaction = session.beginTransaction();
 		if(null != proCat) {
 			session.delete(proCat);
 			transaction.commit();
+			return "ok";
 		}
+		return "error";
 	}
 }

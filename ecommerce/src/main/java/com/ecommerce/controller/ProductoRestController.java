@@ -48,9 +48,9 @@ public class ProductoRestController {
 	@ResponseBody
 	public List<Products> getProducts() {
 		List<Products> list = proService.findAll();
-		if(list != null) {
 		
-		return list;
+		if(list != null) {
+			return list;
 		}else {
 			error();
 			return null;
@@ -62,6 +62,7 @@ public class ProductoRestController {
 		return "Error";
 	}
 	
+	//metodo find by id
 	@RequestMapping(value = "/producto/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> getProductById(@PathVariable("id") Long id) {

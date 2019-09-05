@@ -3,12 +3,15 @@ package com.ecommerce.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.entity.Category;
@@ -28,37 +31,66 @@ public class CategoryProCatRestController {
 	// metodo insertar
 	@RequestMapping(value = "/categoria", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public Category saveCategory(@RequestBody Category cat) {
-		return catService.saveCategory(cat);
+	public ResponseEntity<?> saveCategory(@RequestBody Category cat) {
+				
+		if(cat != null) {
+			return new ResponseEntity<>(catService.saveCategory(cat), HttpStatus.CREATED);
+		}else {
+			return new ResponseEntity<>(catService.saveCategory(cat), HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	// metodo consultar
+	@ResponseStatus(code = HttpStatus.FOUND)
 	@RequestMapping(value = "/categoria", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public List<Category> getCategoria() {
+		
 		List<Category> list = catService.findAllCategory();
 		return list;
+		
 	}
 
 	// metodo find by id
 	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public Category getProductById(@PathVariable("id") Long id) {
-		return catService.findByIdCategory(id);
+	public ResponseEntity<?> getProductById(@PathVariable("id") Long id) {
+		Category cat = catService.findByIdCategory(id);
+		if(cat != null) {
+			return new ResponseEntity<>(catService.findByIdCategory(id), HttpStatus.FOUND);
+		}else{
+	        return new ResponseEntity<>(catService.findByIdCategory(id), HttpStatus.NOT_FOUND);
+	    } 
+		
 	}
  
 	// metodo delete
 	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public void deleteCategory(@PathVariable("id") Long id) {
-		catService.deleteCategory(id);
+	public ResponseEntity<?> deleteCategory(@PathVariable("id") Long id) {	
+		String pro = catService.deleteCategory(id);
+		
+		if (pro.equalsIgnoreCase("ok")) {
+			return new ResponseEntity<>(pro, HttpStatus.OK);
+		} if(pro.equalsIgnoreCase("error")) {
+			return new ResponseEntity<>(pro, HttpStatus.NO_CONTENT);
+		}
+		else {
+			return null;
+		}
 	}
 
 	//metodo update
 	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public Category updateCategory(@RequestBody Category cat) {
-		return catService.updateCategory(cat);
+	public ResponseEntity<?> updateCategory(@RequestBody Category cat) {
+		
+		if(cat != null) {
+			return new ResponseEntity<>(catService.updateCategory(cat), HttpStatus.OK);
+		}else{
+	        return new ResponseEntity<>(catService.updateCategory(cat), HttpStatus.BAD_REQUEST);
+	    }
+		
 	}
 	
 	///******************************************* \\
@@ -66,11 +98,17 @@ public class CategoryProCatRestController {
 	//metodo save
 	@RequestMapping(value = "/procat", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public ProductsCategory saveProCat(@RequestBody ProductsCategory cat) {
-		return catService.saveProductsCategory(cat);
+	public ResponseEntity<?> saveProCat(@RequestBody ProductsCategory cat) {
+		
+		if(cat != null) {
+			return new ResponseEntity<>(catService.saveProductsCategory(cat), HttpStatus.CREATED);
+		}else {
+			return new ResponseEntity<>(catService.saveProductsCategory(cat), HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	// metodo consultar
+	@ResponseStatus(code = HttpStatus.FOUND)
 	@RequestMapping(value = "/procat", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public List<ProductsCategory> getProCat() {
@@ -81,21 +119,42 @@ public class CategoryProCatRestController {
 	// metodo find by id
 	@RequestMapping(value = "/procat/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public ProductsCategory getProCatById(@PathVariable("id") Long id) {
-		return catService.findByIdProductsCategory(id);
+	public ResponseEntity<?> getProCatById(@PathVariable("id") Long id) { 
+		
+		ProductsCategory proCat = catService.findByIdProductsCategory(id);
+		
+		if(proCat != null) {
+			return new ResponseEntity<>(catService.findByIdProductsCategory(id), HttpStatus.FOUND);
+		}else{
+	        return new ResponseEntity<>(catService.findByIdProductsCategory(id), HttpStatus.NOT_FOUND);
+	    }
 	}
  
 	// metodo delete
 	@RequestMapping(value = "/procat/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public void deleteProCat(@PathVariable("id") Long id) {
-		catService.deleteProductsCategory(id);
+	public ResponseEntity<?> deleteProCat(@PathVariable("id") Long id) {
+		String proCat = catService.deleteProductsCategory(id);
+		
+		if (proCat.equalsIgnoreCase("ok")) {
+			return new ResponseEntity<>(proCat, HttpStatus.OK);
+		} if(proCat.equalsIgnoreCase("error")) {
+			return new ResponseEntity<>(proCat, HttpStatus.NO_CONTENT);
+		}
+		else {
+			return null;
+		}
 	}
 
 	//metodo update
 	@RequestMapping(value = "/procat/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public ProductsCategory updateProCat(@RequestBody ProductsCategory cat) {
-		return catService.updateProductsCategory(cat);
+	public ResponseEntity<?> updateProCat(@RequestBody ProductsCategory cat) {
+		 
+		if(cat != null) {
+			return new ResponseEntity<>(catService.updateProductsCategory(cat), HttpStatus.OK);
+		}else{
+	        return new ResponseEntity<>(catService.updateProductsCategory(cat), HttpStatus.BAD_REQUEST);
+	    }
 	}
 }

@@ -65,7 +65,7 @@ public class ProductoDaoImpl implements InterfaceProductoDao{
 	public String deletePro(Long id) {
 		Transaction transaction = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		Products pro = session.load(Products.class, id);
+		Products pro = session.get(Products.class, id);
 		transaction = session.beginTransaction();
 		if(null != pro) {
 			session.delete(pro);
