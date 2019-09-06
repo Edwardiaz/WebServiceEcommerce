@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 //import org.springframework.web.server.ResponseStatusException;
 
 import com.ecommerce.entity.Products;
-import com.ecommerce.entity.ProductsCategory;
 import com.ecommerce.service.ProductoService;
 
 @RestController
+@RequestMapping("/api")
 public class ProductoRestController {
 
 	private ProductoService proService;
@@ -27,6 +27,12 @@ public class ProductoRestController {
 	@Autowired
 	public ProductoRestController(ProductoService proService) {
 		this.proService = proService;
+	}
+	
+	@RequestMapping("/")
+	@ResponseBody
+	public String index() {
+		return "E-commerce";
 	}
 	
 	//CRUD

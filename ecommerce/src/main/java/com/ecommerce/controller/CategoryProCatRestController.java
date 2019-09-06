@@ -19,6 +19,7 @@ import com.ecommerce.entity.ProductsCategory;
 import com.ecommerce.service.CategoryService;
 
 @RestController
+@RequestMapping("/api")
 public class CategoryProCatRestController {
 
 	private CategoryService catService;
@@ -36,7 +37,7 @@ public class CategoryProCatRestController {
 		if(cat.getIdCategory() == null || cat.getIdCategory() == 0) {
 			return new ResponseEntity<>(catService.saveCategory(cat), HttpStatus.CREATED);
 		}else {
-			return new ResponseEntity<>(catService.saveCategory(cat), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(cat, HttpStatus.BAD_REQUEST);
 		}
 	}
 
