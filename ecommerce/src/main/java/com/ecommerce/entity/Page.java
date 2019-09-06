@@ -32,8 +32,12 @@ public class Page implements Serializable {
 	private String contenido;
 	
 	@Column(name = "dateCreate")
-	@Temporal(TemporalType.DATE)
-	private Calendar dateCreate;
+	//@Temporal(TemporalType.DATE)
+	private String dateCreate;
+	
+	@Column(name = "dateUpdate")
+	//@Temporal(TemporalType.DATE)
+	private String dateUpdate;
 	
 	@Column(name= "domain")
 	private String domain;
@@ -60,12 +64,17 @@ public class Page implements Serializable {
     @ManyToOne
     private Users users;
 
-	public Page(Long idPage, String title, String contenido, Calendar dateCreate, String domain, boolean status,
-			String keyURL, String metaTitle, String metaKeyWords, String metaDescriptions, Long idUsers) {
+	
+
+	public Page(Long idPage, String title, String contenido, String dateCreate, String dateUpdate, String domain,
+			boolean status, String keyURL, String metaTitle, String metaKeyWords, String metaDescriptions,
+			Long idUsers) {
+		super();
 		this.idPage = idPage;
 		this.title = title;
 		this.contenido = contenido;
 		this.dateCreate = dateCreate;
+		this.dateUpdate = dateUpdate;
 		this.domain = domain;
 		this.status = status;
 		this.keyURL = keyURL;
@@ -100,14 +109,6 @@ public class Page implements Serializable {
 
 	public void setContenido(String contenido) {
 		this.contenido = contenido;
-	}
-
-	public Calendar getDateCreate() {
-		return dateCreate;
-	}
-
-	public void setDateCreate(Calendar dateCreate) {
-		this.dateCreate = dateCreate;
 	}
 
 	public String getDomain() {
@@ -167,6 +168,8 @@ public class Page implements Serializable {
 	public void setId_Users(Long idUsers) {
 		this.idUsers = idUsers;
 	}
+	
+	
 
 //	public Users getUsers() {
 //		return users;
@@ -175,6 +178,26 @@ public class Page implements Serializable {
 //	public void setUsers(Users users) {
 //		this.users = users;
 //	}
+
+	public String getDateCreate() {
+		return dateCreate;
+	}
+
+	public void setDateCreate(String dateCreate) {
+		this.dateCreate = dateCreate;
+	}
+
+	public String getDateUpdate() {
+		return dateUpdate;
+	}
+
+	public void setDateUpdate(String dateUpdate) {
+		this.dateUpdate = dateUpdate;
+	}
+
+	public void setIdUsers(Long idUsers) {
+		this.idUsers = idUsers;
+	}
 
 	@Override
 	public int hashCode() {

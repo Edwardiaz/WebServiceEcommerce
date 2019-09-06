@@ -1,7 +1,7 @@
 package com.ecommerce.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+//import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,8 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+//import javax.persistence.Temporal;
+//import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
@@ -44,12 +44,12 @@ public class Users implements Serializable {
 	private String address;
 	
 	@Column(name = "creationDate")
-	@Temporal(TemporalType.DATE)
-	private Date creationDate;
+	//@Temporal(TemporalType.DATE)
+	private String creationDate;
 	
 	@Column(name = "updateDate")
-	@Temporal(TemporalType.DATE)
-	private Date updateDate;
+	//@Temporal(TemporalType.DATE)
+	private String updateDate;
 	
 	@Column(name= "users")
 	private String users;
@@ -75,7 +75,7 @@ public class Users implements Serializable {
 	private Set<Client> listClient;
 
 	public Users(Long idUsers, String firstName, String secondName, String firstLastName, String secondLastName,
-			String address, Date creationDate, Date updateDate, String users, String email, String password,
+			String address, String creationDate, String updateDate, String users, String email, String password,
 			String passwordTemporal) {
 		super();
 		this.idUsers = idUsers;
@@ -146,19 +146,19 @@ public class Users implements Serializable {
 		this.address = address;
 	}
 
-	public Date getCreationDate() {
+	public String getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(Date creationDate) {
+	public void setCreationDate(String creationDate) {
 		this.creationDate = creationDate;
 	}
 
-	public Date getUpdateDate() {
+	public String getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(Date updateDate) {
+	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
 
