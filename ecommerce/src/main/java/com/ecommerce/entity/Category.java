@@ -28,8 +28,8 @@ public class Category implements Serializable{
 	private String nameCategory;
 	@Column(name = "description")
 	private String description;
-	@Column(name = "idCategoryPadre")
-	private int idCategoryPadre;
+	@Column(name = "idCategoryPadre", nullable = true)
+	private Integer idCategoryPadre;
 	
 	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private Set<ProductsCategory> productsCategorySet;
@@ -81,11 +81,11 @@ public class Category implements Serializable{
 		this.description = description;
 	}
 
-	public int getIdCategoryPadre() {
+	public Integer getIdCategoryPadre() {
 		return idCategoryPadre;
 	}
 
-	public void setIdCategoryPadre(int idCategoryPadre) {
+	public void setIdCategoryPadre(Integer idCategoryPadre) {
 		this.idCategoryPadre = idCategoryPadre;
 	}
 
