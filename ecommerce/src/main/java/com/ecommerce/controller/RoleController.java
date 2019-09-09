@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.entity.Optionss;
-import com.ecommerce.entity.Page;
 import com.ecommerce.entity.Role;
 import com.ecommerce.entity.RoleOptions;
 import com.ecommerce.service.IGenericService;
@@ -39,6 +38,7 @@ public class RoleController {
 		this.optionsServ = optionsServ;
 		this.genS = genS;
 	}
+	// Here we have Role, RoleOptions and Options
 	// *************************************************Role*********************************************************
 
 	// SHOW COMPLETE LIST
@@ -67,8 +67,6 @@ public class RoleController {
 	@RequestMapping(value = "/role", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> saveRole(@RequestBody Role obj) {
-		genS.saveObject(obj);
-		
 		if (obj.getIdRole() == null || obj.getIdRole() == 0) {
 			return new ResponseEntity<>(genS.saveObject(obj), HttpStatus.CREATED);
 		} else {
@@ -77,19 +75,19 @@ public class RoleController {
 	}
 
 	// UPDATE SINGLE ENTRY UsersRole
-	@RequestMapping(value = "/role", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/role/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateRole(@PathVariable("id") Long id, @RequestBody Role obj) {
 		genS.updateObject(obj);
 		
 		if (obj.getIdRole() == id) {
 
-			Page p = (Page) genS.updateObject(obj);
-			if (p != null && obj.getIdRole() != null) {
-				return new ResponseEntity<>(obj, HttpStatus.OK);
-			} else if ( p == null && obj.getIdRole() != null) {
+			Role r = (Role) genS.updateObject(obj);
+			if (r != null && obj.getIdRole() != null) {
+				return new ResponseEntity<>(r, HttpStatus.OK);
+			} else if ( r == null && obj.getIdRole() != null) {
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			} else if ( p == null && obj.getIdRole() == null) {
+			} else if ( r == null && obj.getIdRole() == null) {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			} else {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -160,7 +158,7 @@ public class RoleController {
 	}
 
 	// UPDATE SINGLE ENTRY UsersRole
-	@RequestMapping(value = "/roleOptions", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/roleOptions/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateRoleOptions(@PathVariable("id") Long id, @RequestBody RoleOptions obj) {
 				
@@ -232,8 +230,7 @@ public class RoleController {
 	@RequestMapping(value = "/optionss", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> saveOptionss(@RequestBody Optionss obj) {
-		genS.saveObject(obj);
-		
+
 		if (obj.getIdOptionss() == null || obj.getIdOptionss() == 0) {
 			return new ResponseEntity<>(genS.saveObject(obj), HttpStatus.CREATED);
 		} else {
@@ -242,7 +239,7 @@ public class RoleController {
 	}
 
 	// UPDATE SINGLE ENTRY UsersRole
-	@RequestMapping(value = "/optionss", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/optionss/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateOptionss(@PathVariable("id") Long id, @RequestBody Optionss obj) {
 				

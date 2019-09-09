@@ -55,6 +55,7 @@ public class DaoUsersImpl implements IUsersDao {
 			transaction.commit();
 			return entity;
 		} catch (Exception e) {
+			transaction.rollback();
 			e.printStackTrace();
 			return null;
 		}
@@ -83,6 +84,7 @@ public class DaoUsersImpl implements IUsersDao {
 			transaction.commit();
 			return ob;
 		} catch (Exception e) {
+			transaction.rollback();
 			e.printStackTrace();
 			return null;
 		}
