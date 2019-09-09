@@ -9,51 +9,55 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ecommerce.dao.InterfaceProductoDao;
+//import com.ecommerce.dao.InterfaceProductoDao;
+import com.ecommerce.dao.InterfaceProductsDao;
 import com.ecommerce.entity.Products;
 
 @Service
 public class ProductoServiceImpl implements ProductoService {
 
-	private InterfaceProductoDao interProDao;
+	private InterfaceProductsDao interProDao;
 
 	// inyeccion de dependencias
 	@Autowired
-	public ProductoServiceImpl(InterfaceProductoDao interProDao) {
+	public ProductoServiceImpl(InterfaceProductsDao interProDao) {
 		this.interProDao = interProDao;
 	}
 
 	// CRUD
-
 	// metodo guardar
 	@Override
 	public Products saveProducts(Products pro) {
-		return interProDao.save(pro);
+		return interProDao.saveProduct(pro);
 	}
 
 	// metodo find All
 	@Override
 	@Transactional(readOnly = true)
 	public List<Products> findAll() {
-		return interProDao.findAll();
+		return interProDao.findAllProduct();
 	}
 
 	// metodo delete
 	@Override
 	public String deletePro(Long id) {
-		return interProDao.deletePro(id);
+		return interProDao.deleteProduct(id);
 	}
 
 	// metodo find por id
 	@Override
 	public Products findByIdProducts(Long id) {
-		return interProDao.findByIdProducts(id);
+		return interProDao.findByIdProduct(id);
 	}
 
 	// metodo update
 	@Override
 	public Products updateProducts(Products pro) {
-		return interProDao.updateProducts(pro);
+		return interProDao.updateProduct(pro);
 	}
 
+	@Override
+	public Products saveProductsCate(Products pro) {
+		return interProDao.saveProductsCate(pro);
+	}
 }

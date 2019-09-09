@@ -1,5 +1,6 @@
 package com.ecommerce.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-//import org.springframework.web.server.ResponseStatusException;
 
 import com.ecommerce.entity.Products;
+import com.ecommerce.entity.ProductsCategory;
+import com.ecommerce.service.CategoryService;
 import com.ecommerce.service.ProductoService;
 
 @RestController
@@ -23,10 +25,12 @@ import com.ecommerce.service.ProductoService;
 public class ProductoRestController {
 
 	private ProductoService proService;
-
+	private CategoryService catService;
+	
 	@Autowired
-	public ProductoRestController(ProductoService proService) {
+	public ProductoRestController(ProductoService proService, CategoryService catService) {
 		this.proService = proService;
+		this.catService = catService;
 	}
 	
 	@RequestMapping("")
@@ -43,9 +47,35 @@ public class ProductoRestController {
 	public ResponseEntity<?> saveProducts(@RequestBody Products pro) {
 //		Products prod = proService.saveProducts(pro);
 		if(pro.getIdProducts() == null || pro.getIdProducts() == 0) {
+			pro.setProductDeliveryDate(new Date());
+			pro.setUpdateDate(null);
 		return new ResponseEntity<>(proService.saveProducts(pro), HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<>(proService.saveProducts(pro), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@RequestMapping(value = "/producto/category/{id}", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> saveProductsCate(@RequestBody Products pro, @PathVariable("id")Long id) {
+		System.out.println("ENTRO AL METODO saveProductsCate");
+		if(pro.getIdProducts() == null || pro.getIdProducts() == 0) {
+			
+			ProductsCategory procat = new ProductsCategory();
+			
+			pro.setProductDeliveryDate(new Date());
+			pro.setUpdateDate(null);
+			
+			procat.setIdCategory(id);
+			System.out.println("ID DE LA URI:::::> "+id);
+			System.out.println("ID CATEGORIA:::::> "+procat.getIdCategory());
+			Products pr = proService.saveProductsCate(pro);
+			procat.setIdProducts(pr.getIdProducts());
+			catService.saveProductsCategory(procat);
+		return new ResponseEntity<>(procat, HttpStatus.CREATED);
+		}else {
+			System.out.println("ERROR: BAD REQUEST");
+			return new ResponseEntity<>("Some Parameter are invalid", HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -104,17 +134,11 @@ public class ProductoRestController {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateProducts(@PathVariable Long id, @RequestBody Products pro) {
-//		Products prod = proService.updateProducts(pro);
-		
-//		if(pro != null) {
-//			return new ResponseEntity<>(proService.updateProducts(pro), HttpStatus.OK);
-//		}else{
-//	        return new ResponseEntity<>(proService.updateProducts(pro), HttpStatus.BAD_REQUEST);
-//	    }
 		
 		if(pro.getIdProducts() == id) {
 			Products prod = proService.updateProducts(pro);
 			if(prod != null && pro.getIdProducts() != null) {
+				pro.setUpdateDate(new Date());
 				return new ResponseEntity<>(proService.updateProducts(pro), HttpStatus.OK); 
 			}else if(prod == null && pro.getIdProducts() != null) {
 				return new ResponseEntity<>("NO SE ENCUENTRA EL REGISTRO", HttpStatus.NOT_FOUND);
