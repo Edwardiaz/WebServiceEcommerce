@@ -45,7 +45,6 @@ public class ProductoRestController {
 	@RequestMapping(value = "/producto", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> saveProducts(@RequestBody Products pro) {
-//		Products prod = proService.saveProducts(pro);
 		if(pro.getIdProducts() == null || pro.getIdProducts() == 0) {
 			pro.setProductDeliveryDate(new Date());
 			pro.setUpdateDate(null);
@@ -85,13 +84,7 @@ public class ProductoRestController {
 	@ResponseBody
 	public List<Products> getProducts() {
 		List<Products> list = proService.findAll();
-		
-		if(list != null) {
 			return list;
-		}else {
-			error();
-			return null;
-		}
 	}
 	
 	@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Content doesn't exist or some parameters are invalid")
@@ -126,7 +119,6 @@ public class ProductoRestController {
 		else {
 			return null;
 		}
-//		proService.deletePro(id);
 	}
 
 	// metodo update
@@ -153,4 +145,28 @@ public class ProductoRestController {
 	}
 
 	/// *******************************************
+	
+	@ResponseStatus(code = HttpStatus.FOUND)//Debo crear una funcion para llamar este httpStatus
+	@RequestMapping(value = "/vector", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public Integer[] array() {
+		Integer [] ex = new Integer[5];
+		ex[0] = 6;
+		ex[1] = 6;
+		ex[2] = 6;
+		ex[3] = 6;
+		ex[4] = 6;
+			return ex;
+	}
+	
+	@ResponseStatus(code = HttpStatus.FOUND)//Debo crear una funcion para llamar este httpStatus
+	@RequestMapping(value = "/vector/{exp}", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public Integer[] arrayPrint(@PathVariable("exp") Integer[] expe) {
+		for (int i = 0; i < expe.length; i++) {
+			System.out.println("VALORES DEL VECTOR "+expe[i]);
+		}
+	
+			return expe;
+	}
 }
