@@ -1,5 +1,6 @@
 package com.ecommerce.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,6 @@ public class PageController {
 		this.genS = genS;
 	}
 
-	
 	// SHOW COMPLETE LIST
 	@ResponseStatus(code = HttpStatus.FOUND)
 	@RequestMapping(value = "/page", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -42,7 +42,6 @@ public class PageController {
 		return list;
 	}
 
-	
 	// RETRIEVE SINGLE ELEMENT
 	@RequestMapping(value = "/page/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
@@ -55,7 +54,6 @@ public class PageController {
 		}
 	}
 
-	
 	// DELETE SINGLE ELEMENT
 	@RequestMapping(value = "/page/{id}", method = RequestMethod.DELETE, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
@@ -75,42 +73,44 @@ public class PageController {
 		}
 	}
 
-	
 	// SAVE NEW SINGLE ELEMENT
 	@RequestMapping(value = "/page", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> saveUsers(@RequestBody Page page) {
 		if (page.getIdPage() == null || page.getIdPage() == 0) {
+			page.setDateCreate(new Date()); // Setting date from the system
+			page.setDateUpdate(null); // Since Page is new, updateDate is null
 			return new ResponseEntity<>(genS.saveObject(page), HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}
 
-	
 	// UPDATE SINGLE ELEMENT
 	@RequestMapping(value = "/page/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateUsers(@PathVariable("id") Long id, @RequestBody Page page) {
 		if (page.getIdPage() == id) {
-
+			Page d = pageS.pagebyId(id);
+			page.setDateCreate(d.getDateCreate());
+			page.setDateUpdate(new Date());
 			Page p = (Page) genS.updateObject(page);
 			if (p != null && page.getIdPage() != null) {
 				return new ResponseEntity<>(page, HttpStatus.OK);
-			} else if ( p == null && page.getIdPage() != null) {
+			} else if (p == null && page.getIdPage() != null) {
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			} else if ( p == null && page.getIdPage() == null) {
+			} else if (p == null && page.getIdPage() == null) {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			} else {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			}
-			
+
 		} else {
-			
+
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-			
+
 		}
-		
+
 	}
 
 }

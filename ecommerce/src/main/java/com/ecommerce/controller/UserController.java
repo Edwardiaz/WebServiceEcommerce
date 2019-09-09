@@ -1,5 +1,6 @@
 package com.ecommerce.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecommerce.entity.Page;
 import com.ecommerce.entity.Users;
 import com.ecommerce.entity.UsersRole;
 import com.ecommerce.service.IGenericService;
@@ -37,6 +37,7 @@ public class UserController {
 		this.genS = genS;
 	}
 
+	//HERE WE HAVE BASIC CRUDS FOR USERS AND UsersRole
 	// ***********************************************Users************************************************************
 
 	// SHOW COMPLETE LIST USERS
@@ -55,23 +56,27 @@ public class UserController {
 		
 		
 		if (users.getIdUsers() == null || users.getIdUsers() == 0) {
-			return new ResponseEntity<>(intService.saveUsers(users), HttpStatus.CREATED);
+			users.setCreationDate(new Date()); //Setting date from the system
+			users.setUpdateDate(null); //Since User is new, updateDate is null
+			return new ResponseEntity<>(intService.saveUsers(users), HttpStatus.CREATED); // DAO to save new one
 		} else {
+			
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}
 
 	// UPDATE SINGLE ENTRY USERS
-	@RequestMapping(value = "/users", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateUsers(@PathVariable("id") Long id, @RequestBody Users users) {
-		intService.updateUsers(users);
 		
 		if (users.getIdUsers() == id) {
-
-			Page p = (Page) genS.updateObject(users);
-			if (p != null && users.getIdUsers() != null) {
-				return new ResponseEntity<>(users, HttpStatus.OK);
+			Users u = intService.usersbyId(id); //Retrieving the object with the id
+			users.setCreationDate(u.getCreationDate()); //Setting Creation date from DB
+			users.setUpdateDate(new Date()); //Setting up date from the system
+			Users p = (Users) genS.updateObject(users); //Once Updated object 
+			if (p != null && users.getIdUsers() != null) { 
+				return new ResponseEntity<>(users, HttpStatus.OK); // return statement successful
 			} else if ( p == null && users.getIdUsers() != null) {
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			} else if ( p == null && users.getIdUsers() == null) {
@@ -157,7 +162,7 @@ public class UserController {
 	}
 
 	// UPDATE SINGLE ENTRY UsersRole
-	@RequestMapping(value = "/usersRole", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/usersRole/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateUsersRole(@PathVariable("id") Long id, @RequestBody UsersRole obj) {
 				

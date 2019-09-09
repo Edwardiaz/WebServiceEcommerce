@@ -24,7 +24,7 @@ private IGenericDao daoGen;
 
 	@Override
 	public Object updateObject(Object obj) {
-		return daoGen.updateObject(obj);
+			return daoGen.updateObject(obj);
 	}
 
 	@Override

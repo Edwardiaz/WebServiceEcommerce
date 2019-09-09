@@ -34,7 +34,7 @@ public class HibernateUtil {
 				// Hibernate settings equivalent to hibernate.cfg.xml's properties
 				Properties settings = new Properties();
 				settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-				settings.put(Environment.URL, "jdbc:mysql://ubuntu-mysql.creativa.com:3306/comercio2?useSSL=false");
+				settings.put(Environment.URL, "jdbc:mysql://ubuntu-mysql.creativa.com:3306/comercio?useSSL=false");
 				settings.put(Environment.USER, "developer");
 				settings.put(Environment.PASS, "rjniKzBeWObf");
 				settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
@@ -56,8 +56,7 @@ public class HibernateUtil {
 				configuration.addAnnotatedClass(ClientCategoryClient.class);
 				configuration.addAnnotatedClass(CategoryClient.class);
 				configuration.addAnnotatedClass(UsersRole.class);
-				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-						.applySettings(configuration.getProperties()).build();
+				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 				sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 //				sessionFactory = configuration.buildSessionFactory();
 			} catch (HibernateException e) {

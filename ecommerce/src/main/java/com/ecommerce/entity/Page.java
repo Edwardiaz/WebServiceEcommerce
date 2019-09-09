@@ -1,7 +1,7 @@
 package com.ecommerce.entity;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,12 +32,12 @@ public class Page implements Serializable {
 	private String contenido;
 	
 	@Column(name = "dateCreate")
-	//@Temporal(TemporalType.DATE)
-	private String dateCreate;
+	@Temporal(TemporalType.DATE)
+	private Date dateCreate;
 	
 	@Column(name = "dateUpdate")
-	//@Temporal(TemporalType.DATE)
-	private String dateUpdate;
+	@Temporal(TemporalType.DATE)
+	private Date dateUpdate;
 	
 	@Column(name= "domain")
 	private String domain;
@@ -66,7 +66,7 @@ public class Page implements Serializable {
 
 	
 
-	public Page(Long idPage, String title, String contenido, String dateCreate, String dateUpdate, String domain,
+	public Page(Long idPage, String title, String contenido, Date dateCreate, Date dateUpdate, String domain,
 			boolean status, String keyURL, String metaTitle, String metaKeyWords, String metaDescriptions,
 			Long idUsers) {
 		super();
@@ -179,19 +179,19 @@ public class Page implements Serializable {
 //		this.users = users;
 //	}
 
-	public String getDateCreate() {
+	public Date getDateCreate() {
 		return dateCreate;
 	}
 
-	public void setDateCreate(String dateCreate) {
+	public void setDateCreate(Date dateCreate) {
 		this.dateCreate = dateCreate;
 	}
 
-	public String getDateUpdate() {
+	public Date getDateUpdate() {
 		return dateUpdate;
 	}
 
-	public void setDateUpdate(String dateUpdate) {
+	public void setDateUpdate(Date dateUpdate) {
 		this.dateUpdate = dateUpdate;
 	}
 
