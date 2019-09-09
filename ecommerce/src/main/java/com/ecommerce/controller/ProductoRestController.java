@@ -29,7 +29,7 @@ public class ProductoRestController {
 		this.proService = proService;
 	}
 	
-	@RequestMapping("/")
+	@RequestMapping("")
 	@ResponseBody
 	public String index() {
 		return "E-commerce";
