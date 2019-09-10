@@ -37,7 +37,7 @@ public class ImagesController {
 		if(proima.getIdImageProduct() == null || proima.getIdImageProduct() == 0) {
 		return new ResponseEntity<>(genS.saveObject(proima), HttpStatus.CREATED);
 		}else {
-			return new ResponseEntity<>("ERROR AL GUARDAR", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}
 	}
 	
