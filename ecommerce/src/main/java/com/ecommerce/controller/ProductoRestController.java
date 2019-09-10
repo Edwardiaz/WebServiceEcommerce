@@ -54,20 +54,24 @@ public class ProductoRestController {
 		}
 	}
 	
+	//metodo insertar con categoria
 	@RequestMapping(value = "/producto/category/{id}", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> saveProductsCate(@RequestBody Products pro, @PathVariable("id")Long id) {
+		
 		System.out.println("ENTRO AL METODO saveProductsCate");
+		
 		if(pro.getIdProducts() == null || pro.getIdProducts() == 0) {
 			
 			ProductsCategory procat = new ProductsCategory();
 			
 			pro.setProductDeliveryDate(new Date());
 			pro.setUpdateDate(null);
-			
 			procat.setIdCategory(id);
+			
 			System.out.println("ID DE LA URI:::::> "+id);
 			System.out.println("ID CATEGORIA:::::> "+procat.getIdCategory());
+			
 			Products pr = proService.saveProductsCate(pro);
 			procat.setIdProducts(pr.getIdProducts());
 			catService.saveProductsCategory(procat);
@@ -144,9 +148,9 @@ public class ProductoRestController {
 		}
 	}
 
-	/// *******************************************
+	/// ******************************************* \\\
 	
-	@ResponseStatus(code = HttpStatus.FOUND)//Debo crear una funcion para llamar este httpStatus
+	@ResponseStatus(code = HttpStatus.OK)
 	@RequestMapping(value = "/vector", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public Integer[] array() {
@@ -159,7 +163,7 @@ public class ProductoRestController {
 			return ex;
 	}
 	
-	@ResponseStatus(code = HttpStatus.FOUND)//Debo crear una funcion para llamar este httpStatus
+	@ResponseStatus(code = HttpStatus.OK)
 	@RequestMapping(value = "/vector/{exp}", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public Integer[] arrayPrint(@PathVariable("exp") Integer[] expe) {

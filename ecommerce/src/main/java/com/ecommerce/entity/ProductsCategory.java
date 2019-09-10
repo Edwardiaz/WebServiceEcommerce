@@ -75,5 +75,4 @@ public class ProductsCategory implements Serializable{
 		this.idCat = idCategory;
 	}
 	
-	
 }
