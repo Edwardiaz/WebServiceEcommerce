@@ -1,5 +1,7 @@
 package com.ecommerce.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,12 +13,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "productImage")
-public class ProductsImage {
+public class ProductsImage implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idProductImage")
 	private Integer idImageProduct;
+	@Column(name = "imageCode")
+	private Integer imageCode;
 	@Column(name = "imageName")
 	private String imageName;
 	@Column(name = "idCombo")
@@ -24,18 +30,20 @@ public class ProductsImage {
 	@Column(name = "idProducts")
 	private Integer idProduct;
 	
-	@ManyToOne
 	@JoinColumn(name = "idProducts", insertable = false, updatable = false)
+	@ManyToOne
 	private Products idProd;
-
-	public ProductsImage(Integer idImageProduct, String imageName, Integer idCombo, Integer idProduct) {
+	
+	public ProductsImage(Integer idImageProduct, Integer imageCode, String imageName, Integer idCombo,
+			Integer idProduct) {
 		super();
 		this.idImageProduct = idImageProduct;
+		this.imageCode = imageCode;
 		this.imageName = imageName;
 		this.idCombo = idCombo;
 		this.idProduct = idProduct;
 	}
-	
+
 	public ProductsImage() {
 		
 	}
@@ -71,7 +79,13 @@ public class ProductsImage {
 	public void setIdProduct(Integer idProduct) {
 		this.idProduct = idProduct;
 	}
-	
-	
+
+	public Integer getImageCode() {
+		return imageCode;
+	}
+
+	public void setImageCode(Integer imageCode) {
+		this.imageCode = imageCode;
+	}
 	
 }

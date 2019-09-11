@@ -19,6 +19,7 @@ import com.ecommerce.entity.Optionss;
 import com.ecommerce.entity.Page;
 import com.ecommerce.entity.Products;
 import com.ecommerce.entity.ProductsCategory;
+import com.ecommerce.entity.ProductsImage;
 import com.ecommerce.entity.Role;
 import com.ecommerce.entity.RoleOptions;
 import com.ecommerce.entity.Users;
@@ -62,6 +63,7 @@ public class HibernateUtil {
 				configuration.addAnnotatedClass(ClientCategoryClient.class);
 				configuration.addAnnotatedClass(CategoryClient.class);
 				configuration.addAnnotatedClass(UsersRole.class);
+				configuration.addAnnotatedClass(ProductsImage.class);
 				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 				sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 //				sessionFactory = configuration.buildSessionFactory();

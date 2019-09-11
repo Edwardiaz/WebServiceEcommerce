@@ -262,7 +262,15 @@ public class Products implements Serializable {
         return hash;
     }
 
-    @Override
+    public Set<ProductsImage> getProImageSet() {
+		return proImageSet;
+	}
+
+	public void setProImageSet(Set<ProductsImage> proImageSet) {
+		this.proImageSet = proImageSet;
+	}
+
+	@Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Products)) {
