@@ -67,8 +67,7 @@ public class ImagesController {
                 String fileName = multipartFile.getOriginalFilename();
                 if (!"".equalsIgnoreCase(fileName)) {
                     // Handle file content - multipartFile.getInputStream()
-                    multipartFile
-                            .transferTo(new File(saveDirectory + fileName));
+                    multipartFile.transferTo(new File(saveDirectory + fileName));
                     fileNames.add(fileName);
                 }
             }
@@ -76,7 +75,11 @@ public class ImagesController {
         return "uploadfile success";
     }
 	
-	
+	// https://crunchify.com/spring-mvc-tutorial-how-to-upload-multiple-files-to-specific-location/
+    
+    // https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/
+    
+    //
 // ********************************************************************************************************************* \\
 	
 //	private static final Logger logger = LoggerFactory.getLogger(FileController.class);
