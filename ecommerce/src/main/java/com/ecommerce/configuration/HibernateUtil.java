@@ -9,21 +9,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
-import com.ecommerce.entity.Category;
-import com.ecommerce.entity.CategoryClient;
-import com.ecommerce.entity.Client;
-import com.ecommerce.entity.ClientCategoryClient;
-import com.ecommerce.entity.Invoice;
-import com.ecommerce.entity.InvoiceDetail;
-import com.ecommerce.entity.Optionss;
-import com.ecommerce.entity.Page;
-import com.ecommerce.entity.Products;
-import com.ecommerce.entity.ProductsCategory;
-import com.ecommerce.entity.ProductsImage;
-import com.ecommerce.entity.Role;
-import com.ecommerce.entity.RoleOptions;
-import com.ecommerce.entity.Users;
-import com.ecommerce.entity.UsersRole;
+import com.ecommerce.entity.*;
 
 public class HibernateUtil {
 	private static SessionFactory sessionFactory;
@@ -63,7 +49,13 @@ public class HibernateUtil {
 				configuration.addAnnotatedClass(ClientCategoryClient.class);
 				configuration.addAnnotatedClass(CategoryClient.class);
 				configuration.addAnnotatedClass(UsersRole.class);
-				configuration.addAnnotatedClass(ProductsImage.class);
+				configuration.addAnnotatedClass(Settings.class);
+				configuration.addAnnotatedClass(Email.class);
+				configuration.addAnnotatedClass(State.class);
+				configuration.addAnnotatedClass(TimeZone.class);
+				configuration.addAnnotatedClass(Telephone.class);
+				configuration.addAnnotatedClass(Address.class);
+				configuration.addAnnotatedClass(Country.class);
 				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 				sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 //				sessionFactory = configuration.buildSessionFactory();

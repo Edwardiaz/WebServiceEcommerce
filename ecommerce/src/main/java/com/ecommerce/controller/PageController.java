@@ -23,7 +23,7 @@ import com.ecommerce.service.IPageService;
 @RequestMapping(value = "/api")
 public class PageController {
 
-	// DEPENDENCY INJECTION USERS
+	// DEPENDENCY INJECTION PAGE
 	private IPageService pageS;
 	private IGenericService genS;
 
@@ -92,7 +92,11 @@ public class PageController {
 	public ResponseEntity<?> updateUsers(@PathVariable("id") Long id, @RequestBody Page page) {
 		if (page.getIdPage() == id) {
 			Page d = pageS.pagebyId(id);
+			if(d != null) {
 			page.setDateCreate(d.getDateCreate());
+			}else {
+				page.setDateCreate(null);
+			}
 			page.setDateUpdate(new Date());
 			Page p = (Page) genS.updateObject(page);
 			if (p != null && page.getIdPage() != null) {

@@ -1,12 +1,8 @@
 package com.ecommerce.dao;
 
-//import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-//import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
-
 import com.ecommerce.configuration.HibernateUtil;
 
 @Component
