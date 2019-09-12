@@ -72,7 +72,11 @@ public class UserController {
 		
 		if (users.getIdUsers() == id) {
 			Users u = intService.usersbyId(id); //Retrieving the object with the id
+			if(u != null) {
 			users.setCreationDate(u.getCreationDate()); //Setting Creation date from DB
+			}else {
+				users.setCreationDate(null);
+			}
 			users.setUpdateDate(new Date()); //Setting up date from the system
 			Users p = (Users) genS.updateObject(users); //Once Updated object 
 			if (p != null && users.getIdUsers() != null) { 
