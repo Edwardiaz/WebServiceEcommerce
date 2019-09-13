@@ -26,7 +26,7 @@ public class HibernateUtil {
 //				settings.put(Environment.USER, "root");
 //				settings.put(Environment.PASS, "root");
 				
-				settings.put(Environment.URL, "jdbc:mysql://ubuntu-mysql.creativa.com:3306/comercio?useSSL=false");
+				settings.put(Environment.URL, "jdbc:mysql://ubuntu-mysql.creativa.com:3306/comercio2?useSSL=false");
 				settings.put(Environment.USER, "developer");
 				settings.put(Environment.PASS, "rjniKzBeWObf");
 				
@@ -36,7 +36,6 @@ public class HibernateUtil {
 				//settings.put(Environment.HBM2DDL_AUTO, "create-drop");
 				configuration.setProperties(settings);
 				configuration.addAnnotatedClass(Products.class);
-				configuration.addAnnotatedClass(ProductsImage.class);
 				configuration.addAnnotatedClass(Category.class);
 				configuration.addAnnotatedClass(ProductsImage.class);
 				configuration.addAnnotatedClass(ProductsCategory.class);
