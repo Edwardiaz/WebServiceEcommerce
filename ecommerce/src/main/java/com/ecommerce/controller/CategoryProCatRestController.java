@@ -165,9 +165,9 @@ public class CategoryProCatRestController {
 			if(procat != null && cat.getIdProductsCategory() != null) {
 				return new ResponseEntity<>(catService.updateProductsCategory(cat), HttpStatus.OK); 
 			}else if(procat == null && cat.getIdProductsCategory() != null) {
-				return new ResponseEntity<>("NO SE ENCUENTRA EL REGISTRO", HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>("REGISTER NOT FOUND", HttpStatus.NOT_FOUND);
 			}else if(procat == null && cat.getIdProductsCategory() == null) {
-				return new ResponseEntity<>("Algunos parametros son invalidos", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>("SOME PARAMETERS ARE INVALID", HttpStatus.BAD_REQUEST);
 			}else {
 				return new ResponseEntity<>("Parametros invalidos o mala sintaxis en la peticion", HttpStatus.BAD_REQUEST);
 			}

@@ -132,7 +132,14 @@ public class ProductoRestController {
 	public ResponseEntity<?> updateProducts(@PathVariable Long id, @RequestBody Products pro) {
 		
 		if(pro.getIdProducts() == id) {
+			Products p = proService.findByIdProducts(id);
+			if(p != null) {
+				pro.setProductDeliveryDate(pro.getProductDeliveryDate());
+			}else {
+				pro.setProductDeliveryDate(null);
+			}
 			Products prod = proService.updateProducts(pro);
+			
 			if(prod != null && pro.getIdProducts() != null) {
 				pro.setUpdateDate(new Date());
 				return new ResponseEntity<>(proService.updateProducts(pro), HttpStatus.OK); 
