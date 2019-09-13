@@ -4,6 +4,7 @@ package com.ecommerce.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ecommerce.dao.IGenericDao;
 
@@ -30,6 +31,12 @@ private IGenericDao daoGen;
 	@Override
 	public String deleteObject(Object obj) {
 		return daoGen.deleteObject(obj);
+	}
+
+	@Override
+	public MultipartFile imageUpload() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

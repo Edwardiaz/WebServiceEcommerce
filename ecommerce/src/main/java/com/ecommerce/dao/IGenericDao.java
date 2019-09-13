@@ -1,6 +1,6 @@
 package com.ecommerce.dao;
 
-//import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface IGenericDao {
 	public Object saveObject(Object obj);
@@ -9,5 +9,6 @@ public interface IGenericDao {
 	
 	public String deleteObject(Object obj);
 	
-//	public List bringAll(Class clazz);
+	public MultipartFile imageUpload();
+	
 }

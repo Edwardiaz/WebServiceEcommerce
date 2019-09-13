@@ -28,14 +28,14 @@ public class ProductsImage implements Serializable {
 	@Column(name = "idCombo")
 	private Integer idCombo;
 	@Column(name = "idProducts")
-	private Integer idProduct;
+	private Long idProduct;
 	
 	@JoinColumn(name = "idProducts", insertable = false, updatable = false)
 	@ManyToOne
 	private Products idProd;
 	
 	public ProductsImage(Integer idImageProduct, Integer imageCode, String imageName, Integer idCombo,
-			Integer idProduct) {
+			Long idProduct) {
 		super();
 		this.idImageProduct = idImageProduct;
 		this.imageCode = imageCode;
@@ -72,11 +72,11 @@ public class ProductsImage implements Serializable {
 		this.idCombo = idCombo;
 	}
 
-	public Integer getIdProduct() {
+	public Long getIdProduct() {
 		return idProduct;
 	}
 
-	public void setIdProduct(Integer idProduct) {
+	public void setIdProduct(Long idProduct) {
 		this.idProduct = idProduct;
 	}
 

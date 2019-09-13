@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ecommerce.entity.Products;
 import com.ecommerce.entity.ProductsCategory;
@@ -76,6 +79,35 @@ public class ProductoRestController {
 			procat.setIdProducts(pr.getIdProducts());
 			catService.saveProductsCategory(procat);
 		return new ResponseEntity<>(procat, HttpStatus.CREATED);
+		}else {
+			System.out.println("ERROR: BAD REQUEST");
+			return new ResponseEntity<>("Some Parameter are invalid", HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	//create a product with category and image
+	@RequestMapping(value = "/producto/category/{id}/imagen", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> saveProImage(@RequestBody Products pro, @PathVariable("id")Long id, @RequestParam("file") MultipartFile inputFile) {
+		
+		System.out.println("ENTRO AL METODO saveProdImage");
+		HttpHeaders headers = new HttpHeaders();
+		if(pro.getIdProducts() == null || pro.getIdProducts() == 0) {
+			
+			ProductsCategory procat = new ProductsCategory();
+			
+			pro.setProductDeliveryDate(new Date());
+			pro.setUpdateDate(null);
+			procat.setIdCategory(id);
+			
+			System.out.println("ID DE LA URI:::::> "+id);
+			System.out.println("ID CATEGORIA:::::> "+procat.getIdCategory());
+			
+			Products pr = proService.saveProductsCate(pro);
+			procat.setIdProducts(pr.getIdProducts());
+			catService.saveProductsCategory(procat);
+			headers.add("Data registered Successfully ", "Products-Category");
+		return new ResponseEntity<>(pro, headers, HttpStatus.CREATED);
 		}else {
 			System.out.println("ERROR: BAD REQUEST");
 			return new ResponseEntity<>("Some Parameter are invalid", HttpStatus.BAD_REQUEST);
@@ -170,14 +202,30 @@ public class ProductoRestController {
 			return ex;
 	}
 	
-	@ResponseStatus(code = HttpStatus.OK)
-	@RequestMapping(value = "/vector/{exp}", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-	@ResponseBody
-	public Integer[] arrayPrint(@PathVariable("exp") Integer[] expe) {
-		for (int i = 0; i < expe.length; i++) {
-			System.out.println("VALORES DEL VECTOR "+expe[i]);
-		}
+//	@ResponseStatus(code = HttpStatus.OK)
+//	@RequestMapping(value = "/vector/{exp}", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+//	@ResponseBody
+//	public Integer[] arrayPrint1(@PathVariable("exp") Integer[] expe) {
+//		System.out.println("LO QUE ENTRA ES ESTO:::::>"+expe);
+//		for (int i = 0; i < expe.length; i++) {
+//			System.out.println("VALORES DEL VECTOR "+expe[i]);
+//		}
+//	
+//			return expe;
+//	}
 	
-			return expe;
-	}
+	// ESTRUTURA POST DEL ARRAY DE ID's
+    @ResponseStatus(code = HttpStatus.FOUND)
+    @RequestMapping(value = "/vector/{exp}", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+    @ResponseBody
+    public Integer[] arrayPrint2(@PathVariable("exp") Integer expe){
+    	System.out.println("DENTRO DEL METODO");
+    	Integer[] exp = new Integer[expe];
+        for (int i = 0; i < expe; i++) {
+            System.out.println("VALORES DEL VECTOR "+exp[i]);
+        }
+    
+            return exp;
+    }
+	
 }
