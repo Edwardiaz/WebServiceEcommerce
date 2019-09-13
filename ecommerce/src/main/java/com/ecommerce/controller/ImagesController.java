@@ -1,6 +1,7 @@
 package com.ecommerce.controller;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 //import com.ecommerce.entity.Products;
 import com.ecommerce.entity.ProductsImage;
+import com.ecommerce.entity.Users;
 import com.ecommerce.service.IGenericService;
 import com.ecommerce.service.IRetrieveImageService;
 
@@ -140,4 +143,50 @@ public class ImagesController {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	
+	@RequestMapping(value = "/imagen/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> updateUsers(@PathVariable("id") Long id, @RequestBody ProductsImage image) {
+		
+		if (image.getIdImageProduct() == id) {
+			ProductsImage u = retrieveService.findByIdImage(id); //Retrieving the object with the id
+			
+			ProductsImage p = (ProductsImage) genS.updateObject(image); //Once Updated object 
+			if (p != null && image.getIdImageProduct() != null) { 
+				return new ResponseEntity<>(image, HttpStatus.OK); // return statement successful
+			} else if ( p == null && image.getIdImageProduct() != null) {
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			} else if ( p == null && image.getIdImageProduct() == null) {
+				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			} else {
+				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			}
+			
+		} else {
+			
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			
+		}
+	}
+
+	// DELETE SINGLE ENTRY USERS
+	@RequestMapping(value = "/imagen/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> deleteImage(@PathVariable("id") Long id) {
+		ProductsImage obj = new ProductsImage();
+		obj.setIdImageProduct(id);
+
+		String msj = genS.deleteObject(obj);
+
+		if (msj.equalsIgnoreCase("ok")) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
+		}
+		if (msj.equalsIgnoreCase("error")) {
+			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		} else {
+			return null;
+		}
+	}
+	
 }
