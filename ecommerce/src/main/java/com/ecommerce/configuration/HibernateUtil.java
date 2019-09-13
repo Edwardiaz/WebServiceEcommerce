@@ -38,6 +38,7 @@ public class HibernateUtil {
 				configuration.addAnnotatedClass(Products.class);
 				configuration.addAnnotatedClass(ProductsImage.class);
 				configuration.addAnnotatedClass(Category.class);
+				configuration.addAnnotatedClass(ProductsImage.class);
 				configuration.addAnnotatedClass(ProductsCategory.class);
 				configuration.addAnnotatedClass(Users.class);
 				configuration.addAnnotatedClass(Client.class);
