@@ -1,0 +1,45 @@
+[
+    7,
+    7,
+    8,
+    8,
+    9
+]
+
+//ESTRUCTURA DEL ARRAY DE ID
+	@ResponseStatus(code = HttpStatus.FOUND)//Debo crear una funcion para llamar este httpStatus
+	@RequestMapping(value = "/vector", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public Integer[] array() {
+		Integer [] ex = new Integer[5];
+		ex[0] = 6;
+		ex[1] = 6;
+		ex[2] = 6;
+		ex[3] = 6;
+		ex[4] = 6;
+			return ex;
+	}
+
+// ESTRUTURA POST DEL ARRAY DE ID's
+	@ResponseStatus(code = HttpStatus.FOUND)//Debo crear una funcion para llamar este httpStatus
+	@RequestMapping(value = "/vector/exp", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public Integer[] arrayPrint(@RequestBody Integer[] expe) {
+		for (int i = 0; i < expe.length; i++) {
+			System.out.println("VALORES DEL VECTOR "+expe[i]);
+		}
+	
+			return expe;
+	}
+
+//ESTRUCTURA DE POST DE ARRAYS DE ID's POR EL URL
+@ResponseStatus(code = HttpStatus.FOUND)//Debo crear una funcion para llamar este httpStatus
+	@RequestMapping(value = "/vector/{exp}", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public Integer[] arrayPrint(@PathVariable("exp") Integer[] expe) {
+		for (int i = 0; i < expe.length; i++) {
+			System.out.println("VALORES DEL VECTOR "+expe[i]);
+		}
+	
+			return expe;
+	}

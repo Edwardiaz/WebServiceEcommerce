@@ -24,9 +24,9 @@ public class ProductsCategory implements Serializable{
 	@Column(name = "idProductCategory")
 	private Long idProductsCategory;
 	@Column(name = "idProducts")
-	private int idPro;
+	private Long idPro;
 	@Column(name = "idCategory")
-	private int idCat;
+	private Long idCat;
 	
 	@JoinColumn(name = "idCategory", insertable = false, updatable = false)
 	@ManyToOne
@@ -40,7 +40,7 @@ public class ProductsCategory implements Serializable{
 		
 	}
 	
-	public ProductsCategory(Long idProductsCategory, int idPro, int idCat) {
+	public ProductsCategory(Long idProductsCategory, Long idPro, Long idCat) {
 		super();
 		this.idProductsCategory = idProductsCategory;
 		this.idPro = idPro;
@@ -59,21 +59,20 @@ public class ProductsCategory implements Serializable{
 		this.idProductsCategory = idProductsCategory;
 	}
 
-	public int getIdProducts() {
+	public Long getIdProducts() {
 		return idPro;
 	}
 
-	public void setIdProducts(int idProducts) {
+	public void setIdProducts(Long idProducts) {
 		this.idPro = idProducts;
 	}
 
-	public int getIdCategory() {
+	public Long getIdCategory() {
 		return idCat;
 	}
 
-	public void setIdCategory(int idCategory) {
+	public void setIdCategory(Long idCategory) {
 		this.idCat = idCategory;
 	}
-	
 	
 }

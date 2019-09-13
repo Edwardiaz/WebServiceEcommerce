@@ -34,7 +34,7 @@ public class CategoryProCatRestController {
 	@ResponseBody
 	public ResponseEntity<?> saveCategory(@RequestBody Category cat) {
 				
-		if(cat.getIdCategory() == null || cat.getIdCategory() == 0) {
+		if(cat.getIdCategory() == null || cat.getIdCategory() == 0 || cat.getIdCategoryPadre()== null || cat.getIdCategoryPadre()==0) {
 			return new ResponseEntity<>(catService.saveCategory(cat), HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<>(cat, HttpStatus.BAD_REQUEST);

@@ -15,4 +15,6 @@ public interface ProductoService {
 	public String deletePro(Long id);
 	
 	public Products updateProducts(Products pro);
+	
+	public Products saveProductsCate(Products pro);
 }

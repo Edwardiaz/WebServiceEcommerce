@@ -1,7 +1,7 @@
 package com.ecommerce.entity;
 
 import java.io.Serializable;
-//import java.util.Date;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -12,8 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-//import javax.persistence.Temporal;
-//import javax.persistence.TemporalType;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.ecommerce.entity.Products;
 
@@ -38,7 +38,8 @@ public class Products implements Serializable {
 	@Column(name = "colour")
 	private String colour;
 	@Column(name = "updateDate")
-	private String updateDate;
+	@Temporal(TemporalType.DATE)
+	private Date updateDate;
 	@Column(name = "price")
 	private double price;
 	@Column(name = "quantity")
@@ -50,7 +51,8 @@ public class Products implements Serializable {
 	@Column(name = "wholeSalePrice")
 	private double wholeSalePrice;
 	@Column(name = "productDeliveryDate")
-	private String productDeliveryDate;
+	@Temporal(TemporalType.DATE)
+	private Date productDeliveryDate;
 	@Column(name = "width")
 	private float width;
 	@Column(name = "height")
@@ -65,12 +67,15 @@ public class Products implements Serializable {
     @OneToMany(mappedBy = "products", fetch = FetchType.EAGER)
     private Set<ProductsCategory> productsCategorySet;
 
+    @OneToMany(mappedBy = "idProd", fetch = FetchType.EAGER)
+	private Set<ProductsImage> proImageSet;
+    
 	public Products() {
 	}
 
 	public Products(Long idProducts, char productCode, String sku, String nameProducts, String description,
-			String colour, String updateDate, double price, int quantity, double taxes, double additionalShippingCost,
-			double wholeSalePrice, String productDeliveryDate, float width, float height, float depth, float weight,
+			String colour, Date updateDate, double price, int quantity, double taxes, double additionalShippingCost,
+			double wholeSalePrice, Date productDeliveryDate, float width, float height, float depth, float weight,
 			int idOrders) {
 		super();
 		this.idProducts = idProducts;
@@ -145,11 +150,11 @@ public class Products implements Serializable {
 		this.colour = colour;
 	}
 
-	public String getUpdateDate() {
+	public Date getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(String updateDate) {
+	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
 
@@ -193,11 +198,11 @@ public class Products implements Serializable {
 		this.wholeSalePrice = wholeSalePrice;
 	}
 
-	public String getProductDeliveryDate() {
+	public Date getProductDeliveryDate() {
 		return productDeliveryDate;
 	}
 
-	public void setProductDeliveryDate(String productDeliveryDate) {
+	public void setProductDeliveryDate(Date productDeliveryDate) {
 		this.productDeliveryDate = productDeliveryDate;
 	}
 
@@ -257,7 +262,15 @@ public class Products implements Serializable {
         return hash;
     }
 
-    @Override
+    public Set<ProductsImage> getProImageSet() {
+		return proImageSet;
+	}
+
+	public void setProImageSet(Set<ProductsImage> proImageSet) {
+		this.proImageSet = proImageSet;
+	}
+
+	@Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Products)) {
