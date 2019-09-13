@@ -3,6 +3,8 @@ package com.ecommerce.dao;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.ecommerce.configuration.HibernateUtil;
 
 @Component
@@ -49,6 +51,12 @@ public class DaoGenericImpl implements IGenericDao{
 			e.printStackTrace();
 		}
 		return "error";
+	}
+
+	@Override
+	public MultipartFile imageUpload() {
+		
+		return null;
 	}
 
 }

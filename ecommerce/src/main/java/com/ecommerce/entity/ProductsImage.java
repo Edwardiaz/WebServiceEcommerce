@@ -20,7 +20,7 @@ public class ProductsImage implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idProductImage")
-	private Integer idImageProduct;
+	private Long idImageProduct;
 	@Column(name = "imageCode")
 	private Integer imageCode;
 	@Column(name = "imageName")
@@ -28,14 +28,14 @@ public class ProductsImage implements Serializable {
 	@Column(name = "idCombo")
 	private Integer idCombo;
 	@Column(name = "idProducts")
-	private Integer idProduct;
+	private Long idProduct;
 	
 	@JoinColumn(name = "idProducts", insertable = false, updatable = false)
 	@ManyToOne
 	private Products idProd;
 	
-	public ProductsImage(Integer idImageProduct, Integer imageCode, String imageName, Integer idCombo,
-			Integer idProduct) {
+	public ProductsImage(Long idImageProduct, Integer imageCode, String imageName, Integer idCombo,
+			Long idProduct) {
 		super();
 		this.idImageProduct = idImageProduct;
 		this.imageCode = imageCode;
@@ -48,11 +48,11 @@ public class ProductsImage implements Serializable {
 		
 	}
 
-	public Integer getIdImageProduct() {
+	public Long getIdImageProduct() {
 		return idImageProduct;
 	}
 
-	public void setIdImageProduct(Integer idImageProduct) {
+	public void setIdImageProduct(Long idImageProduct) {
 		this.idImageProduct = idImageProduct;
 	}
 
@@ -72,11 +72,11 @@ public class ProductsImage implements Serializable {
 		this.idCombo = idCombo;
 	}
 
-	public Integer getIdProduct() {
+	public Long getIdProduct() {
 		return idProduct;
 	}
 
-	public void setIdProduct(Integer idProduct) {
+	public void setIdProduct(Long idProduct) {
 		this.idProduct = idProduct;
 	}
 
