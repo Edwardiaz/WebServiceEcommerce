@@ -36,6 +36,7 @@ public class HibernateUtil {
 				//settings.put(Environment.HBM2DDL_AUTO, "create-drop");
 				configuration.setProperties(settings);
 				configuration.addAnnotatedClass(Products.class);
+				configuration.addAnnotatedClass(ProductsImage.class);
 				configuration.addAnnotatedClass(Category.class);
 				configuration.addAnnotatedClass(ProductsCategory.class);
 				configuration.addAnnotatedClass(Users.class);
