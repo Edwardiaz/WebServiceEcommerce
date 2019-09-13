@@ -92,11 +92,11 @@ public class PageController {
 	public ResponseEntity<?> updateUsers(@PathVariable("id") Long id, @RequestBody Page page) {
 		if (page.getIdPage() == id) {
 			Page d = pageS.pagebyId(id);
-			if(d != null) {
+			if(d != null) {                          //Validate if such field exists
 			page.setDateCreate(d.getDateCreate());
 			}else {
 				page.setDateCreate(null);
-			}
+			}                                       //End and continue as normal
 			page.setDateUpdate(new Date());
 			Page p = (Page) genS.updateObject(page);
 			if (p != null && page.getIdPage() != null) {
