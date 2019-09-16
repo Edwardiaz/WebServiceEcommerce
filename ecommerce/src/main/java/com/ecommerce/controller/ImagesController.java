@@ -98,7 +98,7 @@ public class ImagesController {
 		}
 	}
 // ********************************************************************************************************************* \\
-
+//, MediaType.IMAGE_PNG_VALUE
 	@RequestMapping(value="/producto/imagen2", method = RequestMethod.POST, headers=("content-type=multipart/*"), produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {"multipart/form-data"})
 	@ResponseBody
 	public ResponseEntity<?> uploadProImage(@RequestPart("file") MultipartFile inputFile, @RequestPart("data") Products pro) {
