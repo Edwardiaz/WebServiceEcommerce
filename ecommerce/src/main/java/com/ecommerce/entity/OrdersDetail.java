@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -59,5 +61,7 @@ public class OrdersDetail implements Serializable {
 	@Column(name = "idOrders")
 	private Long idOrders;
 	
-	
+	@JoinColumn(name = "idOrders", referencedColumnName = "idOrders", insertable = false, updatable = false)
+	@ManyToOne
+	private Orders orders;
 }
