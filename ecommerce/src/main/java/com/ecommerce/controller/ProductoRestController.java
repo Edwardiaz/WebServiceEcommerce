@@ -53,7 +53,7 @@ public class ProductoRestController {
 			pro.setUpdateDate(null);
 		return new ResponseEntity<>(proService.saveProducts(pro), HttpStatus.CREATED);
 		}else {
-			return new ResponseEntity<>(proService.saveProducts(pro), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Error, Some Parameter are invalid or method not valid", HttpStatus.BAD_REQUEST);
 		}
 	}
 	
@@ -176,14 +176,14 @@ public class ProductoRestController {
 				pro.setUpdateDate(new Date());
 				return new ResponseEntity<>(proService.updateProducts(pro), HttpStatus.OK); 
 			}else if(prod == null && pro.getIdProducts() != null) {
-				return new ResponseEntity<>("NO SE ENCUENTRA EL REGISTRO", HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>("REGISTER NOT FOUND", HttpStatus.NOT_FOUND);
 			}else if(prod == null && pro.getIdProducts() == null) {
-				return new ResponseEntity<>("Algunos parametros son invalidos", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>("Some parameters are invalid", HttpStatus.BAD_REQUEST);
 			}else {
-				return new ResponseEntity<>("Parametros invalidos o mala sintaxis en la peticion", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>("Some parameters are invalid or bad syntax in the request", HttpStatus.BAD_REQUEST);
 			}
 		}else {
-			return new ResponseEntity<>("ID NO COINCIDEN", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("ID mismatch", HttpStatus.BAD_REQUEST);
 		}
 	}
 

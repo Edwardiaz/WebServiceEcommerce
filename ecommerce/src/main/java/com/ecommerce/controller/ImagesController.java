@@ -21,9 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ecommerce.entity.Products;
 //import com.ecommerce.entity.Products;
 import com.ecommerce.entity.ProductsImage;
-import com.ecommerce.entity.Users;
 import com.ecommerce.service.IGenericService;
 import com.ecommerce.service.IRetrieveImageService;
+import com.ecommerce.service.ProductoService;
 
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.MultipartConfig;
@@ -37,12 +37,14 @@ import org.springframework.http.HttpHeaders;
 public class ImagesController {
 
 	private IRetrieveImageService retrieveService;
+	private ProductoService proService;
 	private IGenericService genS;
 
 	@Autowired
-	public ImagesController(IRetrieveImageService retrieveService, IGenericService genS) {
+	public ImagesController(IRetrieveImageService retrieveService, IGenericService genS, ProductoService proService) {
 		this.retrieveService = retrieveService;
 		this.genS = genS;
+		this.proService = proService;
 	}
 
 	@Autowired
@@ -54,7 +56,7 @@ public class ImagesController {
 //		Products pro = new Products();
 		
 		ProductsImage proima = new ProductsImage(), proImage = new ProductsImage();
-		HttpHeaders headers = new HttpHeaders();  
+		HttpHeaders headers = new HttpHeaders();
 		if (!inputFile.isEmpty()) {
 			try {
 				String originalFilename = inputFile.getOriginalFilename();
@@ -88,7 +90,7 @@ public class ImagesController {
 				return new ResponseEntity<>(proima, headers, HttpStatus.OK);
 			} catch (Exception e) {
 				System.out.println("Error Catcher: " + e);
-				return new ResponseEntity<>("Error: Invalid file or Bad URL", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>("Error: Invalid file or ad URL", HttpStatus.BAD_REQUEST);
 			}
 		} else {
 			return new ResponseEntity<>("Error: Empty file", HttpStatus.BAD_REQUEST);
@@ -96,9 +98,9 @@ public class ImagesController {
 	}
 // ********************************************************************************************************************* \\
 
-	@RequestMapping(value="/imagen2", method = RequestMethod.POST, headers=("content-type=multipart/*"), produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value="/producto/imagen2", method = RequestMethod.POST, headers=("content-type=multipart/*"), produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public ResponseEntity<?> uploadProImage(@RequestParam("file") MultipartFile inputFile, @RequestParam("data") Products pro, @RequestBody Products prod,@PathVariable Long id) {
+	public ResponseEntity<?> uploadProImage(@RequestParam("file") MultipartFile inputFile, @RequestParam("data") @RequestBody Products pro, @PathVariable("id") Long id) {
 		
 		ProductsImage proima = new ProductsImage(), proImage = new ProductsImage();
 		HttpHeaders headers = new HttpHeaders();  
@@ -112,21 +114,31 @@ public class ImagesController {
 				headers.add("File Uploaded Successfully ", originalFilename);
 				System.out.println("dato exitoso, address: " + destinationFile);
 				System.out.println("file name: " + originalFilename);
+				// ******************* \\
+				if(pro.getIdProducts() == null || pro.getIdProducts() == 0) {
+					pro.setProductDeliveryDate(new Date());
+					pro.setUpdateDate(null);
+					proService.saveProducts(pro);
+				}else {
+					
+					return new ResponseEntity<>("SOME PARAMETER ARE EMPTY", HttpStatus.BAD_REQUEST);
+				}
+				// ******************* \\
 				proImage.setIdImageProduct(null);// auto_increment				
 				proImage.setImageCode(1);//numero quemado por el momento...
-				proImage.setIdProduct(id);
+				proImage.setIdProduct(pro.getIdProducts());
 				Object saveIma = genS.saveObject(proImage);
 				proima.setIdImageProduct(proImage.getIdImageProduct());
 				proima.setImageCode(1);
-				proima.setIdProduct(id);
+				proima.setIdProduct(pro.getIdProducts());
 				System.out.println("OBJ:::::> " + saveIma);
 				return new ResponseEntity<>(proima, headers, HttpStatus.OK);
 			} catch (Exception e) {
 				System.out.println("Error Catcher: " + e);
-				return new ResponseEntity<>("Error: Invalid file", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>("Error: Invalid file or invalid fields", HttpStatus.BAD_REQUEST);
 			}
 		} else {
-			return new ResponseEntity<>("Error: Empty file", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Error: Empty file or url not found", HttpStatus.BAD_REQUEST);
 		}
 	}
 
