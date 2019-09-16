@@ -65,11 +65,12 @@ public class OrdersDetail implements Serializable {
 	@Column(name = "idOrders")
 	private Long idOrders;
 	
-	@JoinColumn(name = "idOrders", referencedColumnName = "idOrders", insertable = false, updatable = false)
+	@JoinColumn(name = "idOrders"/*, referencedColumnName = "idOrders"*/, insertable = false, updatable = false)
 	@ManyToOne
 	private Orders ordersD;
 
 	public OrdersDetail() {
+
 	}
 
 	public OrdersDetail(Long idOrdersDetails, String productName, Integer productQuantity, Double productPrice,
@@ -203,6 +204,12 @@ public class OrdersDetail implements Serializable {
 	public void setIdOrders(Long idOrders) {
 		this.idOrders = idOrders;
 	}
-	
-	
+
+	public Orders getOrdersD() {
+		return ordersD;
+	}
+
+	public void setOrdersD(Orders ordersD) {
+		this.ordersD = ordersD;
+	}	
 }

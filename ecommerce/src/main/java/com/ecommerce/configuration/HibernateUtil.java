@@ -58,6 +58,11 @@ public class HibernateUtil {
 				configuration.addAnnotatedClass(Settings.class);
 				configuration.addAnnotatedClass(State.class);
 				configuration.addAnnotatedClass(Telephone.class);
+				configuration.addAnnotatedClass(Address.class);
+				configuration.addAnnotatedClass(Country.class);
+				configuration.addAnnotatedClass(Orders.class);
+				configuration.addAnnotatedClass(OrdersDetail.class);
+				configuration.addAnnotatedClass(OrderStatus.class);
 				configuration.addAnnotatedClass(TimeZone.class);
 				configuration.addAnnotatedClass(Users.class);
 				configuration.addAnnotatedClass(UsersRole.class);
