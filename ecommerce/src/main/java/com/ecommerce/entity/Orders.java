@@ -52,13 +52,6 @@ public class Orders implements Serializable {
 	@JoinColumn(name = "idOrderStatus", /*referencedColumnName = "idOrderStatus", */insertable = false, updatable = false)
 	@ManyToOne
 	private OrderStatus orderStatus;
-
-	public Orders() {
-		
-	}
-
-	public Orders(Long idOrders, String orderCode, Date purchaseDate, Long idBillingAddress, Long idOrderStatus,
-			Long idClient, Long idInvoice, Long idPromotions) {
 	
 	@JoinColumn(name = "idInvoice", referencedColumnName = "idInvoice", insertable = false, updatable = false)
 	@ManyToOne

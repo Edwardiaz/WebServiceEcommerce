@@ -64,7 +64,7 @@ public class Products implements Serializable {
 	@Column(name = "weight")
 	private float weight;
 	@Column(name = "idOrders")
-	private Integer idOrders;
+	private Long idOrders;
     
     @OneToMany(mappedBy = "products", fetch = FetchType.EAGER)
     private Set<ProductsCategory> productsCategorySet;
@@ -82,7 +82,7 @@ public class Products implements Serializable {
 	public Products(Long idProducts, char productCode, String sku, String nameProducts, String description,
 			String colour, Date updateDate, double price, int quantity, double taxes, double additionalShippingCost,
 			double wholeSalePrice, Date productDeliveryDate, float width, float height, float depth, float weight,
-			Integer idOrders) {
+			Long idOrders) {
 		super();
 		this.idProducts = idProducts;
 		this.productCode = productCode;
@@ -244,11 +244,11 @@ public class Products implements Serializable {
 		this.weight = weight;
 	}
 
-	public Integer getIdOrders() {
+	public Long getIdOrders() {
 		return idOrders;
 	}
 
-	public void setIdOrders(Integer idOrders) {
+	public void setIdOrders(Long idOrders) {
 		this.idOrders = idOrders;
 	}
 	

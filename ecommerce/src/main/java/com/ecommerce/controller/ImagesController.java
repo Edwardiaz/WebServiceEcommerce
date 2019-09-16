@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -98,12 +99,14 @@ public class ImagesController {
 	}
 // ********************************************************************************************************************* \\
 
-	@RequestMapping(value="/producto/imagen2", method = RequestMethod.POST, headers=("content-type=multipart/*"), produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value="/producto/imagen2", method = RequestMethod.POST, headers=("content-type=multipart/*"), produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {"multipart/form-data"})
 	@ResponseBody
-	public ResponseEntity<?> uploadProImage(@RequestParam("file") MultipartFile inputFile, @RequestParam("data") @RequestBody Products pro, @PathVariable("id") Long id) {
+	public ResponseEntity<?> uploadProImage(@RequestPart("file") MultipartFile inputFile, @RequestPart("data") Products pro) {
 		
 		ProductsImage proima = new ProductsImage(), proImage = new ProductsImage();
-		HttpHeaders headers = new HttpHeaders();  
+		HttpHeaders headers = new HttpHeaders();
+		System.out.println("ENtro al metodo:::>File "+inputFile.getOriginalFilename());
+		System.out.println("PRODUCTO WERO::::> "+pro.getNameProducts());
 		if (!inputFile.isEmpty()) {
 			try {
 				String originalFilename = inputFile.getOriginalFilename();
@@ -119,9 +122,11 @@ public class ImagesController {
 					pro.setProductDeliveryDate(new Date());
 					pro.setUpdateDate(null);
 					proService.saveProducts(pro);
+					
 				}else {
 					
-					return new ResponseEntity<>("SOME PARAMETER ARE EMPTY", HttpStatus.BAD_REQUEST);
+					System.out.println("PRO IS EMPTY SO DO IMAGE...>"+pro);
+//					return new ResponseEntity<>("SOME PARAMETER ARE EMPTY", HttpStatus.BAD_REQUEST);
 				}
 				// ******************* \\
 				proImage.setIdImageProduct(null);// auto_increment				
@@ -129,7 +134,7 @@ public class ImagesController {
 				proImage.setIdProduct(pro.getIdProducts());
 				Object saveIma = genS.saveObject(proImage);
 				proima.setIdImageProduct(proImage.getIdImageProduct());
-				proima.setImageCode(1);
+				proima.setImageCode(2);
 				proima.setIdProduct(pro.getIdProducts());
 				System.out.println("OBJ:::::> " + saveIma);
 				return new ResponseEntity<>(proima, headers, HttpStatus.OK);
