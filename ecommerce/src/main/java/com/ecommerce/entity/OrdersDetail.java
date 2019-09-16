@@ -64,9 +64,9 @@ public class OrdersDetail implements Serializable {
 	@JoinColumn(name = "idOrders"/*, referencedColumnName = "idOrders"*/, insertable = false, updatable = false)
 	@ManyToOne
 	private Orders ordersD;
-	
+
 	public OrdersDetail() {
-		
+
 	}
 
 	public OrdersDetail(Long idOrdersDetails, String productName, Integer productQuantity, Double productPrice,
@@ -207,7 +207,5 @@ public class OrdersDetail implements Serializable {
 
 	public void setOrdersD(Orders ordersD) {
 		this.ordersD = ordersD;
-	}
-	
-	
+	}	
 }

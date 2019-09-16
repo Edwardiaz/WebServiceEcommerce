@@ -36,10 +36,7 @@ public class Orders implements Serializable {
 
 	@Column(name = "idOrderStatus")
 	private Long idOrderStatus;
-	
-//	@Column(name = "idClient")
-//	private Long idClient;
-	
+
 	@Column(name = "idInvoice")
 	private Long idInvoice;
 	
@@ -62,13 +59,23 @@ public class Orders implements Serializable {
 
 	public Orders(Long idOrders, String orderCode, Date purchaseDate, Long idBillingAddress, Long idOrderStatus,
 			Long idClient, Long idInvoice, Long idPromotions) {
+	
+	@JoinColumn(name = "idInvoice", referencedColumnName = "idInvoice", insertable = false, updatable = false)
+	@ManyToOne
+	private Invoice invoice;
+
+	public Orders() {
+	}
+
+	public Orders(Long idOrders, String orderCode, Date purchaseDate, Long idBillingAddress, Long idOrderStatus,
+			Long idInvoice, Long idPromotions) {
+
 		super();
 		this.idOrders = idOrders;
 		this.orderCode = orderCode;
 		this.purchaseDate = purchaseDate;
 		this.idBillingAddress = idBillingAddress;
 		this.idOrderStatus = idOrderStatus;
-		this.idClient = idClient;
 		this.idInvoice = idInvoice;
 		this.idPromotions = idPromotions;
 	}
@@ -113,13 +120,6 @@ public class Orders implements Serializable {
 		this.idOrderStatus = idOrderStatus;
 	}
 
-	public Long getIdClient() {
-		return idClient;
-	}
-
-	public void setIdClient(Long idClient) {
-		this.idClient = idClient;
-	}
 
 	public Long getIdInvoice() {
 		return idInvoice;
@@ -136,6 +136,7 @@ public class Orders implements Serializable {
 	public void setIdPromotions(Long idPromotions) {
 		this.idPromotions = idPromotions;
 	}
+
 
 	public Set<Products> getListProducts() {
 		return listProducts;
@@ -159,8 +160,6 @@ public class Orders implements Serializable {
 
 	public void setOrderStatus(OrderStatus orderStatus) {
 		this.orderStatus = orderStatus;
-	}
-	
-	
+	}	
 	
 }

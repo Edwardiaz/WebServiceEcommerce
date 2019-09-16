@@ -19,8 +19,8 @@ public class OrderStatus implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idStateOrder")
-	private Long idStateOrder;
+	@Column(name = "idOrderStatus")
+	private Long idOrderStatus;
 
 	@Column(name = "state")
 	private String state;
@@ -30,4 +30,40 @@ public class OrderStatus implements Serializable {
 
 	@OneToMany(mappedBy = "orderStatus", fetch = FetchType.EAGER)
 	private Set<Orders> listOrderStatus;
+
+	public OrderStatus() {
+	}
+
+	public OrderStatus(Long idOrderStatus, String state, String name) {
+		super();
+		this.idOrderStatus = idOrderStatus;
+		this.state = state;
+		this.name = name;
+	}
+
+	public Long getIdOrderStatus() {
+		return idOrderStatus;
+	}
+
+	public void setIdOrderStatus(Long idOrderStatus) {
+		this.idOrderStatus = idOrderStatus;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
 }
