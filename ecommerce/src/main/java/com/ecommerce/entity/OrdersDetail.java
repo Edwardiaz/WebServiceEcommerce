@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "ordersDetail")
@@ -38,6 +40,7 @@ public class OrdersDetail implements Serializable {
 	private Double taxes;
 	
 	@Column(name = "dateOfPurchase")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateOfPurchase;
 	
 	@Column(name = "paymentType")
@@ -50,6 +53,7 @@ public class OrdersDetail implements Serializable {
 	private Double totalPrice;
 	
 	@Column(name = "shippingDate")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date shippingDate;
 	
 	@Column(name = "shippingAddress")

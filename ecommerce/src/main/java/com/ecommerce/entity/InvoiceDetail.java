@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "invoiceDetail")
@@ -24,6 +26,7 @@ public class InvoiceDetail implements Serializable {
 	private Long idInvoiceDetail;
 	
 	@Column(name= "invoiceDate")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date invoiceDate;
 	
 	@Column(name= "quantity")
