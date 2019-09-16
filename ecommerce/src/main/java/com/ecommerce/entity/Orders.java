@@ -2,12 +2,17 @@ package com.ecommerce.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -29,8 +34,8 @@ public class Orders implements Serializable {
 	@Column(name = "idBillingAddress")
 	private Long idBillingAddress;
 
-	@Column(name = "idStateOrder")
-	private Long idStateOrder;
+	@Column(name = "idOrderStatus")
+	private Long idOrderStatus;
 	
 	@Column(name = "idClient")
 	private Long idClient;
@@ -40,4 +45,14 @@ public class Orders implements Serializable {
 	
 	@Column(name = "idPromotions")
 	private Long idPromotions;
+	
+	@OneToMany(mappedBy = "orders", fetch = FetchType.EAGER)
+	private Set<Products> listProducts;
+	
+	@OneToMany(mappedBy = "orders", fetch = FetchType.EAGER)
+	private Set<OrdersDetail> listOrderStatus;
+	
+	@JoinColumn(name = "idOrderStatus", referencedColumnName = "idOrderStatus", insertable = false, updatable = false)
+	@ManyToOne
+	private OrderStatus orderStatus;
 }

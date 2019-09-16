@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -69,6 +71,10 @@ public class Products implements Serializable {
 
     @OneToMany(mappedBy = "idProd", fetch = FetchType.EAGER)
 	private Set<ProductsImage> proImageSet;
+    
+	@JoinColumn(name = "idOrders", referencedColumnName = "idOrders", insertable = false, updatable = false)
+	@ManyToOne
+	private Orders orders;
     
 	public Products() {
 	}
