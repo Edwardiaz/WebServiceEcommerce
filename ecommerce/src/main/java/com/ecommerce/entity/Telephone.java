@@ -1,12 +1,15 @@
 package com.ecommerce.entity;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +25,9 @@ public class Telephone implements Serializable {
 	
 	@Column(name= "telephone")
 	private String telephone;
+	
+	@OneToMany(mappedBy = "telephone", fetch = FetchType.EAGER)
+	private Set<BillingAddress> listBillingAddress;
 
 	public Telephone() {
 	}

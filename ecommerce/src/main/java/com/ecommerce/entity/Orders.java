@@ -36,10 +36,7 @@ public class Orders implements Serializable {
 
 	@Column(name = "idOrderStatus")
 	private Long idOrderStatus;
-	
-	@Column(name = "idClient")
-	private Long idClient;
-	
+
 	@Column(name = "idInvoice")
 	private Long idInvoice;
 	
@@ -60,16 +57,74 @@ public class Orders implements Serializable {
 	@ManyToOne
 	private Invoice invoice;
 
+	public Orders() {
+	}
+
 	public Orders(Long idOrders, String orderCode, Date purchaseDate, Long idBillingAddress, Long idOrderStatus,
-			Long idClient, Long idInvoice, Long idPromotions) {
+			Long idInvoice, Long idPromotions) {
 		super();
 		this.idOrders = idOrders;
 		this.orderCode = orderCode;
 		this.purchaseDate = purchaseDate;
 		this.idBillingAddress = idBillingAddress;
 		this.idOrderStatus = idOrderStatus;
-		this.idClient = idClient;
 		this.idInvoice = idInvoice;
+		this.idPromotions = idPromotions;
+	}
+
+	public Long getIdOrders() {
+		return idOrders;
+	}
+
+	public void setIdOrders(Long idOrders) {
+		this.idOrders = idOrders;
+	}
+
+	public String getOrderCode() {
+		return orderCode;
+	}
+
+	public void setOrderCode(String orderCode) {
+		this.orderCode = orderCode;
+	}
+
+	public Date getPurchaseDate() {
+		return purchaseDate;
+	}
+
+	public void setPurchaseDate(Date purchaseDate) {
+		this.purchaseDate = purchaseDate;
+	}
+
+	public Long getIdBillingAddress() {
+		return idBillingAddress;
+	}
+
+	public void setIdBillingAddress(Long idBillingAddress) {
+		this.idBillingAddress = idBillingAddress;
+	}
+
+	public Long getIdOrderStatus() {
+		return idOrderStatus;
+	}
+
+	public void setIdOrderStatus(Long idOrderStatus) {
+		this.idOrderStatus = idOrderStatus;
+	}
+
+	public Long getIdInvoice() {
+		return idInvoice;
+	}
+
+	public void setIdInvoice(Long idInvoice) {
+		this.idInvoice = idInvoice;
+	}
+
+	public Long getIdPromotions() {
+		return idPromotions;
+	}
+
+	public void setIdPromotions(Long idPromotions) {
 		this.idPromotions = idPromotions;
 	}
 	

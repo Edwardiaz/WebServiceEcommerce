@@ -1,14 +1,17 @@
 package com.ecommerce.entity;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -31,6 +34,9 @@ public class State implements Serializable {
 	@JoinColumn(name = "idCountry", referencedColumnName = "idCountry", insertable = false, updatable = false)
 	@ManyToOne
 	private Country country;
+	
+	@OneToMany(mappedBy = "state", fetch = FetchType.EAGER)
+	private Set<BillingAddress> listBillingAddress;
 
 	public State() {
 	}
