@@ -59,9 +59,6 @@ public class Orders implements Serializable {
 	public Orders() {
 		
 	}
-
-	public Orders(Long idOrders, String orderCode, Date purchaseDate, Long idBillingAddress, Long idOrderStatus,
-			Long idClient, Long idInvoice, Long idPromotions) {
 	
 	@JoinColumn(name = "idInvoice", referencedColumnName = "idInvoice", insertable = false, updatable = false)
 	@ManyToOne
@@ -71,8 +68,6 @@ public class Orders implements Serializable {
 	@ManyToOne
 	private BillingAddress billingAddress;
 
-	public Orders() {
-	}
 
 	public Orders(Long idOrders, String orderCode, Date purchaseDate, Long idBillingAddress, Long idOrderStatus,
 			Long idInvoice, Long idPromotions) {
