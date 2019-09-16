@@ -57,6 +57,9 @@ public class HibernateUtil {
 				configuration.addAnnotatedClass(Telephone.class);
 				configuration.addAnnotatedClass(Address.class);
 				configuration.addAnnotatedClass(Country.class);
+				configuration.addAnnotatedClass(Orders.class);
+				configuration.addAnnotatedClass(OrdersDetail.class);
+				configuration.addAnnotatedClass(OrderStatus.class);
 				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 				sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 //				sessionFactory = configuration.buildSessionFactory();

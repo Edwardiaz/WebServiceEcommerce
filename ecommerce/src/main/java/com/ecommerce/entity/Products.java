@@ -72,7 +72,7 @@ public class Products implements Serializable {
     @OneToMany(mappedBy = "idProd", fetch = FetchType.EAGER)
 	private Set<ProductsImage> proImageSet;
     
-	@JoinColumn(name = "idOrders", referencedColumnName = "idOrders", insertable = false, updatable = false)
+	@JoinColumn(name = "idOrders",/* referencedColumnName = "idOrders",*/ insertable = false, updatable = false)
 	@ManyToOne
 	private Orders orders;
     
