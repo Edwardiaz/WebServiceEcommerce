@@ -63,5 +63,5 @@ public class OrdersDetail implements Serializable {
 	
 	@JoinColumn(name = "idOrders", referencedColumnName = "idOrders", insertable = false, updatable = false)
 	@ManyToOne
-	private Orders orders;
+	private Orders ordersD;
 }

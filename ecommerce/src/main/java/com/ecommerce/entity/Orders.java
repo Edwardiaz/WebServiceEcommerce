@@ -49,10 +49,29 @@ public class Orders implements Serializable {
 	@OneToMany(mappedBy = "orders", fetch = FetchType.EAGER)
 	private Set<Products> listProducts;
 	
-	@OneToMany(mappedBy = "orders", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "ordersD", fetch = FetchType.EAGER)
 	private Set<OrdersDetail> listOrderStatus;
 	
 	@JoinColumn(name = "idOrderStatus", referencedColumnName = "idOrderStatus", insertable = false, updatable = false)
 	@ManyToOne
 	private OrderStatus orderStatus;
+	
+	@JoinColumn(name = "idInvoice", referencedColumnName = "idInvoice", insertable = false, updatable = false)
+	@ManyToOne
+	private Invoice invoice;
+
+	public Orders(Long idOrders, String orderCode, Date purchaseDate, Long idBillingAddress, Long idOrderStatus,
+			Long idClient, Long idInvoice, Long idPromotions) {
+		super();
+		this.idOrders = idOrders;
+		this.orderCode = orderCode;
+		this.purchaseDate = purchaseDate;
+		this.idBillingAddress = idBillingAddress;
+		this.idOrderStatus = idOrderStatus;
+		this.idClient = idClient;
+		this.idInvoice = idInvoice;
+		this.idPromotions = idPromotions;
+	}
+	
+	
 }

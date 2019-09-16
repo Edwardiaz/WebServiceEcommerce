@@ -49,6 +49,9 @@ public class Invoice implements Serializable {
     private Client client;
 	
 	@OneToMany(mappedBy = "invoice", fetch = FetchType.EAGER)
+	private Set<Orders> listOrders;
+	
+	@OneToMany(mappedBy = "invoice", fetch = FetchType.EAGER)
 	private Set<InvoiceDetail> listInvoiceDetail;
 
 	public Invoice(Long idInvoice, String invoiceCode, Date dateInvoice, String nameStore, Long idClient,
