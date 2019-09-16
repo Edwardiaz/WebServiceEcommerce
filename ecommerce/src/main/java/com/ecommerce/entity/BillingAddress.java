@@ -45,11 +45,11 @@ public class BillingAddress implements Serializable {
 	@Column(name = "idState")
 	private Long idState;
 
-	@JoinColumn(name = "idTelephone", referencedColumnName = "idTelephone", insertable = false, updatable = false)
+	@JoinColumn(name = "idState", referencedColumnName = "idState", insertable = false, updatable = false)
 	@ManyToOne
 	private State state;
 
-	@JoinColumn(name = "idState", referencedColumnName = "idState", insertable = false, updatable = false)
+	@JoinColumn(name = "idTelephone", referencedColumnName = "idTelephone", insertable = false, updatable = false)
 	@ManyToOne
 	private Telephone telephone;
 
