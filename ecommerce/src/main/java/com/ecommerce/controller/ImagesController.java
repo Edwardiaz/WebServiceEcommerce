@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ecommerce.entity.Products;
 //import com.ecommerce.entity.Products;
 import com.ecommerce.entity.ProductsImage;
 import com.ecommerce.entity.Users;
@@ -47,13 +48,13 @@ public class ImagesController {
 	@Autowired
 	ServletContext context;
 
-	@RequestMapping(value = "/imagen/producto/{id}", method = RequestMethod.POST, headers = ("content-type=multipart/*"), produces = {MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/producto/image/{id}", method = RequestMethod.POST, headers = ("content-type=multipart/*"), produces = {MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile inputFile/* , @RequestBody ProductsImage prod */,@PathVariable Long id) {
+	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile inputFile, @PathVariable("id") Long id) {
 //		Products pro = new Products();
 		
 		ProductsImage proima = new ProductsImage(), proImage = new ProductsImage();
-		HttpHeaders headers = new HttpHeaders();
+		HttpHeaders headers = new HttpHeaders();  
 		if (!inputFile.isEmpty()) {
 			try {
 				String originalFilename = inputFile.getOriginalFilename();
@@ -65,7 +66,9 @@ public class ImagesController {
 				// ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/").path(fileName).toUriString();
 				// ***************************************************************************************************
 				// \\
-				File destinationFile = new File("C:/Users/Jorge.Diaz/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"+ File.separator + originalFilename);
+//				File destinationFile = new File("C:/Users/Jorge.Diaz/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"+ File.separator + originalFilename);
+				File destinationFile = new File("C:/Users/Jorge/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"+ File.separator + originalFilename);
+
 //	    File destinationFile = new File(ServletUriComponentsBuilder.fromCurrentContextPath().path("/").path(originalFilename).toUriString());
 				inputFile.transferTo(destinationFile);
 				proImage.setImageName(originalFilename);
@@ -85,7 +88,7 @@ public class ImagesController {
 				return new ResponseEntity<>(proima, headers, HttpStatus.OK);
 			} catch (Exception e) {
 				System.out.println("Error Catcher: " + e);
-				return new ResponseEntity<>("Error: Invalid file", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>("Error: Invalid file or Bad URL", HttpStatus.BAD_REQUEST);
 			}
 		} else {
 			return new ResponseEntity<>("Error: Empty file", HttpStatus.BAD_REQUEST);
@@ -95,26 +98,28 @@ public class ImagesController {
 
 	@RequestMapping(value="/imagen2", method = RequestMethod.POST, headers=("content-type=multipart/*"), produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public ResponseEntity<?> uploadWithServices( @RequestParam("file") MultipartFile inputFile) {
+	public ResponseEntity<?> uploadProImage(@RequestParam("file") MultipartFile inputFile, @RequestParam("data") Products pro, @RequestBody Products prod,@PathVariable Long id) {
 		
-		ProductsImage proima = new ProductsImage(), proImage = new ProductsImage();//obj
-		HttpHeaders headers = new HttpHeaders();//obj
-		
+		ProductsImage proima = new ProductsImage(), proImage = new ProductsImage();
+		HttpHeaders headers = new HttpHeaders();  
 		if (!inputFile.isEmpty()) {
 			try {
 				String originalFilename = inputFile.getOriginalFilename();
-				File destinationFile = new File(
-				"C:/Users/Jorge.Diaz/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"+ File.separator + originalFilename
-				);//
+				File destinationFile = new File("C:/Users/Jorge.Diaz/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"+ File.separator + originalFilename);
 				inputFile.transferTo(destinationFile);
 				proImage.setImageName(originalFilename);
 				proima.setImageName(destinationFile.getPath());
-				headers.add("File Uploaded Successfully ", originalFilename);//header to teh json response
-				System.out.println("dato exitoso, destino: " + destinationFile);
-				System.out.println("Nombre del archivo: " + originalFilename);
-				proImage.setIdImageProduct(null);// auto_increment
-				Object saveIma = genS.saveObject(proImage);//service
-				System.out.println("OBJETO:::::> " + saveIma);
+				headers.add("File Uploaded Successfully ", originalFilename);
+				System.out.println("dato exitoso, address: " + destinationFile);
+				System.out.println("file name: " + originalFilename);
+				proImage.setIdImageProduct(null);// auto_increment				
+				proImage.setImageCode(1);//numero quemado por el momento...
+				proImage.setIdProduct(id);
+				Object saveIma = genS.saveObject(proImage);
+				proima.setIdImageProduct(proImage.getIdImageProduct());
+				proima.setImageCode(1);
+				proima.setIdProduct(id);
+				System.out.println("OBJ:::::> " + saveIma);
 				return new ResponseEntity<>(proima, headers, HttpStatus.OK);
 			} catch (Exception e) {
 				System.out.println("Error Catcher: " + e);
