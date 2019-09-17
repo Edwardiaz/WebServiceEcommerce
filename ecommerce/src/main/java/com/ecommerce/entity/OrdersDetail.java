@@ -67,7 +67,7 @@ public class OrdersDetail implements Serializable {
 	
 	@JoinColumn(name = "idOrders"/*, referencedColumnName = "idOrders"*/, insertable = false, updatable = false)
 	@ManyToOne
-	private Orders ordersD;
+	private Orders orders;
 
 	public OrdersDetail() {
 
@@ -205,11 +205,11 @@ public class OrdersDetail implements Serializable {
 		this.idOrders = idOrders;
 	}
 
-	public Orders getOrdersD() {
-		return ordersD;
+	public Orders getOrders() {
+		return orders;
 	}
 
-	public void setOrdersD(Orders ordersD) {
-		this.ordersD = ordersD;
+	public void setOrders(Orders orders) {
+		this.orders = orders;
 	}	
 }

@@ -76,12 +76,12 @@ public class BillingAddress implements Serializable {
 		this.idState = idState;
 	}
 
-	public Long getIdStateOrder() {
+	public Long getIdBillingAddress() {
 		return idBillingAddress;
 	}
 
-	public void setIdStateOrder(Long idStateOrder) {
-		this.idBillingAddress = idStateOrder;
+	public void setIdBillingAddress(Long idBillingAddress) {
+		this.idBillingAddress = idBillingAddress;
 	}
 
 	public String getFirstName() {

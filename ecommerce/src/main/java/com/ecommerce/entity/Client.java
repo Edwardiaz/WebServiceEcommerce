@@ -57,7 +57,7 @@ public class Client implements Serializable {
 	private Date registrationDate;
 	
 	@Column(name = "updateDate")
-	private String updateDate;
+	private Date updateDate;
 	
 	@Column(name= "idUsers")
 	private Long idUsers;
@@ -78,7 +78,7 @@ public class Client implements Serializable {
 
 	public Client(Long idClient, String firstName, String secondName, String firstLastName, String secondLastName,
 			String mail, String password, String userName, String address, Date registrationDate,
-			String updateDate, Long idUsers) {
+			Date updateDate, Long idUsers) {
 		super();
 		this.idClient = idClient;
 		this.firstName = firstName;
@@ -190,11 +190,11 @@ public class Client implements Serializable {
 		this.registrationDate = registrationDate;
 	}
 
-	public String getUpdateDate() {
+	public Date getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(String updateDate) {
+	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
 

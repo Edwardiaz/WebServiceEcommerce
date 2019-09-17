@@ -7,9 +7,18 @@ import org.springframework.stereotype.Service;
 
 import com.ecommerce.dao.IAllListDao;
 import com.ecommerce.entity.Address;
+import com.ecommerce.entity.BillingAddress;
+import com.ecommerce.entity.CategoryClient;
+import com.ecommerce.entity.Client;
+import com.ecommerce.entity.ClientCategoryClient;
 import com.ecommerce.entity.Country;
 import com.ecommerce.entity.State;
 import com.ecommerce.entity.Email;
+import com.ecommerce.entity.Invoice;
+import com.ecommerce.entity.InvoiceDetail;
+import com.ecommerce.entity.OrderStatus;
+import com.ecommerce.entity.Orders;
+import com.ecommerce.entity.OrdersDetail;
 import com.ecommerce.entity.Settings;
 import com.ecommerce.entity.Telephone;
 import com.ecommerce.entity.TimeZone;
@@ -57,6 +66,52 @@ public class ServiceAllListImpl implements IAllListService {
 	@Override
 	public List<Country> allCountry() {
 		return allList.allCountry();
+	}
+	//*********************************************************************************
+
+	@Override
+	public List<BillingAddress> allBillingAddress() {
+		return allList.allBillingAddress();
+	}
+
+	@Override
+	public List<Client> allClient() {
+		return allList.allClient();
+	}
+
+	@Override
+	public List<ClientCategoryClient> allClientCategoryClient() {
+		return allList.allClientCategoryClient();
+	}
+
+	@Override
+	public List<Invoice> allInvoice() {
+		return allList.allInvoice();
+	}
+
+	@Override
+	public List<InvoiceDetail> allInvoiceDetail() {
+		return allList.allInvoiceDetail();
+	}
+
+	@Override
+	public List<Orders> allOrders() {
+		return allList.allOrders();
+	}
+
+	@Override
+	public List<OrdersDetail> allOrdersDetail() {
+		return allList.allOrdersDetail();
+	}
+
+	@Override
+	public List<OrderStatus> allOrderStatus() {
+		return allList.allOrderStatus();
+	}
+
+	@Override
+	public List<CategoryClient> allCategoryClient() {
+		return allList.allCategoryClient();
 	}
 
 }

@@ -29,6 +29,10 @@ public class InvoiceDetail implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date invoiceDate;
 	
+	@Column(name= "dateInvoice")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateInvoice;
+	
 	@Column(name= "quantity")
 	private Integer quantity;
 	
@@ -54,11 +58,12 @@ public class InvoiceDetail implements Serializable {
     @ManyToOne
     private Invoice invoice;
 
-	public InvoiceDetail(Long idInvoiceDetail, Date invoiceDate, Integer quantity, Double price, Double subTotal,
-			Double tax, Double discount, Double totalPrice, Long idInvoice) {
+	public InvoiceDetail(Long idInvoiceDetail, Date invoiceDate, Date dateInvoice, Integer quantity, Double price,
+			Double subTotal, Double tax, Double discount, Double totalPrice, Long idInvoice) {
 		super();
 		this.idInvoiceDetail = idInvoiceDetail;
 		this.invoiceDate = invoiceDate;
+		this.dateInvoice = dateInvoice;
 		this.quantity = quantity;
 		this.price = price;
 		this.subTotal = subTotal;
@@ -85,6 +90,14 @@ public class InvoiceDetail implements Serializable {
 
 	public void setInvoiceDate(Date invoiceDate) {
 		this.invoiceDate = invoiceDate;
+	}
+	
+	public Date getDateInvoice() {
+		return dateInvoice;
+	}
+
+	public void setDateInvoice(Date dateInvoice) {
+		this.dateInvoice = dateInvoice;
 	}
 
 	public Integer getQuantity() {

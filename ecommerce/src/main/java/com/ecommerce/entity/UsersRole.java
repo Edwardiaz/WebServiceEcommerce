@@ -39,8 +39,6 @@ public class UsersRole implements Serializable {
     @ManyToOne
     private Role roleobj;
 
-		
-
 	public UsersRole(Long idUseRole, Long idUsers, Long idRole, boolean roleActive) {
 		super();
 		this.idUseRole = idUseRole;
@@ -49,67 +47,48 @@ public class UsersRole implements Serializable {
 		this.roleActive = roleActive;
 	}
 
-
-
-
 	public UsersRole() {
 	}
-
-
 
 	public Long getIdUseRole() {
 		return idUseRole;
 	}
 
-
-
-
 	public void setIdUseRole(Long idUseRole) {
 		this.idUseRole = idUseRole;
 	}
-
-
-
 
 	public Long getIdUsers() {
 		return idUsers;
 	}
 
-
-
-
 	public void setIdUsers(Long idUsers) {
 		this.idUsers = idUsers;
 	}
-
-
-
 
 	public Long getIdRole() {
 		return idRole;
 	}
 
-
-
-
 	public void setIdRole(Long idRole) {
 		this.idRole = idRole;
 	}
-
-
-
 
 	public boolean isRoleActive() {
 		return roleActive;
 	}
 
-
-
 	public void setRoleActive(boolean roleActive) {
 		this.roleActive = roleActive;
 	}
 
+	public Users getUsers() {
+		return users;
+	}
 
+	public void setUsers(Users users) {
+		this.users = users;
+	}
 
 	@Override
 	public int hashCode() {

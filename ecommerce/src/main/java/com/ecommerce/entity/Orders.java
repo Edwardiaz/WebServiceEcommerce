@@ -49,7 +49,7 @@ public class Orders implements Serializable {
 	@OneToMany(mappedBy = "orders", fetch = FetchType.EAGER)
 	private Set<Products> listProducts;
 	
-	@OneToMany(mappedBy = "ordersD", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "orders", fetch = FetchType.EAGER)
 	private Set<OrdersDetail> listOrderStatus;
 	
 	@JoinColumn(name = "idOrderStatus", /*referencedColumnName = "idOrderStatus", */insertable = false, updatable = false)
@@ -82,41 +82,51 @@ public class Orders implements Serializable {
 		this.idPromotions = idPromotions;
 	}
 
+
 	public Long getIdOrders() {
 		return idOrders;
 	}
+
 
 	public void setIdOrders(Long idOrders) {
 		this.idOrders = idOrders;
 	}
 
+
 	public String getOrderCode() {
 		return orderCode;
 	}
+
 
 	public void setOrderCode(String orderCode) {
 		this.orderCode = orderCode;
 	}
 
+
 	public Date getPurchaseDate() {
 		return purchaseDate;
 	}
+
 
 	public void setPurchaseDate(Date purchaseDate) {
 		this.purchaseDate = purchaseDate;
 	}
 
+
 	public Long getIdBillingAddress() {
 		return idBillingAddress;
 	}
+
 
 	public void setIdBillingAddress(Long idBillingAddress) {
 		this.idBillingAddress = idBillingAddress;
 	}
 
+
 	public Long getIdOrderStatus() {
 		return idOrderStatus;
 	}
+
 
 	public void setIdOrderStatus(Long idOrderStatus) {
 		this.idOrderStatus = idOrderStatus;
@@ -127,41 +137,20 @@ public class Orders implements Serializable {
 		return idInvoice;
 	}
 
+
 	public void setIdInvoice(Long idInvoice) {
 		this.idInvoice = idInvoice;
 	}
+
 
 	public Long getIdPromotions() {
 		return idPromotions;
 	}
 
+
 	public void setIdPromotions(Long idPromotions) {
 		this.idPromotions = idPromotions;
 	}
 
-
-	public Set<Products> getListProducts() {
-		return listProducts;
-	}
-
-	public void setListProducts(Set<Products> listProducts) {
-		this.listProducts = listProducts;
-	}
-
-	public Set<OrdersDetail> getListOrderStatus() {
-		return listOrderStatus;
-	}
-
-	public void setListOrderStatus(Set<OrdersDetail> listOrderStatus) {
-		this.listOrderStatus = listOrderStatus;
-	}
-
-	public OrderStatus getOrderStatus() {
-		return orderStatus;
-	}
-
-	public void setOrderStatus(OrderStatus orderStatus) {
-		this.orderStatus = orderStatus;
-	}	
 	
 }
