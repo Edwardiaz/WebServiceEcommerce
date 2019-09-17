@@ -58,5 +58,69 @@ public class DaoByIdImpl implements IByIdDao {
 		}
 	}
 	
+	//*************************************************************************
+
+	@Override
+	public BillingAddress getBillingAddressById(Long id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(BillingAddress.class, new Long(id));
+		}
+	}
+
+	@Override
+	public Client getClientById(Long id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(Client.class, new Long(id));
+		}
+	}
+
+	@Override
+	public ClientCategoryClient getClientCategoryClientById(Long id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(ClientCategoryClient.class, new Long(id));
+		}
+	}
+
+	@Override
+	public Invoice getInvoiceById(Long id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(Invoice.class, new Long(id));
+		}
+	}
+
+	@Override
+	public InvoiceDetail getInvoiceDetailById(Long id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(InvoiceDetail.class, new Long(id));
+		}
+	}
+
+	@Override
+	public Orders getOrdersById(Long id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(Orders.class, new Long(id));
+		}
+	}
+
+	@Override
+	public OrdersDetail getOrdersDetailById(Long id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(OrdersDetail.class, new Long(id));
+		}
+	}
+
+	@Override
+	public OrderStatus getOrderStatusById(Long id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(OrderStatus.class, new Long(id));
+		}
+	}
+
+	@Override
+	public CategoryClient getCategoryClientById(Long id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(CategoryClient.class, new Long(id));
+		}
+	}
 
 }

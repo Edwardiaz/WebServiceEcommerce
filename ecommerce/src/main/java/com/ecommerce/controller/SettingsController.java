@@ -35,7 +35,7 @@ public class SettingsController {
 		this.byIdS = byIdS;
 	}
 
-	// Here we have SettingsShop, Email, City, TimeZone, Telephone, Address, Country
+	// Here we have SettingsShop, Email, State, TimeZone, Telephone, Address, Country
 	// *************************************************SettingsShop*********************************************************
 
 	// SHOW COMPLETE LIST

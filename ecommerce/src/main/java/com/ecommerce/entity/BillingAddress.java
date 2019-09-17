@@ -1,14 +1,17 @@
 package com.ecommerce.entity;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,8 +21,8 @@ public class BillingAddress implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idStateOrder")
-	private Long idStateOrder;
+	@Column(name = "idBillingAddress")
+	private Long idBillingAddress;
 
 	@Column(name = "firstName")
 	private String firstName;
@@ -52,14 +55,17 @@ public class BillingAddress implements Serializable {
 	@JoinColumn(name = "idTelephone", referencedColumnName = "idTelephone", insertable = false, updatable = false)
 	@ManyToOne
 	private Telephone telephone;
+	
+	@OneToMany(mappedBy = "billingAddress", fetch = FetchType.EAGER)
+	private Set<Orders> listOrders;
 
 	public BillingAddress() {
 	}
 
-	public BillingAddress(Long idStateOrder, String firstName, String lastName, String email, String address1,
+	public BillingAddress(Long idBillingAddress, String firstName, String lastName, String email, String address1,
 			String address2, String postalCode, Long idTelephone, Long idState) {
 		super();
-		this.idStateOrder = idStateOrder;
+		this.idBillingAddress = idBillingAddress;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -70,12 +76,12 @@ public class BillingAddress implements Serializable {
 		this.idState = idState;
 	}
 
-	public Long getIdStateOrder() {
-		return idStateOrder;
+	public Long getIdBillingAddress() {
+		return idBillingAddress;
 	}
 
-	public void setIdStateOrder(Long idStateOrder) {
-		this.idStateOrder = idStateOrder;
+	public void setIdBillingAddress(Long idBillingAddress) {
+		this.idBillingAddress = idBillingAddress;
 	}
 
 	public String getFirstName() {
