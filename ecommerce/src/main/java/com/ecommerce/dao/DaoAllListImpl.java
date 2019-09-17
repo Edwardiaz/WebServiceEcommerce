@@ -74,4 +74,87 @@ public class DaoAllListImpl implements IAllListDao {
 		return list;
 		}
 	}
+	//**************************************************************
+
+	@Override
+	public List<BillingAddress> allBillingAddress() {
+		List<BillingAddress> list = new ArrayList<BillingAddress>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = session.createQuery("from BillingAddress", BillingAddress.class).list();
+		return list;
+		}
+	}
+
+	@Override
+	public List<Client> allClient() {
+		List<Client> list = new ArrayList<Client>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = session.createQuery("from Client", Client.class).list();
+		return list;
+		}
+	}
+
+	@Override
+	public List<ClientCategoryClient> allClientCategoryClient() {
+		List<ClientCategoryClient> list = new ArrayList<ClientCategoryClient>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = session.createQuery("from ClientCategoryClient", ClientCategoryClient.class).list();
+		return list;
+		}
+	}
+
+	@Override
+	public List<Invoice> allInvoice() {
+		List<Invoice> list = new ArrayList<Invoice>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = session.createQuery("from Invoice", Invoice.class).list();
+		return list;
+		}
+	}
+
+	@Override
+	public List<InvoiceDetail> allInvoiceDetail() {
+		List<InvoiceDetail> list = new ArrayList<InvoiceDetail>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = session.createQuery("from InvoiceDetail", InvoiceDetail.class).list();
+		return list;
+		}
+	}
+
+	@Override
+	public List<Orders> allOrders() {
+		List<Orders> list = new ArrayList<Orders>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = session.createQuery("from Orders", Orders.class).list();
+		return list;
+		}
+	}
+
+	@Override
+	public List<OrdersDetail> allOrdersDetail() {
+		List<OrdersDetail> list = new ArrayList<OrdersDetail>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = session.createQuery("from OrdersDetail", OrdersDetail.class).list();
+		return list;
+		}
+	}
+
+	@Override
+	public List<OrderStatus> allOrderStatus() {
+		List<OrderStatus> list = new ArrayList<OrderStatus>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = session.createQuery("from OrderStatus", OrderStatus.class).list();
+		return list;
+		}
+	}
+
+	@Override
+	public List<CategoryClient> allCategoryClient() {
+		List<CategoryClient> list = new ArrayList<CategoryClient>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = session.createQuery("from CategoryClient", CategoryClient.class).list();
+		return list;
+		}
+	}
+	
 }

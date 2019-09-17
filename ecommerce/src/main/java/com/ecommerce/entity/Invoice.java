@@ -32,6 +32,7 @@ public class Invoice implements Serializable {
 	private String invoiceCode;
 	
 	@Column(name= "dateInvoice")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateInvoice;
 	
 	@Column(name= "nameStore")
