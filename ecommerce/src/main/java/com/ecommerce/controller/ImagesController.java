@@ -13,23 +13,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.ecommerce.entity.Products;
-//import com.ecommerce.entity.Products;
 import com.ecommerce.entity.ProductsImage;
 import com.ecommerce.service.IGenericService;
 import com.ecommerce.service.IRetrieveImageService;
 import com.ecommerce.service.ProductoService;
-
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.MultipartConfig;
-
 import org.springframework.http.HttpHeaders;
-//import com.technicalkeeda.bean.FileInfo;
 
 @RestController
 @RequestMapping("/api")
@@ -50,11 +46,14 @@ public class ImagesController {
 	@Autowired
 	ServletContext context;
 
-	@RequestMapping(value = "/producto/image/{id}", method = RequestMethod.POST, headers = ("content-type=multipart/*"), produces = {MediaType.APPLICATION_JSON_VALUE })
+	
+	//METODO GUARDAR IMAGENES A UN PRODUCTO EXISTENTE
+	@RequestMapping(value = "/producto/image/{id}", method = RequestMethod.POST, headers = ("content-type=multipart/*"), produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile inputFile, @PathVariable("id") Long id) {
 //		Products pro = new Products();
-		
+
 		ProductsImage proima = new ProductsImage(), proImage = new ProductsImage();
 		HttpHeaders headers = new HttpHeaders();
 		if (!inputFile.isEmpty()) {
@@ -69,7 +68,9 @@ public class ImagesController {
 				// ***************************************************************************************************
 				// \\
 //				File destinationFile = new File("C:/Users/Jorge.Diaz/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"+ File.separator + originalFilename);
-				File destinationFile = new File("C:/Users/Jorge/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"+ File.separator + originalFilename);
+				File destinationFile = new File(
+						"C:/Users/Jorge/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"
+								+ File.separator + originalFilename);
 
 //	    File destinationFile = new File(ServletUriComponentsBuilder.fromCurrentContextPath().path("/").path(originalFilename).toUriString());
 				inputFile.transferTo(destinationFile);
@@ -79,8 +80,8 @@ public class ImagesController {
 				headers.add("File Uploaded Successfully ", originalFilename);
 				System.out.println("dato exitoso, address: " + destinationFile);
 				System.out.println("file name: " + originalFilename);
-				proImage.setIdImageProduct(null);// auto_increment				
-				proImage.setImageCode(1);//numero quemado por el momento...
+				proImage.setIdImageProduct(null);// auto_increment
+				proImage.setImageCode(1);// numero quemado por el momento...
 				proImage.setIdProduct(id);
 				Object saveIma = genS.saveObject(proImage);
 				proima.setIdImageProduct(proImage.getIdImageProduct());
@@ -96,40 +97,51 @@ public class ImagesController {
 			return new ResponseEntity<>("Error: Empty file", HttpStatus.BAD_REQUEST);
 		}
 	}
-// ********************************************************************************************************************* \\
 
-	@RequestMapping(value="/producto/imagen2", method = RequestMethod.POST, headers=("content-type=multipart/*"), produces = { MediaType.APPLICATION_JSON_VALUE })
+// ********************************************************************************************************************* \\
+//, MediaType.IMAGE_PNG_VALUE
+	@RequestMapping(value = "/producto/imagen2", method = RequestMethod.POST, headers = ("content-type=multipart/*"), produces = {
+			MediaType.APPLICATION_JSON_VALUE }, consumes = { "multipart/form-data" })
 	@ResponseBody
-	public ResponseEntity<?> uploadProImage(@RequestParam("file") MultipartFile inputFile, @RequestParam("data") @RequestBody Products pro, @PathVariable("id") Long id) {
-		
+	public ResponseEntity<?> uploadProImage(@RequestPart("file") MultipartFile inputFile,
+			@RequestPart("data") Products pro) {
+
 		ProductsImage proima = new ProductsImage(), proImage = new ProductsImage();
-		HttpHeaders headers = new HttpHeaders();  
+		HttpHeaders headers = new HttpHeaders();
+		System.out.println("INTO THE METHOD:::>File " + inputFile.getOriginalFilename());
+		System.out.println("PRODUCT'S NAME::::> " + pro.getNameProducts());
 		if (!inputFile.isEmpty()) {
 			try {
 				String originalFilename = inputFile.getOriginalFilename();
-				File destinationFile = new File("C:/Users/Jorge.Diaz/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"+ File.separator + originalFilename);
+				File destinationFile = new File(
+						"C:/Users/Jorge.Diaz/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"
+								+ File.separator + originalFilename);
 				inputFile.transferTo(destinationFile);
 				proImage.setImageName(originalFilename);
 				proima.setImageName(destinationFile.getPath());
 				headers.add("File Uploaded Successfully ", originalFilename);
-				System.out.println("dato exitoso, address: " + destinationFile);
+				System.out.println("success data, address: " + destinationFile);
 				System.out.println("file name: " + originalFilename);
+
 				// ******************* \\
-				if(pro.getIdProducts() == null || pro.getIdProducts() == 0) {
+				if (pro.getIdProducts() == null || pro.getIdProducts() == 0) {
 					pro.setProductDeliveryDate(new Date());
 					pro.setUpdateDate(null);
 					proService.saveProducts(pro);
-				}else {
-					
-					return new ResponseEntity<>("SOME PARAMETER ARE EMPTY", HttpStatus.BAD_REQUEST);
+
+				} else {
+
+					System.out.println("PRO IS EMPTY, SO DO IMAGE...>" + pro);
+
+//					return new ResponseEntity<>("SOME PARAMETER ARE EMPTY", HttpStatus.BAD_REQUEST);
 				}
 				// ******************* \\
-				proImage.setIdImageProduct(null);// auto_increment				
-				proImage.setImageCode(1);//numero quemado por el momento...
+				proImage.setIdImageProduct(null);// auto_increment
+				proImage.setImageCode(1);// numero quemado por el momento...
 				proImage.setIdProduct(pro.getIdProducts());
 				Object saveIma = genS.saveObject(proImage);
 				proima.setIdImageProduct(proImage.getIdImageProduct());
-				proima.setImageCode(1);
+				proima.setImageCode(2);
 				proima.setIdProduct(pro.getIdProducts());
 				System.out.println("OBJ:::::> " + saveIma);
 				return new ResponseEntity<>(proima, headers, HttpStatus.OK);
@@ -152,7 +164,7 @@ public class ImagesController {
 
 	@RequestMapping(value = "/imagen/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public ResponseEntity<?> userById(@PathVariable("id") Long id) {
+	public ResponseEntity<?> imageById(@PathVariable("id") Long id) {
 		ProductsImage ima = retrieveService.findByIdImage(id);
 		if (ima != null) {
 			return new ResponseEntity<>(ima, HttpStatus.FOUND);
@@ -160,50 +172,56 @@ public class ImagesController {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	
+
 	@RequestMapping(value = "/imagen/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateUsers(@PathVariable("id") Long id, @RequestBody ProductsImage image) {
-		
+
 		if (image.getIdImageProduct() == id) {
-			ProductsImage u = retrieveService.findByIdImage(id); //Retrieving the object with the id
-			
-			ProductsImage p = (ProductsImage) genS.updateObject(image); //Once Updated object 
-			if (p != null && image.getIdImageProduct() != null) { 
+			ProductsImage u = retrieveService.findByIdImage(id); // Retrieving the object with the id
+
+			ProductsImage p = (ProductsImage) genS.updateObject(image); // Once Updated object
+			if (p != null && image.getIdImageProduct() != null) {
 				return new ResponseEntity<>(image, HttpStatus.OK); // return statement successful
-			} else if ( p == null && image.getIdImageProduct() != null) {
+			} else if (p == null && image.getIdImageProduct() != null) {
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			} else if ( p == null && image.getIdImageProduct() == null) {
+			} else if (p == null && image.getIdImageProduct() == null) {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			} else {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			}
-			
+
 		} else {
-			
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-			
 		}
 	}
 
-	// DELETE SINGLE ENTRY USERS
-	@RequestMapping(value = "/imagen/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
+	// DELETE single image
+	@RequestMapping(value = "/imagen/{id}", method = RequestMethod.DELETE, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteImage(@PathVariable("id") Long id) {
-		ProductsImage obj = new ProductsImage();
-		obj.setIdImageProduct(id);
-
-		String msj = genS.deleteObject(obj);
-
+		ProductsImage ima = retrieveService.findByIdImage(id);
+		String originalFilename = (ima.getImageName());
+		String msj = genS.deleteObject(ima);
+		System.out.println("FILE NAME:::::> " + originalFilename);
+		File destinationFile = new File("C:/Users/Jorge.Diaz/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"
+						+ File.separator + originalFilename);
+		if (destinationFile.delete()) {
+			System.out.println("FILE DELETED SUCCESSFULLY");
+		}else {
+			System.out.println("Error deleting file, register is deleted anyways...");
+		}
 		if (msj.equalsIgnoreCase("ok")) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		
 		if (msj.equalsIgnoreCase("error")) {
 			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		} else {
+			System.out.println("RETURN NULL");
 			return null;
 		}
 	}
-	
+
 }
