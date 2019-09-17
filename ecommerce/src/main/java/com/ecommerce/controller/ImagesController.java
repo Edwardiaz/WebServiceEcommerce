@@ -18,19 +18,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.ecommerce.entity.Products;
-//import com.ecommerce.entity.Products;
 import com.ecommerce.entity.ProductsImage;
 import com.ecommerce.service.IGenericService;
 import com.ecommerce.service.IRetrieveImageService;
 import com.ecommerce.service.ProductoService;
-
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.MultipartConfig;
-
 import org.springframework.http.HttpHeaders;
-//import com.technicalkeeda.bean.FileInfo;
 
 @RestController
 @RequestMapping("/api")
