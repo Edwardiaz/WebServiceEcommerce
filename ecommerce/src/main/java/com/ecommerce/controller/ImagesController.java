@@ -51,8 +51,7 @@ public class ImagesController {
 	@Autowired
 	ServletContext context;
 
-	
-	//METODO GUARDAR IMAGENES A UN PRODUCTO EXISTENTE
+	// METODO GUARDAR IMAGENES A UN PRODUCTO EXISTENTE
 	@RequestMapping(value = "/producto/image/{id}", method = RequestMethod.POST, headers = ("content-type=multipart/*"), produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
@@ -65,13 +64,13 @@ public class ImagesController {
 			try {
 				String originalFilename = inputFile.getOriginalFilename();
 //	    File destinationFile = new File(context.getRealPath("/WEB-INF/images")+  File.separator + originalFilename);
-				// ***************************************************************************************************
-				// \\
+				
+				// *************************************************************************************************** \\
 				// C:\Users\Jorge.Diaz\Documents\GitHub\WebServiceEcommerce\ecommerce\src\main\webapp\WEB-INF\images
 				// http://192.168.100.71:8090/ecommerce/
 				// ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/").path(fileName).toUriString();
-				// ***************************************************************************************************
-				// \\
+				// *************************************************************************************************** \\
+				
 //				File destinationFile = new File("C:/Users/Jorge.Diaz/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"+ File.separator + originalFilename);
 				File destinationFile = new File(
 						"C:/Users/Jorge/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"
@@ -105,11 +104,12 @@ public class ImagesController {
 
 // ********************************************************************************************************************* \\
 //, MediaType.IMAGE_PNG_VALUE
-	@RequestMapping(value = "/producto/imagen2", method = RequestMethod.POST, headers = ("content-type=multipart/*"), produces = {
+
+	// saves images and creates new products
+	@RequestMapping(value = "/producto/imagen", method = RequestMethod.POST, headers = ("content-type=multipart/*"), produces = {
 			MediaType.APPLICATION_JSON_VALUE }, consumes = { "multipart/form-data" })
 	@ResponseBody
-	public ResponseEntity<?> uploadProImage(@RequestPart("file") MultipartFile inputFile,
-			@RequestPart("data") Products pro) {
+	public ResponseEntity<?> uploadProImage(@RequestPart("file") MultipartFile inputFile, @RequestPart("data") Products pro) {
 
 		ProductsImage proima = new ProductsImage(), proImage = new ProductsImage();
 		HttpHeaders headers = new HttpHeaders();
@@ -158,6 +158,44 @@ public class ImagesController {
 			return new ResponseEntity<>("Error: Empty file or url not found", HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	//metodo pra subir varias imagenes
+	
+//	@RequestMapping(value = "/producto/images", method = RequestMethod.POST, headers = ("content-type=multipart/*"), produces = {
+//			MediaType.APPLICATION_JSON_VALUE })
+//	@ResponseBody
+//	public ResponseEntity<?> uploadManyImages(@RequestPart("files") MultipartFile[] inputFile, @PathVariable("id") Long id) {
+//		ProductsImage proima = new ProductsImage(), proImage = new ProductsImage();
+//		HttpHeaders headers = new HttpHeaders();
+//		if (!inputFile.isEmpty()) {
+//			try {
+//				String originalFilename = inputFile.getOriginalFilename();
+//				File destinationFile = new File(
+//	"C:/Users/Jorge/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"+ File.separator + originalFilename);
+//				inputFile.transferTo(destinationFile);
+//				proImage.setImageName(originalFilename);
+//				proima.setImageName(destinationFile.getPath());
+//				headers.add("File Uploaded Successfully ", originalFilename);
+//				System.out.println("dato exitoso, address: " + destinationFile);
+//				System.out.println("file name: " + originalFilename);
+//				proImage.setIdImageProduct(null);// auto_increment
+//				proImage.setImageCode(1);// numero quemado por el momento...
+//				proImage.setIdProduct(id);
+//				Object saveIma = genS.saveObject(proImage);
+//				proima.setIdImageProduct(proImage.getIdImageProduct());
+//				proima.setImageCode(1);
+//				proima.setIdProduct(id);
+//				System.out.println("OBJ:::::> " + saveIma);
+//				return new ResponseEntity<>(proima, headers, HttpStatus.OK);
+//			} catch (Exception e) {
+//				System.out.println("Error Catcher: " + e);
+//				return new ResponseEntity<>("Error: Invalid file or ad URL", HttpStatus.BAD_REQUEST);
+//			}
+//		} else {
+//			return new ResponseEntity<>("Error: Empty file", HttpStatus.BAD_REQUEST);
+//		}
+//	}
+	
 
 	@ResponseStatus(code = HttpStatus.FOUND)
 	@RequestMapping(value = "/imagen", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -180,12 +218,15 @@ public class ImagesController {
 
 	@RequestMapping(value = "/imagen/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public ResponseEntity<?> updateUsers(@PathVariable("id") Long id, @RequestBody ProductsImage image) {
+	public ResponseEntity<?> updateImage(@PathVariable("id") Long id, @RequestBody ProductsImage image) {
 
 		if (image.getIdImageProduct() == id) {
-			ProductsImage u = retrieveService.findByIdImage(id); // Retrieving the object with the id
-
+			ProductsImage ima = retrieveService.findByIdImage(id); // Retrieving the object with the id
+			ima.setImageName(ima.getImageName());
 			ProductsImage p = (ProductsImage) genS.updateObject(image); // Once Updated object
+			
+			
+			
 			if (p != null && image.getIdImageProduct() != null) {
 				return new ResponseEntity<>(image, HttpStatus.OK); // return statement successful
 			} else if (p == null && image.getIdImageProduct() != null) {
@@ -195,7 +236,6 @@ public class ImagesController {
 			} else {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			}
-
 		} else {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
@@ -209,18 +249,19 @@ public class ImagesController {
 		ProductsImage ima = retrieveService.findByIdImage(id);
 		String originalFilename = (ima.getImageName());
 		String msj = genS.deleteObject(ima);
-		System.out.println("FILE NAME:::::> " + originalFilename);
-		File destinationFile = new File("C:/Users/Jorge.Diaz/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"
+		System.out.println("FILE NAME:::::> "+originalFilename);
+		File destinationFile = new File(
+				"C:/Users/Jorge.Diaz/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"
 						+ File.separator + originalFilename);
 		if (destinationFile.delete()) {
 			System.out.println("FILE DELETED SUCCESSFULLY");
-		}else {
+		} else {
 			System.out.println("Error deleting file, register is deleted anyways...");
 		}
 		if (msj.equalsIgnoreCase("ok")) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
-		
+
 		if (msj.equalsIgnoreCase("error")) {
 			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		} else {
