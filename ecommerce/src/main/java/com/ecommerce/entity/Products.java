@@ -64,7 +64,7 @@ public class Products implements Serializable {
 	@Column(name = "weight")
 	private float weight;
 	@Column(name = "idOrders", nullable = true)
-	private Integer idOrders;
+	private Long idOrders;
     
     @OneToMany(mappedBy = "products", fetch = FetchType.EAGER)
     private Set<ProductsCategory> productsCategorySet;

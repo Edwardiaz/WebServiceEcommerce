@@ -14,9 +14,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ComponentScan("com.ecommerce.*")
 public class WebMvcConfig implements WebMvcConfigurer {
  
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
- 
-    }
+	@Override
+	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+	    registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+	}
  
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
@@ -28,5 +29,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         resolver.setDefaultEncoding("utf-8");
         return resolver;
     }
+    
+
  
 }

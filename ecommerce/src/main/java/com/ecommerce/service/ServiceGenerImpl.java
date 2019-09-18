@@ -1,5 +1,7 @@
 package com.ecommerce.service;
 
+import java.util.List;
+
 //import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ecommerce.dao.IGenericDao;
+import com.ecommerce.entity.ProductsImage;
 
 @Service
 public class ServiceGenerImpl implements IGenericService{
@@ -38,5 +41,17 @@ private IGenericDao daoGen;
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public <Object> void saveObjectList(List<Object> obj) {
+		daoGen.saveObjectList(obj);
+	}
+
+	@Override
+	public List<Object> saveObjectList2(List<Object> obj) {
+		return daoGen.saveObjectList2(obj);
+	}
+
+
 	
 }
