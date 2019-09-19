@@ -21,4 +21,12 @@ public interface IByIdDao {
 	public OrdersDetail getOrdersDetailById(Long id);                   // RETRIEVE SINGLE OrdersDetail
 	public OrderStatus getOrderStatusById(Long id);                     // RETRIEVE SINGLE OrdersDetail
 	
+	public Status getStatusById(Long id);                                  // RETRIEVE SINGLE Status
+	public Promotions getPromotionsById(Long id);                          // RETRIEVE SINGLE Promotions
+	public TypeAttribute getTypeAttributeById(Long id);                    // RETRIEVE SINGLE TypeAttribute
+	public ConfigProducts getConfigProductsById(Long id);                  // RETRIEVE SINGLE ConfigProducts
+	public ConfigPromotions getConfigPromotionsById(Long id);              // RETRIEVE SINGLE ConfigPromotions
+	public ProductsConfigProducts getProductsConfigProductsById(Long id);  // RETRIEVE SINGLE ProductsConfigProducts
+	public Supplier getSupplierById(Long id);                              // RETRIEVE SINGLE Supplier
+	public ProductsSupplier getProductsSupplierById(Long id);              // RETRIEVE SINGLE ProductsSupplier
 }

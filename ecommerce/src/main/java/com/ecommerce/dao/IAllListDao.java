@@ -24,4 +24,13 @@ public interface IAllListDao {
 	public List<OrdersDetail> allOrdersDetail();                  // OrdersDetail  General List
 	public List<OrderStatus> allOrderStatus();                    // OrderStatus  General List
 	
+	public List<Status> allStatus();                                  // Status  General List
+	public List<Promotions> allPromotions();                          // Promotions  General List
+	public List<TypeAttribute> allTypeAttribute();                    // TypeAttribute  General List
+	public List<ConfigProducts> allConfigProducts();                  // ConfigProducts  General List
+	public List<ConfigPromotions> allConfigPromotions();              // ConfigPromotions  General List
+	public List<ProductsConfigProducts> allProductsConfigProducts();  // Status  General List
+	public List<Supplier> allSupplier();                              // Supplier  General List
+	public List<ProductsSupplier> allProductsSupplier();              // ProductsSupplier  General List 
+	
 }

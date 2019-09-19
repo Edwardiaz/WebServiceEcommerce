@@ -29,20 +29,20 @@ public class TypeAttribute implements Serializable {
 	@Column(name = "nameAttribute")
 	private String nameAttribute;
 	
-	@Column(name = "date")
+	@Column(name = "dateAttrib")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 	
-	@Column(name = "number")
+	@Column(name = "numbers")
 	private Long number;
 	
-	@Column(name = "decimal")
+	@Column(name = "decimals")
 	private Double decimal;
 	
-	@Column(name = "text")
+	@Column(name = "texts")
 	private String text;
 	
-	@Column(name = "longText")
+	@Column(name = "longTexts")
 	private String longText;
 	
 	@Column(name= "logic", columnDefinition = "BIT", length = 1)

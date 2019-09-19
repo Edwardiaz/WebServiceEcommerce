@@ -82,11 +82,11 @@ public class Products implements Serializable {
 	@OneToMany(mappedBy = "products", fetch = FetchType.EAGER)
 	private Set<ComboProducts> listComboProducts;
 	
-//	@OneToMany(mappedBy = "products", fetch = FetchType.EAGER) // Errors w/ list
-//	private Set<ProductsConfigProducts> listProductsConfigProducts;
-//
-//	@OneToMany(mappedBy = "products", fetch = FetchType.EAGER) // Errors w/ list
-//	private Set<ProductsSupplier> listProductsSupplier;
+	@OneToMany(mappedBy = "products", fetch = FetchType.EAGER)
+	private Set<ProductsConfigProducts> listProductsConfigProducts;
+
+	@OneToMany(mappedBy = "products", fetch = FetchType.EAGER)
+	private Set<ProductsSupplier> listProductsSupplier;
     
 	public Products() {
 	}

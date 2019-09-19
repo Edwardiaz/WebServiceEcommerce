@@ -156,5 +156,78 @@ public class DaoAllListImpl implements IAllListDao {
 		return list;
 		}
 	}
+	//**********************************************************************************
+
+	@Override
+	public List<Status> allStatus() {
+		List<Status> list = new ArrayList<Status>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = session.createQuery("from Status", Status.class).list();
+		return list;
+		}
+	}
+
+	@Override
+	public List<Promotions> allPromotions() {
+		List<Promotions> list = new ArrayList<Promotions>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = session.createQuery("from Promotions", Promotions.class).list();
+		return list;
+		}
+	}
+
+	@Override
+	public List<TypeAttribute> allTypeAttribute() {
+		List<TypeAttribute> list = new ArrayList<TypeAttribute>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = session.createQuery("from TypeAttribute", TypeAttribute.class).list();
+		return list;
+		}
+	}
+
+	@Override
+	public List<ConfigProducts> allConfigProducts() {
+		List<ConfigProducts> list = new ArrayList<ConfigProducts>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = session.createQuery("from ConfigProducts", ConfigProducts.class).list();
+		return list;
+		}
+	}
+
+	@Override
+	public List<ConfigPromotions> allConfigPromotions() {
+		List<ConfigPromotions> list = new ArrayList<ConfigPromotions>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = session.createQuery("from ConfigPromotions", ConfigPromotions.class).list();
+		return list;
+		}
+	}
+
+	@Override
+	public List<ProductsConfigProducts> allProductsConfigProducts() {
+		List<ProductsConfigProducts> list = new ArrayList<ProductsConfigProducts>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = session.createQuery("from ProductsConfigProducts", ProductsConfigProducts.class).list();
+		return list;
+		}
+	}
+
+	@Override
+	public List<Supplier> allSupplier() {
+		List<Supplier> list = new ArrayList<Supplier>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = session.createQuery("from Supplier", Supplier.class).list();
+		return list;
+		}
+	}
+
+	@Override
+	public List<ProductsSupplier> allProductsSupplier() {
+		List<ProductsSupplier> list = new ArrayList<ProductsSupplier>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = session.createQuery("from ProductsSupplier", ProductsSupplier.class).list();
+		return list;
+		}
+	}
 	
 }
