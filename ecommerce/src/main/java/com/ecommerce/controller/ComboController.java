@@ -11,15 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.ecommerce.entity.Combo;
 import com.ecommerce.entity.ComboProducts;
-import com.ecommerce.entity.ProductsCategory;
 import com.ecommerce.service.IAllListService;
 import com.ecommerce.service.IByIdService;
 import com.ecommerce.service.IGenericService;

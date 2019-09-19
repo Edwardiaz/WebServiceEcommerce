@@ -203,6 +203,43 @@ public class ImagesController {
         }
 	}
 	
+	//metodo para cargar muchas imagenes un producto existente
+	@RequestMapping(value = "/producto/imagenes/{id}", method = RequestMethod.POST, headers = ("content-type=multipart/*"), produces = {MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> uploadManyFileToPro(@RequestPart("files") List<MultipartFile> files, @PathVariable("id")Long id, HttpServletRequest servletRequest) {
+		HttpHeaders headers = new HttpHeaders();
+		ProductsImage img = new ProductsImage(), proima = new ProductsImage();//you should add img to the loop... later
+		
+        List<String> fileNames = new ArrayList<String>();
+        
+        if (null != files && files.size() > 0) {
+        	
+            for (MultipartFile multipartFile : files) {
+            	
+                String fileName = multipartFile.getOriginalFilename();
+                fileNames.add(fileName);
+                File imageFile = new File(servletRequest.getServletContext().getRealPath("/"), fileName);
+                
+                try {
+                	System.out.println("RUTA DE GUARDADO::::>"+imageFile);
+                	img.setImageName(fileName);
+                	img.setIdProduct(id);
+                	genS.saveObject(img);
+                	
+                    multipartFile.transferTo(imageFile);
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+            
+		headers.add("Number of files Uploaded successfully: ", String.valueOf(files.size()));
+		return new ResponseEntity<>("Files saved succesfully to the selected product...", headers, HttpStatus.OK);
+        }else {
+        	headers.add("No files were detected: ", "Please select at least one file");
+    		return new ResponseEntity<>("No files were detected, please select at least one file and the product you want...", headers, HttpStatus.OK);
+        }
+	}
+	
 	@ResponseStatus(code = HttpStatus.FOUND)
 	@RequestMapping(value = "/imagen", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
