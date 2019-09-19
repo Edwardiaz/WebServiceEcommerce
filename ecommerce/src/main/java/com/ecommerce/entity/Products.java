@@ -64,7 +64,7 @@ public class Products implements Serializable {
 	@Column(name = "weight")
 	private float weight;
 	@Column(name = "idOrders", nullable = true)
-	private Integer idOrders;
+	private Long idOrders;
     
     @OneToMany(mappedBy = "products", fetch = FetchType.EAGER)
     private Set<ProductsCategory> productsCategorySet;
@@ -75,6 +75,18 @@ public class Products implements Serializable {
 	@JoinColumn(name = "idOrders",/* referencedColumnName = "idOrders",*/ insertable = false, updatable = false)
 	@ManyToOne
 	private Orders orders;
+	
+	@OneToMany(mappedBy = "products", fetch = FetchType.EAGER)
+	private Set<ConfigPromotions> listConfigPromotions;
+	
+	@OneToMany(mappedBy = "products", fetch = FetchType.EAGER)
+	private Set<ComboProducts> listComboProducts;
+	
+//	@OneToMany(mappedBy = "products", fetch = FetchType.EAGER) // Errors w/ list
+//	private Set<ProductsConfigProducts> listProductsConfigProducts;
+//
+//	@OneToMany(mappedBy = "products", fetch = FetchType.EAGER) // Errors w/ list
+//	private Set<ProductsSupplier> listProductsSupplier;
     
 	public Products() {
 	}

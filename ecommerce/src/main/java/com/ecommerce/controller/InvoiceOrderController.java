@@ -249,6 +249,7 @@ public class InvoiceOrderController {
 	@ResponseBody
 	public ResponseEntity<?> saveOrders(@RequestBody Orders obj) {
 		if (obj.getIdOrders() == null || obj.getIdOrders() == 0) {
+			obj.setPurchaseDate(new Date());
 			return new ResponseEntity<>(genS.saveObject(obj), HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

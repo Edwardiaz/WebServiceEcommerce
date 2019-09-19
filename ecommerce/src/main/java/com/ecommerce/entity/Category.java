@@ -42,6 +42,10 @@ public class Category implements Serializable{
 	@OneToMany(mappedBy = "idCatPadre", fetch = FetchType.EAGER)
 	private Set<Category> categoriaSet;
 	/*Termina relacion especial*/
+	
+	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+	private Set<ConfigPromotions> listConfigPromotions;
+	
 	public Category(){
 	}
 	

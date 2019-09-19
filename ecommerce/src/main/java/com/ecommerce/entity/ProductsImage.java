@@ -34,6 +34,10 @@ public class ProductsImage implements Serializable {
 	@ManyToOne
 	private Products idProd;
 	
+	@JoinColumn(name = "idCombo", insertable = false, updatable = false)
+	@ManyToOne
+	private Combo combo;
+	
 	public ProductsImage(Long idImageProduct, Integer imageCode, String imageName, Integer idCombo,
 			Long idProduct) {
 		super();
