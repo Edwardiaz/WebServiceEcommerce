@@ -103,8 +103,8 @@ public class ServiceById implements IByIdService {
 	}
 
 	@Override
-	public ComboProducts getComboProducts(Long id) {
-		return byIdDao.getComboProducts(id);
+	public ComboProducts getComboProductsById(Long id) {
+		return byIdDao.getComboProductsById(id);
 	}
 	
 }

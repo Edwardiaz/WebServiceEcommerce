@@ -131,9 +131,10 @@ public class DaoByIdImpl implements IByIdDao {
 	}
 
 	@Override
-	public ComboProducts getComboProducts(Long id) {
+	public ComboProducts getComboProductsById(Long id) {
 		try(Session session = HibernateUtil.getSessionFactory().openSession()){
 		return session.get(ComboProducts.class, id);
 		}
 	}
+
 }

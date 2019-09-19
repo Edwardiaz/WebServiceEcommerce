@@ -24,6 +24,6 @@ public interface IByIdService {
 	public OrderStatus getOrderStatusById(Long id);                     // RETRIEVE SINGLE OrdersDetail
 	
 	public Combo getComboById(Long id);					//Retrieve single combo
-	public ComboProducts getComboProducts(Long id); 	//Retrieve single comboProduct
+	public ComboProducts getComboProductsById(Long id); 	//Retrieve single comboProduct
 	
 }
