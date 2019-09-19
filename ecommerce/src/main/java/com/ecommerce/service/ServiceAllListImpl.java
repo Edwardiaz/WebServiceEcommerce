@@ -11,6 +11,8 @@ import com.ecommerce.entity.BillingAddress;
 import com.ecommerce.entity.CategoryClient;
 import com.ecommerce.entity.Client;
 import com.ecommerce.entity.ClientCategoryClient;
+import com.ecommerce.entity.Combo;
+import com.ecommerce.entity.ComboProducts;
 import com.ecommerce.entity.Country;
 import com.ecommerce.entity.State;
 import com.ecommerce.entity.Email;
@@ -112,6 +114,16 @@ public class ServiceAllListImpl implements IAllListService {
 	@Override
 	public List<CategoryClient> allCategoryClient() {
 		return allList.allCategoryClient();
+	}
+
+	@Override
+	public List<Combo> allCombo() {
+		return allList.allCombo();
+	}
+
+	@Override
+	public List<ComboProducts> allComboProducts() {
+		return allList.allComboProducts();
 	}
 
 }

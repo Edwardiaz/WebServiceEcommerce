@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ecommerce.entity.ProductsImage;
-
 //import java.util.List;
 
 public interface IGenericService {

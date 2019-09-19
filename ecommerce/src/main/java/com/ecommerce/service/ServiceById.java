@@ -96,5 +96,15 @@ public class ServiceById implements IByIdService {
 	public CategoryClient getCategoryClientById(Long id) {
 		return byIdDao.getCategoryClientById(id);
 	}
+
+	@Override
+	public Combo getComboById(Long id) {
+		return byIdDao.getComboById(id);
+	}
+
+	@Override
+	public ComboProducts getComboProducts(Long id) {
+		return byIdDao.getComboProducts(id);
+	}
 	
 }

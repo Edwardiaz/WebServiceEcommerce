@@ -25,4 +25,7 @@ public interface IAllListService {
 	public List<OrdersDetail> allOrdersDetail();                  // OrdersDetail  General List
 	public List<OrderStatus> allOrderStatus();                    // OrderStatus  General List
 	
+	public List<Combo> allCombo();						// Combo general List
+	public List<ComboProducts> allComboProducts();		//ComboProducts general List
+	
 }

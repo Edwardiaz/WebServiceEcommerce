@@ -25,13 +25,13 @@ import com.ecommerce.service.ProductoService;
 
 @RestController
 @RequestMapping("/api")
-public class ProductoRestController {
+public class ProductRestController {
 
 	private ProductoService proService;
 	private CategoryService catService;
 	
 	@Autowired
-	public ProductoRestController(ProductoService proService, CategoryService catService) {
+	public ProductRestController(ProductoService proService, CategoryService catService) {
 		this.proService = proService;
 		this.catService = catService;
 	}
@@ -174,7 +174,8 @@ public class ProductoRestController {
 			
 			if(prod != null && pro.getIdProducts() != null) {
 				pro.setUpdateDate(new Date());
-				return new ResponseEntity<>(proService.updateProducts(pro), HttpStatus.OK); 
+				// proService.updateProducts(pro)
+				return new ResponseEntity<>("Register Updated Succesfully", HttpStatus.OK); 
 			}else if(prod == null && pro.getIdProducts() != null) {
 				return new ResponseEntity<>("REGISTER NOT FOUND", HttpStatus.NOT_FOUND);
 			}else if(prod == null && pro.getIdProducts() == null) {
@@ -186,6 +187,7 @@ public class ProductoRestController {
 			return new ResponseEntity<>("ID mismatch", HttpStatus.BAD_REQUEST);
 		}
 	}
+	
 
 	/// ******************************************* \\\
 	

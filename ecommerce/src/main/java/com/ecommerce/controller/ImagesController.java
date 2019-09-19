@@ -159,15 +159,15 @@ public class ImagesController {
 	public ResponseEntity<?> uploadManyFiles(@RequestPart("files") List<MultipartFile> files/*, @RequestPart("data") Products pro*/,  HttpServletRequest servletRequest){
 		HttpHeaders headers = new HttpHeaders();
 		ProductsImage img = new ProductsImage(), proima = new ProductsImage();
-		Products pro = new Products();//you should have instatiate this obj into the for loop
-//		
+		Products pro = new Products();//you should have instantiate this obj into the for loop
+		
 //		files.forEach(file -> img.setImageName(file.getOriginalFilename()));
 //		files.forEach(file -> genS.saveObject(img));
 //		
 //		files.addAll(file);
 //		List<ProductsImage> imaList = new ArrayList<ProductsImage>();
 //		imaList.forEach( imagen -> Arrays.asList(imagen));
-////		
+		
         List<String> fileNames = new ArrayList<String>();
         if (null != files && files.size() > 0) {
             for (MultipartFile multipartFile : files) {
