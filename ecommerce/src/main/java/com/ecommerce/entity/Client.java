@@ -57,6 +57,7 @@ public class Client implements Serializable {
 	private Date registrationDate;
 	
 	@Column(name = "updateDate")
+	@Temporal(TemporalType.DATE)
 	private Date updateDate;
 	
 	@Column(name= "idUsers")
