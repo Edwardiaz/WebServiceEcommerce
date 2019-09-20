@@ -173,7 +173,9 @@ public class DaoAllListImpl implements IAllListDao {
 		try(Session session = HibernateUtil.getSessionFactory().openSession()){
 			comboProList = session.createQuery("from ComboProducts", ComboProducts.class).list();
 		}
-		return null;
+		return comboProList;
+	}
+	
 	//**********************************************************************************
 
 	@Override

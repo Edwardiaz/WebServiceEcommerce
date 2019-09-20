@@ -129,10 +129,12 @@ public class DaoByIdImpl implements IByIdDao {
 	public Combo getComboById(Long id) {
 		try(Session session = HibernateUtil.getSessionFactory().openSession()){
 		return session.get(Combo.class, id);
+		}
+	}
 //=======
 	public Status getStatusById(Long id) {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			return session.get(Status.class, new Long(id));
+			return session.get(Status.class, id);
 //>>>>>>> Feature_Roger
 		}
 	}

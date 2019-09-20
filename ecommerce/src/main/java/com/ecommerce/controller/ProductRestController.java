@@ -55,7 +55,7 @@ public class ProductRestController {
 	}
 	
 	//metodo insertar con categoria
-	@RequestMapping(value = "/producto/category/{id}", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/producto/categoria/{id}", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> saveProductsCate(@RequestBody Products pro, @PathVariable("id")Long id) {
 		System.out.println("ENTRO AL METODO saveProductsCate");

@@ -149,7 +149,7 @@ public class ImagesController {
 			return new ResponseEntity<>("Error: Empty file or url not found", HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+//********************************************************************	
 	//metodo crear producto, imagenes(muchass) y categoria
 	@RequestMapping(value = "/producto/categoria/{id}/imagenes", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
@@ -224,6 +224,7 @@ public class ImagesController {
                 try {
                 	System.out.println("RUTA DE GUARDADO::::>"+imageFile);
                 	img.setImageName(fileName);
+                	img.setImageCode(3);
                 	img.setIdProduct(id);
                 	genS.saveObject(img);
                 	
@@ -240,7 +241,7 @@ public class ImagesController {
     		return new ResponseEntity<>("No files were detected, please select at least one file and the product you want...", headers, HttpStatus.OK);
         }
 	}
-	
+//************************************************************
 	@ResponseStatus(code = HttpStatus.FOUND)
 	@RequestMapping(value = "/imagen", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody

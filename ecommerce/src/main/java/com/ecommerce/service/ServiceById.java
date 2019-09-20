@@ -106,6 +106,7 @@ public class ServiceById implements IByIdService {
 	@Override
 	public ComboProducts getComboProductsById(Long id) {
 		return byIdDao.getComboProductsById(id);
+	}
 //=======
 	//****************************************************************
 
