@@ -18,14 +18,24 @@ public interface IAllListService {
 	public List<Client> allClient();                              // Client  General List
 	public List<CategoryClient> allCategoryClient();              // ClientCategoryClient  General List
 	public List<ClientCategoryClient> allClientCategoryClient();  // ClientCategoryClient  General List
-	
 	public List<Invoice> allInvoice();                            // Invoice  General List
 	public List<InvoiceDetail> allInvoiceDetail();                // InvoiceDetail  General List
 	public List<Orders> allOrders();                              // Orders  General List
 	public List<OrdersDetail> allOrdersDetail();                  // OrdersDetail  General List
 	public List<OrderStatus> allOrderStatus();                    // OrderStatus  General List
 	
+//<<<<<<< HEAD
 	public List<Combo> allCombo();						// Combo general List
 	public List<ComboProducts> allComboProducts();		//ComboProducts general List
 	
+//=======
+	public List<Status> allStatus();                                  // Status  General List
+	public List<Promotions> allPromotions();                          // Promotions  General List
+	public List<TypeAttribute> allTypeAttribute();                    // TypeAttribute  General List
+	public List<ConfigProducts> allConfigProducts();                  // ConfigProducts  General List
+	public List<ConfigPromotions> allConfigPromotions();              // ConfigPromotions  General List
+	public List<ProductsConfigProducts> allProductsConfigProducts();  // Status  General List
+	public List<Supplier> allSupplier();                              // Supplier  General List
+	public List<ProductsSupplier> allProductsSupplier();              // ProductsSupplier  General List
+//>>>>>>> Feature_Roger
 }

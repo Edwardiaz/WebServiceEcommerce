@@ -37,8 +37,8 @@ public class ConfigProducts implements Serializable {
 	@Column(name = "idTypeAttribute")
 	private Long idTypeAttribute;
 	
-//	@OneToMany(mappedBy = "configProducts", fetch = FetchType.EAGER) // Errors w/ list
-//	private Set<ProductsConfigProducts> listProductsConfigProducts;
+	@OneToMany(mappedBy = "configProducts", fetch = FetchType.EAGER)
+	private Set<ProductsConfigProducts> listProductsConfigProducts;
 	
 	@JoinColumn(name = "idTypeAttribute", referencedColumnName = "idTypeAttribute", insertable = false, updatable = false)
 	@ManyToOne
