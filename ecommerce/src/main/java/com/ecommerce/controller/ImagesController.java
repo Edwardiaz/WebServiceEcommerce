@@ -150,7 +150,7 @@ public class ImagesController {
 		}
 	}
 	
-	//metodo crear productos, imagenes(muchass) y categoria
+	//metodo crear producto, imagenes(muchass) y categoria
 	@RequestMapping(value = "/producto/categoria/{id}/imagenes", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
 	public ResponseEntity<?> uploadManyFiles(@RequestPart("files") List<MultipartFile> files, @RequestPart("data") Products pro, @PathVariable("id")Long id, HttpServletRequest servletRequest){
@@ -186,6 +186,7 @@ public class ImagesController {
                 try {
                 	System.out.println("RUTA DE GUARDADO::::>"+imageFile);
                 	img.setImageName(fileName);
+                	img.setImageCode(2);
                 	img.setIdProduct(pro.getIdProducts());
                 	genS.saveObject(img);
                 	
@@ -203,7 +204,7 @@ public class ImagesController {
         }
 	}
 	
-	//metodo para cargar muchas imagenes un producto existente
+	//METODO PARA CARGAR MUCHAS MUCHAS IMAGENES A UN PRODUCTO EXISTENTE
 	@RequestMapping(value = "/producto/imagenes/{id}", method = RequestMethod.POST, headers = ("content-type=multipart/*"), produces = {MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> uploadManyFileToPro(@RequestPart("files") List<MultipartFile> files, @PathVariable("id")Long id, HttpServletRequest servletRequest) {
@@ -232,7 +233,7 @@ public class ImagesController {
                 }
             }
             
-		headers.add("Number of files Uploaded successfully: ", String.valueOf(files.size()));
+		headers.add("Number of files Uploaded successfully ", String.valueOf(files.size()));
 		return new ResponseEntity<>("Files saved succesfully to the selected product...", headers, HttpStatus.OK);
         }else {
         	headers.add("No files were detected: ", "Please select at least one file");

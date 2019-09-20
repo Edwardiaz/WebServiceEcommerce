@@ -36,13 +36,17 @@ public class ComboController {
 		this.genS = genS;
 	}
 
-	@RequestMapping(value = "/producto/combo", method = RequestMethod.POST, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/producto/combo/{id}", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public ResponseEntity<?> saveCombo(@RequestBody Combo combo) {
+	public ResponseEntity<?> saveCombo(@RequestBody Combo combo, @PathVariable("id") Long id) {
 		if (combo.getIdCombo() == null || combo.getIdCombo() == 0) {
+			ComboProducts comboPro = new ComboProducts();
 			combo.setDate(new Date());
-			genS.saveObject(combo);
+			Combo com = (Combo)genS.saveObject(combo);
+			comboPro.setIdProducts(id);
+			comboPro.setIdCombo(com.getIdCombo());
+			comboPro.setDate(new Date());
+			genS.saveObject(comboPro);
 			return new ResponseEntity<>("Successfully Created", HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<>("An error has ocurred: Make sure all the parameters are valid",
