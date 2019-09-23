@@ -36,6 +36,7 @@ public class ComboController {
 		this.genS = genS;
 	}
 
+	//crear combo con un producto asignado
 	@RequestMapping(value = "/producto/combo/{id}", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> saveCombo(@RequestBody Combo combo, @PathVariable("id") Long id) {
@@ -54,6 +55,7 @@ public class ComboController {
 		}
 	}
 
+	//consultar combo
 	@ResponseStatus(code = HttpStatus.FOUND)
 	@RequestMapping(value = "/producto/combo", method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
@@ -80,6 +82,7 @@ public class ComboController {
 	@ResponseBody
 	public ResponseEntity<?> deleteCombo(@PathVariable("id") Long id) {
 		Combo combo = new Combo();
+		combo.setIdCombo(id);
 		String delMsg = genS.deleteObject(combo);
 
 		if (delMsg.equalsIgnoreCase("ok")) {
@@ -138,7 +141,7 @@ public class ComboController {
 			ComboProducts proCombo = findById.getComboProductsById(id);
 			
 			if(proCombo != null) {
-				return new ResponseEntity<>("Register Found", HttpStatus.FOUND);
+				return new ResponseEntity<>(proCombo, HttpStatus.FOUND);
 			}else{
 		        return new ResponseEntity<>("Register Not Found", HttpStatus.NOT_FOUND);
 		    }

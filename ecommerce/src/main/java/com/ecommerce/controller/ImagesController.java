@@ -270,8 +270,6 @@ public class ImagesController {
 			ima.setImageName(ima.getImageName());
 			ProductsImage p = (ProductsImage) genS.updateObject(image); // Once Updated object
 			
-			
-			
 			if (p != null && image.getIdImageProduct() != null) {
 				return new ResponseEntity<>(image, HttpStatus.OK); // return statement successful
 			} else if (p == null && image.getIdImageProduct() != null) {
