@@ -96,6 +96,7 @@ public class ServiceById implements IByIdService {
 	public CategoryClient getCategoryClientById(Long id) {
 		return byIdDao.getCategoryClientById(id);
 	}
+//<<<<<<< HEAD
 
 	@Override
 	public Combo getComboById(Long id) {
@@ -103,8 +104,51 @@ public class ServiceById implements IByIdService {
 	}
 
 	@Override
-	public ComboProducts getComboProducts(Long id) {
-		return byIdDao.getComboProducts(id);
+	public ComboProducts getComboProductsById(Long id) {
+		return byIdDao.getComboProductsById(id);
+	}
+//=======
+	//****************************************************************
+
+	@Override
+	public Status getStatusById(Long id) {
+		return byIdDao.getStatusById(id);
+	}
+
+	@Override
+	public Promotions getPromotionsById(Long id) {
+		return byIdDao.getPromotionsById(id);
+	}
+
+	@Override
+	public TypeAttribute getTypeAttributeById(Long id) {
+		return byIdDao.getTypeAttributeById(id);
+	}
+
+	@Override
+	public ConfigProducts getConfigProductsById(Long id) {
+		return byIdDao.getConfigProductsById(id);
+	}
+
+	@Override
+	public ConfigPromotions getConfigPromotionsById(Long id) {
+		return byIdDao.getConfigPromotionsById(id);
+	}
+
+	@Override
+	public ProductsConfigProducts getProductsConfigProductsById(Long id) {
+		return byIdDao.getProductsConfigProductsById(id);
+	}
+
+	@Override
+	public Supplier getSupplierById(Long id) {
+		return byIdDao.getSupplierById(id);
+	}
+
+	@Override
+	public ProductsSupplier getProductsSupplierById(Long id) {
+		return byIdDao.getProductsSupplierById(id);
+//>>>>>>> Feature_Roger
 	}
 	
 }

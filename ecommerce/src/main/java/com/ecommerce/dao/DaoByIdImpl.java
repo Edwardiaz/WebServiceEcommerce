@@ -122,18 +122,79 @@ public class DaoByIdImpl implements IByIdDao {
 			return session.get(CategoryClient.class, new Long(id));
 		}
 	}
+//********************************************************************
 
 	@Override
+// <<<<<<< HEAD
 	public Combo getComboById(Long id) {
 		try(Session session = HibernateUtil.getSessionFactory().openSession()){
 		return session.get(Combo.class, id);
 		}
 	}
+//=======
+	public Status getStatusById(Long id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(Status.class, id);
+//>>>>>>> Feature_Roger
+		}
+	}
 
 	@Override
-	public ComboProducts getComboProducts(Long id) {
+//<<<<<<< HEAD
+	public ComboProducts getComboProductsById(Long id) {
 		try(Session session = HibernateUtil.getSessionFactory().openSession()){
 		return session.get(ComboProducts.class, id);
 		}
 	}
+
+//=======
+	public Promotions getPromotionsById(Long id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(Promotions.class, new Long(id));
+		}
+	}
+
+	@Override
+	public TypeAttribute getTypeAttributeById(Long id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(TypeAttribute.class, new Long(id));
+		}
+	}
+
+	@Override
+	public ConfigProducts getConfigProductsById(Long id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(ConfigProducts.class, new Long(id));
+		}
+	}
+
+	@Override
+	public ConfigPromotions getConfigPromotionsById(Long id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(ConfigPromotions.class, new Long(id));
+		}
+	}
+
+	@Override
+	public ProductsConfigProducts getProductsConfigProductsById(Long id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(ProductsConfigProducts.class, new Long(id));
+		}
+	}
+
+	@Override
+	public Supplier getSupplierById(Long id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(Supplier.class, new Long(id));
+		}
+	}
+
+	@Override
+	public ProductsSupplier getProductsSupplierById(Long id) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(ProductsSupplier.class, new Long(id));
+		}
+	}
+	
+//>>>>>>> Feature_Roger
 }

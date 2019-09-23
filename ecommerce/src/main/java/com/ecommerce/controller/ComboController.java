@@ -11,13 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.ecommerce.entity.Combo;
+import com.ecommerce.entity.ComboProducts;
 import com.ecommerce.service.IAllListService;
 import com.ecommerce.service.IByIdService;
 import com.ecommerce.service.IGenericService;
@@ -37,13 +36,17 @@ public class ComboController {
 		this.genS = genS;
 	}
 
-	@RequestMapping(value = "/producto/combo", method = RequestMethod.POST, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/producto/combo/{id}", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public ResponseEntity<?> saveCombo(@RequestBody Combo combo) {
+	public ResponseEntity<?> saveCombo(@RequestBody Combo combo, @PathVariable("id") Long id) {
 		if (combo.getIdCombo() == null || combo.getIdCombo() == 0) {
+			ComboProducts comboPro = new ComboProducts();
 			combo.setDate(new Date());
-			genS.saveObject(combo);
+			Combo com = (Combo)genS.saveObject(combo);
+			comboPro.setIdProducts(id);
+			comboPro.setIdCombo(com.getIdCombo());
+			comboPro.setDate(new Date());
+			genS.saveObject(comboPro);
 			return new ResponseEntity<>("Successfully Created", HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<>("An error has ocurred: Make sure all the parameters are valid",
@@ -89,8 +92,7 @@ public class ComboController {
 		}
 	}
 
-	@RequestMapping(value = "/producto/combo/{id}", method = RequestMethod.PUT, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/producto/combo/{id}", method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateCombo(@PathVariable("id") Long id, @RequestBody Combo combo) {
 		if (combo.getIdCombo() == id) {
@@ -117,48 +119,31 @@ public class ComboController {
 			return new ResponseEntity<>("ID mismatch", HttpStatus.BAD_REQUEST);
 		}
 	}
+	// ******************************************************************************************************************* \\ 
+	
+	// metodo consultar
+		@ResponseStatus(code = HttpStatus.FOUND)
+		@RequestMapping(value = "/producto/procombo", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+		@ResponseBody
+		public List<ComboProducts> getProCombo() {
+			List<ComboProducts> list = findAll.allComboProducts();
+			return list;
+		}
 
-	/*
-	 * 
-	 * return new ResponseEntity<>(null, HttpStatus.NOT_FOUND); } else if (p == null
-	 * && page.getIdPage() == null) { return new ResponseEntity<>(null,
-	 * HttpStatus.BAD_REQUEST); } else { return new ResponseEntity<>(null,
-	 * HttpStatus.BAD_REQUEST); }
-	 * 
-	 * } else {
-	 * 
-	 * return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); } }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * @RequestMapping(value = "/page/{id}", method = RequestMethod.PUT, produces =
-	 * { MediaType.APPLICATION_JSON_VALUE })
-	 * 
-	 * @ResponseBody public ResponseEntity<?> updateUsers(@PathVariable("id") Long
-	 * id, @RequestBody Page page) { if (page.getIdPage() == id) { Page d =
-	 * pageS.pagebyId(id); if(d != null) { //Validate if such field exists
-	 * page.setDateCreate(d.getDateCreate()); }else { page.setDateCreate(null); }
-	 * //End and continue as normal page.setDateUpdate(new Date()); Page p = (Page)
-	 * genS.updateObject(page); if (p != null && page.getIdPage() != null) { return
-	 * new ResponseEntity<>(page, HttpStatus.OK); } else if (p == null &&
-	 * page.getIdPage() != null) { return new ResponseEntity<>(null,
-	 * HttpStatus.NOT_FOUND); } else if (p == null && page.getIdPage() == null) {
-	 * return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); } else { return
-	 * new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); }
-	 * 
-	 * } else {
-	 * 
-	 * return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); } }
-	 * 
-	 */
-	@RequestMapping("/")
-	public String vista(@RequestParam("hola") String hola, ModelAndView md) {
-		ModelAndView m = new ModelAndView();
-		String hola2 = "Juan";
-		m.addObject("Hola Juan", hola2);
-		
-		return "index";
-	}
+		// metodo find by id
+		@RequestMapping(value = "/producto/procombo/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+		@ResponseBody
+		public ResponseEntity<?> getProComboById(@PathVariable("id") Long id) { 
+			
+			ComboProducts proCombo = findById.getComboProductsById(id);
+			
+			if(proCombo != null) {
+				return new ResponseEntity<>("Register Found", HttpStatus.FOUND);
+			}else{
+		        return new ResponseEntity<>("Register Not Found", HttpStatus.NOT_FOUND);
+		    }
+		}
+	
+	// ******************************************************************************************************************* \\ 
 
 }

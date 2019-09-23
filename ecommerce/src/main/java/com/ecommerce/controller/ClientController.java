@@ -167,7 +167,7 @@ public class ClientController {
 	public ResponseEntity<?> saveClient(@RequestBody Client obj) {
 		if (obj.getIdClient() == null || obj.getIdClient() == 0) {
 			obj.setRegistrationDate(new Date()); // Setting date from the system
-			obj.setUpdateDate(null); // Since Page is new, updateDate is null
+			obj.setUpdateDate(null); // Since it is new, updateDate is null
 			return new ResponseEntity<>(genS.saveObject(obj), HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
