@@ -96,6 +96,18 @@ public class ServiceById implements IByIdService {
 	public CategoryClient getCategoryClientById(Long id) {
 		return byIdDao.getCategoryClientById(id);
 	}
+//<<<<<<< HEAD
+
+	@Override
+	public Combo getComboById(Long id) {
+		return byIdDao.getComboById(id);
+	}
+
+	@Override
+	public ComboProducts getComboProductsById(Long id) {
+		return byIdDao.getComboProductsById(id);
+	}
+//=======
 	//****************************************************************
 
 	@Override
@@ -136,6 +148,7 @@ public class ServiceById implements IByIdService {
 	@Override
 	public ProductsSupplier getProductsSupplierById(Long id) {
 		return byIdDao.getProductsSupplierById(id);
+//>>>>>>> Feature_Roger
 	}
 	
 }

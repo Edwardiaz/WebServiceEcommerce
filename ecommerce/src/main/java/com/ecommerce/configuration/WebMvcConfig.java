@@ -29,7 +29,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
         resolver.setDefaultEncoding("utf-8");
         return resolver;
     }
-    
-
  
 }

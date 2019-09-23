@@ -11,8 +11,13 @@ import com.ecommerce.entity.BillingAddress;
 import com.ecommerce.entity.CategoryClient;
 import com.ecommerce.entity.Client;
 import com.ecommerce.entity.ClientCategoryClient;
+//<<<<<<< HEAD
+import com.ecommerce.entity.Combo;
+import com.ecommerce.entity.ComboProducts;
+//=======
 import com.ecommerce.entity.ConfigProducts;
 import com.ecommerce.entity.ConfigPromotions;
+//>>>>>>> Feature_Roger
 import com.ecommerce.entity.Country;
 import com.ecommerce.entity.State;
 import com.ecommerce.entity.Status;
@@ -124,6 +129,17 @@ public class ServiceAllListImpl implements IAllListService {
 //**********************************************************************
 
 	@Override
+//<<<<<<< HEAD
+	public List<Combo> allCombo() {
+		return allList.allCombo();
+	}
+
+	@Override
+	public List<ComboProducts> allComboProducts() {
+		return allList.allComboProducts();
+	}
+
+//=======
 	public List<Status> allStatus() {
 		return allList.allStatus();
 	}
@@ -163,4 +179,5 @@ public class ServiceAllListImpl implements IAllListService {
 		return allList.allProductsSupplier();
 	}
 	
+//>>>>>>> Feature_Roger
 }

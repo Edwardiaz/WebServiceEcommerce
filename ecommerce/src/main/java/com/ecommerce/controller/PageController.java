@@ -37,7 +37,7 @@ public class PageController {
 	@ResponseStatus(code = HttpStatus.FOUND)
 	@RequestMapping(value = "/page", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public List<Page> findAllProCat() {
+	public List<Page> findAllPage() {
 		List<Page> list = pageS.listPage();
 		return list;
 	}
@@ -112,9 +112,6 @@ public class PageController {
 		} else {
 
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-
 		}
-
 	}
-
 }

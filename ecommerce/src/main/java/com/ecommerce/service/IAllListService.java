@@ -24,6 +24,11 @@ public interface IAllListService {
 	public List<OrdersDetail> allOrdersDetail();                  // OrdersDetail  General List
 	public List<OrderStatus> allOrderStatus();                    // OrderStatus  General List
 	
+//<<<<<<< HEAD
+	public List<Combo> allCombo();						// Combo general List
+	public List<ComboProducts> allComboProducts();		//ComboProducts general List
+	
+//=======
 	public List<Status> allStatus();                                  // Status  General List
 	public List<Promotions> allPromotions();                          // Promotions  General List
 	public List<TypeAttribute> allTypeAttribute();                    // TypeAttribute  General List
@@ -32,4 +37,5 @@ public interface IAllListService {
 	public List<ProductsConfigProducts> allProductsConfigProducts();  // Status  General List
 	public List<Supplier> allSupplier();                              // Supplier  General List
 	public List<ProductsSupplier> allProductsSupplier();              // ProductsSupplier  General List
+//>>>>>>> Feature_Roger
 }

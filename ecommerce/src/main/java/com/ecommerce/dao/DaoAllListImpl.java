@@ -156,6 +156,26 @@ public class DaoAllListImpl implements IAllListDao {
 		return list;
 		}
 	}
+
+
+	@Override
+	public List<Combo> allCombo() {
+		List<Combo> comboList = new ArrayList<Combo>();
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+			comboList = session.createQuery("from Combo", Combo.class).list();
+		}
+		return comboList;
+	}
+
+	@Override
+	public List<ComboProducts> allComboProducts() {
+		List<ComboProducts> comboProList = new ArrayList<ComboProducts>();
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+			comboProList = session.createQuery("from ComboProducts", ComboProducts.class).list();
+		}
+		return comboProList;
+	}
+	
 	//**********************************************************************************
 
 	@Override
@@ -228,6 +248,7 @@ public class DaoAllListImpl implements IAllListDao {
 			list = session.createQuery("from ProductsSupplier", ProductsSupplier.class).list();
 		return list;
 		}
+
 	}
 	
 }

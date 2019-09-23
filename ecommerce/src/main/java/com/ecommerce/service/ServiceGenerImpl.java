@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ecommerce.dao.IGenericDao;
-import com.ecommerce.entity.ProductsImage;
 
 @Service
 public class ServiceGenerImpl implements IGenericService{
