@@ -291,7 +291,7 @@ public class ImagesController {
 	public ResponseEntity<?> deleteImage(@PathVariable("id") Long id) {
 		ProductsImage ima = retrieveService.findByIdImage(id);
 		String originalFilename = (ima.getImageName());
-		String msj = genS.deleteObject(ima);
+		boolean boo = genS.deleteObject(ima);
 		System.out.println("FILE NAME:::::> "+originalFilename);
 		File destinationFile = new File(
 				"C:/Users/Jorge.Diaz/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"
@@ -301,15 +301,10 @@ public class ImagesController {
 		} else {
 			System.out.println("Error deleting file, register is deleted anyways...");
 		}
-		if (msj.equalsIgnoreCase("ok")) {
-			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		if (boo) {
+			return new ResponseEntity<>("Register deleted", HttpStatus.OK);
 		} else {
-			System.out.println("RETURN NULL");
-			return null;
+			return new ResponseEntity<>("Error deleting register", HttpStatus.NO_CONTENT);
 		}
 	}
 

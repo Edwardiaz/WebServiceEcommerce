@@ -103,15 +103,12 @@ public class UserController {
 		Users obj = new Users();
 		obj.setIdUsers(idobj);
 
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
+		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		} else {
-			return null;
+			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -198,15 +195,12 @@ public class UserController {
 		UsersRole obj = new UsersRole();
 		obj.setIdUseRole(idobj);
 		
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
+		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		} else {
-			return null;
+			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		}
 	}
 

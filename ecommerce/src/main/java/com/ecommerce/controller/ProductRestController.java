@@ -138,15 +138,12 @@ public class ProductRestController {
 	@RequestMapping(value = "/producto/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteProducts(@PathVariable("id") Long id) {
-		String pro = proService.deletePro(id);
+		boolean pro = proService.deletePro(id);
 		
-		if (pro.equalsIgnoreCase("ok")) {
-			return new ResponseEntity<>(pro, HttpStatus.OK);
-		} if(pro.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(pro, HttpStatus.NO_CONTENT);
-		}
-		else {
-			return null;
+		if (pro) {
+			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Sorry, there was a problem deleting the file... try again", HttpStatus.NO_CONTENT);
 		}
 	}
 

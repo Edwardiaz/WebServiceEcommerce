@@ -70,16 +70,13 @@ public class ClientController {
 	public ResponseEntity<?> deleteBillingAddress(@PathVariable("id") Long id) {
 		BillingAddress obj = new BillingAddress();
 		obj.setIdBillingAddress(id);
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
+		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
+		} else {
 			System.out.println("Hibernate: Trying to delete non existent field");
 			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
-		} else {
-			return null;
 		}
 	}
 
@@ -149,15 +146,12 @@ public class ClientController {
 	public ResponseEntity<?> deleteClient(@PathVariable("id") Long id) {
 		Client obj = new Client();
 		obj.setIdClient(id);
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
+		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		} else {
-			return null;
+			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -235,15 +229,12 @@ public class ClientController {
 	public ResponseEntity<?> deleteCategoryClient(@PathVariable("id") Long id) {
 		CategoryClient obj = new CategoryClient();
 		obj.setIdCategoryClient(id);
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
+		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		} else {
-			return null;
+			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -314,15 +305,12 @@ public class ClientController {
 	public ResponseEntity<?> deleteClientCategoryClient(@PathVariable("id") Long id) {
 		ClientCategoryClient obj = new ClientCategoryClient();
 		obj.setIdClientCategoryClient(id);
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
+		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		} else {
-			return null;
+			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		}
 	}
 

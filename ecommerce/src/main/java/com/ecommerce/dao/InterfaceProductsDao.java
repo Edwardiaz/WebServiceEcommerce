@@ -14,7 +14,7 @@ public interface InterfaceProductsDao {
 
 	public List<Products> findAllProduct();
 
-	public String deleteProduct(Long id);
+	public boolean deleteProduct(Long id);
 
 	public Products saveProductsCate(Products pro);
 }

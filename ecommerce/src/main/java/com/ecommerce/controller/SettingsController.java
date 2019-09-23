@@ -64,15 +64,12 @@ public class SettingsController {
 	public ResponseEntity<?> deleteSettingsShop(@PathVariable("id") Long id) {
 		Settings obj = new Settings();
 		obj.setIdSettings(id);
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
+		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		} else {
-			return null;
+			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -139,15 +136,12 @@ public class SettingsController {
 	public ResponseEntity<?> deleteEmail(@PathVariable("id") Long id) {
 		Email obj = new Email();
 		obj.setIdEmail(id);
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
+		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		} else {
-			return null;
+			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -213,15 +207,12 @@ public class SettingsController {
 	public ResponseEntity<?> deleteState(@PathVariable("id") Long id) {
 		State obj = new State();
 		obj.setIdState(id);
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
+		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		} else {
-			return null;
+			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -287,15 +278,12 @@ public class SettingsController {
 	public ResponseEntity<?> deleteTimeZone(@PathVariable("id") Long id) {
 		TimeZone obj = new TimeZone();
 		obj.setIdTimeZone(id);
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
+		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		} else {
-			return null;
+			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -361,15 +349,12 @@ public class SettingsController {
 		public ResponseEntity<?> deleteTelephone(@PathVariable("id") Long id) {
 			Telephone obj = new Telephone();
 			obj.setIdTelephone(id);
-			String msj = genS.deleteObject(obj);
+			boolean msj = genS.deleteObject(obj);
 
-			if (msj.equalsIgnoreCase("ok")) {
+			if (msj) {
 				return new ResponseEntity<>(msj, HttpStatus.OK);
-			}
-			if (msj.equalsIgnoreCase("error")) {
-				return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 			} else {
-				return null;
+				return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 			}
 		}
 
@@ -436,15 +421,12 @@ public class SettingsController {
 		public ResponseEntity<?> deleteAddress(@PathVariable("id") Long id) {
 			Address obj = new Address();
 			obj.setIdAddress(id);
-			String msj = genS.deleteObject(obj);
+			boolean msj = genS.deleteObject(obj);
 
-			if (msj.equalsIgnoreCase("ok")) {
+			if (msj) {
 				return new ResponseEntity<>(msj, HttpStatus.OK);
-			}
-			if (msj.equalsIgnoreCase("error")) {
-				return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 			} else {
-				return null;
+				return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 			}
 		}
 
@@ -511,15 +493,12 @@ public class SettingsController {
 	public ResponseEntity<?> deleteCountry(@PathVariable("id") Long id) {
 		Country obj = new Country();
 		obj.setIdCountry(id);
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
+		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		} else {
-			return null;
+			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		}
 	}
 

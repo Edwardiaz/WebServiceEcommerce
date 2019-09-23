@@ -69,15 +69,12 @@ public class CategoryProCatRestController {
 	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteCategory(@PathVariable("id") Long id) {	
-		String pro = catService.deleteCategory(id);
+		boolean pro = catService.deleteCategory(id);
 		
-		if (pro.equalsIgnoreCase("ok")) {
-			return new ResponseEntity<>(pro, HttpStatus.OK);
-		} if(pro.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(pro, HttpStatus.NO_CONTENT);
-		}
-		else {
-			return null;
+		if (pro) {
+			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Sorry there was a problem deleting the file... try again", HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -143,15 +140,12 @@ public class CategoryProCatRestController {
 	@RequestMapping(value = "/procat/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteProCat(@PathVariable("id") Long id) {
-		String proCat = catService.deleteProductsCategory(id);
+		boolean proCat = catService.deleteProductsCategory(id);
 		
-		if (proCat.equalsIgnoreCase("ok")) {
-			return new ResponseEntity<>(proCat, HttpStatus.OK);
-		} if(proCat.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(proCat, HttpStatus.NO_CONTENT);
-		}
-		else {
-			return null;
+		if (proCat) {
+			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Sorry there was a problem deleting the file...", HttpStatus.NO_CONTENT);
 		}
 	}
 

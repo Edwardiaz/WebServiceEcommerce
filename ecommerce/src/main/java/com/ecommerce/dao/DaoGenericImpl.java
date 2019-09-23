@@ -67,17 +67,17 @@ public class DaoGenericImpl implements IGenericDao {
 	}
 
 	@Override
-	public String deleteObject(Object obj) {
+	public boolean deleteObject(Object obj) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.delete(obj);
 			transaction.commit();
-			return "ok";
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "error";
+		return false;
 	}
 
 	@Override

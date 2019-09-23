@@ -73,7 +73,7 @@ public class ProductsDaoImpl implements InterfaceProductsDao{
 	}
 
 	@Override
-	public String deleteProduct(Long id) {
+	public boolean deleteProduct(Long id) {
 		Transaction transaction = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Products pro = session.get(Products.class, id);
@@ -81,9 +81,9 @@ public class ProductsDaoImpl implements InterfaceProductsDao{
 		if(null != pro) {
 			session.delete(pro);
 			transaction.commit();
-			return "ok";
+			return true;
 		}else {
-		return "error";
+		return false;
 		}
 	}
 

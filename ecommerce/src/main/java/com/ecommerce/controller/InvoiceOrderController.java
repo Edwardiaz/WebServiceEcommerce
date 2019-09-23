@@ -70,15 +70,12 @@ public class InvoiceOrderController {
 	public ResponseEntity<?> deleteInvoice(@PathVariable("id") Long id) {
 		Invoice obj = new Invoice();
 		obj.setIdInvoice(id);
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
-			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		if (msj) {
+			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
 		} else {
-			return null;
+			return new ResponseEntity<>("Sorry, there was a problem deleting the file... try again!", HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -147,15 +144,12 @@ public class InvoiceOrderController {
 	public ResponseEntity<?> deleteInvoiceDetail(@PathVariable("id") Long id) {
 		InvoiceDetail obj = new InvoiceDetail();
 		obj.setIdInvoiceDetail(id);
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
-			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		if (msj) {
+			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
 		} else {
-			return null;
+			return new ResponseEntity<>("Sorry, there was a problem deleting the file... try again!", HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -232,15 +226,12 @@ public class InvoiceOrderController {
 	public ResponseEntity<?> deleteOrders(@PathVariable("id") Long id) {
 		Orders obj = new Orders();
 		obj.setIdOrders(id);
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
-			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		if (msj) {
+			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
 		} else {
-			return null;
+			return new ResponseEntity<>("Sorry, there was a problem deleting the file... try again!", HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -309,15 +300,12 @@ public class InvoiceOrderController {
 	public ResponseEntity<?> deleteOrdersDetail(@PathVariable("id") Long id) {
 		OrdersDetail obj = new OrdersDetail();
 		obj.setIdOrdersDetails(id);
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
-			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		if (msj) {
+			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
 		} else {
-			return null;
+			return new ResponseEntity<>("Sorry, there was a problem deleting the file... try again!", HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -387,15 +375,12 @@ public class InvoiceOrderController {
 	public ResponseEntity<?> deleteOrderStatus(@PathVariable("id") Long id) {
 		OrderStatus obj = new OrderStatus();
 		obj.setIdOrderStatus(id);
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
-			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		if (msj) {
+			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
 		} else {
-			return null;
+			return new ResponseEntity<>("Sorry, there was a problem deleting the file... try again!", HttpStatus.NO_CONTENT);
 		}
 	}
 
