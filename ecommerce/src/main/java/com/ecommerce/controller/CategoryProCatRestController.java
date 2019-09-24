@@ -38,8 +38,7 @@ public class CategoryProCatRestController {
 	@ResponseBody
 	public ResponseEntity<?> saveCategory(@RequestBody Category cat) {
 				
-		if((cat.getIdCategory() == null || cat.getIdCategory() == 0) && (cat.getIdCategoryPadre()!=0) && cat.getIdCategoryPadre() > 0) {
-			logger.info("Hibernate: Data successfully registered");
+		if((cat.getIdCategory() == null || cat.getIdCategory() == 0) && cat.getIdCategoryPadre() > 0) {
 			return new ResponseEntity<>(catService.saveCategory(cat), HttpStatus.CREATED);
 		} else {
 			logger.error("Hibernate: Error creating new data...");
