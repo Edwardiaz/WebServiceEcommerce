@@ -13,7 +13,7 @@ public interface CategoryService {
 
 	public Category findByIdCategory(Long id);
 
-	public String deleteCategory(Long id);
+	public boolean deleteCategory(Long id);
 
 	public Category updateCategory(Category cat);
 
@@ -25,7 +25,7 @@ public interface CategoryService {
 
 	public ProductsCategory findByIdProductsCategory(Long id);
 
-	public String deleteProductsCategory(Long id);
+	public boolean deleteProductsCategory(Long id);
 
 	public ProductsCategory updateProductsCategory(ProductsCategory cat);
 }

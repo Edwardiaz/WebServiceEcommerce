@@ -40,7 +40,7 @@ public class ProductoServiceImpl implements ProductoService {
 
 	// metodo delete
 	@Override
-	public String deletePro(Long id) {
+	public boolean deletePro(Long id) {
 		return interProDao.deleteProduct(id);
 	}
 

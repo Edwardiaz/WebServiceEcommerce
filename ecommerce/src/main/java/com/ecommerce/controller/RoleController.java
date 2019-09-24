@@ -108,15 +108,12 @@ public class RoleController {
 		Role obj = new Role();
 		obj.setIdRole(idobj);
 
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
-			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		if (msj) {
+			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
 		} else {
-			return null;
+			return new ResponseEntity<>("Sorry, there was a problem deleting the file... try again!", HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -190,15 +187,12 @@ public class RoleController {
 		RoleOptions obj = new RoleOptions();
 		obj.setIdRoleOptions(idobj);
 		
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
-			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		if (msj) {
+			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
 		} else {
-			return null;
+			return new ResponseEntity<>("Sorry, there was a problem deleting the file... try again!", HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -271,15 +265,12 @@ public class RoleController {
 		Optionss obj = new Optionss();
 		obj.setIdOptionss(idobj);
 		
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
-			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		if (msj) {
+			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
 		} else {
-			return null;
+			return new ResponseEntity<>("Sorry, there was a problem deleting the file... try again!", HttpStatus.NO_CONTENT);
 		}
 	}
 

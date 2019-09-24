@@ -31,7 +31,7 @@ private IGenericDao daoGen;
 	}
 
 	@Override
-	public String deleteObject(Object obj) {
+	public boolean deleteObject(Object obj) {
 		return daoGen.deleteObject(obj);
 	}
 

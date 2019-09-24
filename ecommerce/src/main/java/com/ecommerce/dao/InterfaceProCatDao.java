@@ -14,7 +14,7 @@ public interface InterfaceProCatDao{
 
 	public List<ProductsCategory> findAllProCat();
 
-	public String deleteProCat(Long id);
+	public boolean deleteProCat(Long id);
 
 	
 }

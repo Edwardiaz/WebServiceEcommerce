@@ -72,15 +72,12 @@ public class ConfigPromoController {
 	public ResponseEntity<?> deleteSettingsShop(@PathVariable("id") Long id) {
 		TypeAttribute obj = new TypeAttribute();
 		obj.setIdTypeAttribute(id);
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
+		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		} else {
-			return null;
+			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -158,15 +155,12 @@ public class ConfigPromoController {
 	public ResponseEntity<?> deleteConfigProducts(@PathVariable("id") Long id) {
 		ConfigProducts obj = new ConfigProducts();
 		obj.setIdConfigProducts(id);
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
+		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		} else {
-			return null;
+			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -239,15 +233,12 @@ public class ConfigPromoController {
 	public ResponseEntity<?> deleteConfigPromotions(@PathVariable("id") Long id) {
 		ConfigPromotions obj = new ConfigPromotions();
 		obj.setIdConfigPromotions(id);
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
+		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		} else {
-			return null;
+			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -318,15 +309,12 @@ public class ConfigPromoController {
 	public ResponseEntity<?> deleteProductsConfigProducts(@PathVariable("id") Long id) {
 		ProductsConfigProducts obj = new ProductsConfigProducts();
 		obj.setIdProductsConfigProducts(id);
-		String msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj);
 
-		if (msj.equalsIgnoreCase("ok")) {
+		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}
-		if (msj.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		} else {
-			return null;
+			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		}
 	}
 

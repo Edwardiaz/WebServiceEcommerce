@@ -9,7 +9,7 @@ public interface IGenericDao {
 
 	public Object updateObject(Object obj);
 	
-	public String deleteObject(Object obj);
+	public boolean deleteObject(Object obj);
 	
 	public MultipartFile imageUpload();
 

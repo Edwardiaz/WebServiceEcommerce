@@ -36,13 +36,15 @@ public class ComboController {
 		this.genS = genS;
 	}
 
-	@RequestMapping(value = "/producto/combo/{id}", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE })
+	// crear combo con un producto asignado
+	@RequestMapping(value = "/producto/combo/{id}", method = RequestMethod.POST, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> saveCombo(@RequestBody Combo combo, @PathVariable("id") Long id) {
 		if (combo.getIdCombo() == null || combo.getIdCombo() == 0) {
 			ComboProducts comboPro = new ComboProducts();
 			combo.setDate(new Date());
-			Combo com = (Combo)genS.saveObject(combo);
+			Combo com = (Combo) genS.saveObject(combo);
 			comboPro.setIdProducts(id);
 			comboPro.setIdCombo(com.getIdCombo());
 			comboPro.setDate(new Date());
@@ -54,8 +56,9 @@ public class ComboController {
 		}
 	}
 
+	// consultar combo
 	@ResponseStatus(code = HttpStatus.FOUND)
-	@RequestMapping(value = "/producto/combo", method = RequestMethod.GET, produces = {
+	@RequestMapping(value = "/combo/producto", method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public List<Combo> findAllCombo() {
@@ -63,7 +66,8 @@ public class ComboController {
 		return comboList;
 	}
 
-	@RequestMapping(value = "/producto/combo/{id}", method = RequestMethod.GET, produces = {
+	// consultar por id
+	@RequestMapping(value = "/combo/producto/{id}", method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> findComboById(@PathVariable("id") Long id) {
@@ -75,24 +79,25 @@ public class ComboController {
 		}
 	}
 
-	@RequestMapping(value = "/producto/combo/{id}", method = RequestMethod.DELETE, produces = {
+	// deletes a combo
+	@RequestMapping(value = "/combo/producto/{id}", method = RequestMethod.DELETE, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteCombo(@PathVariable("id") Long id) {
 		Combo combo = new Combo();
-		String delMsg = genS.deleteObject(combo);
+		combo.setIdCombo(id);
+		boolean delMsg = genS.deleteObject(combo);
 
-		if (delMsg.equalsIgnoreCase("ok")) {
+		if (delMsg) {
 			return new ResponseEntity<>(delMsg, HttpStatus.OK);
-		}
-		if (delMsg.equalsIgnoreCase("error")) {
-			return new ResponseEntity<>(delMsg, HttpStatus.NO_CONTENT);
 		} else {
-			return null;
+			return new ResponseEntity<>(delMsg, HttpStatus.NO_CONTENT);
 		}
 	}
 
-	@RequestMapping(value = "/producto/combo/{id}", method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE })
+	//UPDATE COMBO
+	@RequestMapping(value = "/combo/producto/{id}", method = RequestMethod.PUT, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateCombo(@PathVariable("id") Long id, @RequestBody Combo combo) {
 		if (combo.getIdCombo() == id) {
@@ -119,31 +124,29 @@ public class ComboController {
 			return new ResponseEntity<>("ID mismatch", HttpStatus.BAD_REQUEST);
 		}
 	}
-	// ******************************************************************************************************************* \\ 
-	
-	// metodo consultar
-		@ResponseStatus(code = HttpStatus.FOUND)
-		@RequestMapping(value = "/producto/procombo", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-		@ResponseBody
-		public List<ComboProducts> getProCombo() {
-			List<ComboProducts> list = findAll.allComboProducts();
-			return list;
+
+	// method retrieve
+	@ResponseStatus(code = HttpStatus.FOUND)
+	@RequestMapping(value = "/procombo", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public List<ComboProducts> getProCombo() {
+		List<ComboProducts> list = findAll.allComboProducts();
+		return list;
+	}
+
+	// method find by id
+	@RequestMapping(value = "/procombo/{id}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> getProComboById(@PathVariable("id") Long id) {
+
+		ComboProducts proCombo = findById.getComboProductsById(id);
+
+		if (proCombo != null) {
+			return new ResponseEntity<>(proCombo, HttpStatus.FOUND);
+		} else {
+			return new ResponseEntity<>("Register Not Found", HttpStatus.NOT_FOUND);
 		}
 
-		// metodo find by id
-		@RequestMapping(value = "/producto/procombo/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-		@ResponseBody
-		public ResponseEntity<?> getProComboById(@PathVariable("id") Long id) { 
-			
-			ComboProducts proCombo = findById.getComboProductsById(id);
-			
-			if(proCombo != null) {
-				return new ResponseEntity<>("Register Found", HttpStatus.FOUND);
-			}else{
-		        return new ResponseEntity<>("Register Not Found", HttpStatus.NOT_FOUND);
-		    }
-		}
-	
-	// ******************************************************************************************************************* \\ 
-
+	}
 }
