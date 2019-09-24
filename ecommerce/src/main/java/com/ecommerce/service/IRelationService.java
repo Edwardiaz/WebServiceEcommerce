@@ -6,6 +6,7 @@ import com.ecommerce.entity.ClientCategoryClient;
 import com.ecommerce.entity.ConfigProducts;
 import com.ecommerce.entity.ConfigPromotions;
 import com.ecommerce.entity.ProductsConfigProducts;
+import com.ecommerce.entity.ProductsImage;
 import com.ecommerce.entity.ProductsSupplier;
 import com.ecommerce.entity.RoleOptions;
 import com.ecommerce.entity.UsersRole;
@@ -32,4 +33,6 @@ public interface IRelationService {
 	
 	public List<ProductsSupplier> findBySupplier(Long id);
 	public List<ProductsSupplier> findByProductsSup(Long id);
+	
+	public List<ProductsImage> findByidProducts(Long id);
 }

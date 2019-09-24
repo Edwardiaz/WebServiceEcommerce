@@ -32,6 +32,7 @@ import com.ecommerce.entity.ProductsCategory;
 import com.ecommerce.entity.ProductsImage;
 import com.ecommerce.service.CategoryService;
 import com.ecommerce.service.IGenericService;
+import com.ecommerce.service.IRelationService;
 import com.ecommerce.service.IRetrieveImageService;
 import com.ecommerce.service.ProductoService;
 
@@ -44,13 +45,15 @@ public class ProductRestController {
 	private ProductoService proService;
 	private IGenericService genS;
 	private CategoryService catService;
+	private IRelationService relS;
 	
 	@Autowired
-	public ProductRestController(ProductoService proService, CategoryService catService, IRetrieveImageService retrieveService, IGenericService genS) {
+	public ProductRestController(ProductoService proService, CategoryService catService, IRetrieveImageService retrieveService, IGenericService genS, IRelationService relS) {
 		this.proService = proService;
 		this.catService = catService;
 		this.retrieveService = retrieveService;
 		this.genS = genS;
+		this.relS = relS;
 	}
 	
 	@RequestMapping("")
@@ -258,6 +261,24 @@ public class ProductRestController {
 	        }
 		}
 	//************************************************************
+		
+		@ResponseStatus(code = HttpStatus.FOUND)
+		@RequestMapping(value = "/imagen/producto/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE })
+		@ResponseBody
+		public ResponseEntity<?> findByidProducts(@PathVariable("id") Long id) {
+//			logger.debug(" ********** Id "+id);
+			List<ProductsImage> list = relS.findByidProducts(id);
+			if (list.size() > 0) {
+				System.out.println("MI LISTAAAAAAA "+list);
+				return new ResponseEntity<>(list, HttpStatus.FOUND);
+			} else if(list.size()==0){
+				logger.error("Register doesn't have images or doesn't exist, ID: "+id);
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			}else {
+				return new ResponseEntity<>("Error: register doesn't exist...",HttpStatus.NO_CONTENT);
+			}
+		}
+		
 		@ResponseStatus(code = HttpStatus.FOUND)
 		@RequestMapping(value = "/imagen", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 		@ResponseBody
@@ -276,7 +297,7 @@ public class ProductRestController {
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			}
 		}
-
+		
 		@RequestMapping(value = "/imagen/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 		@ResponseBody
 		public ResponseEntity<?> updateImage(@PathVariable("id") Long id, @RequestBody ProductsImage image) {
@@ -308,14 +329,14 @@ public class ProductRestController {
 			ProductsImage ima = retrieveService.findByIdImage(id);
 			String originalFilename = (ima.getImageName());
 			boolean boo = genS.deleteObject(ima);
-			System.out.println("FILE NAME:::::> "+originalFilename);
+//			System.out.println("FILE NAME:::::> "+originalFilename);
 			File destinationFile = new File(
 					"C:/Users/Jorge.Diaz/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"
 							+ File.separator + originalFilename);
 			if (destinationFile.delete()) {
-				System.out.println("FILE DELETED SUCCESSFULLY");
+//				System.out.println("FILE DELETED SUCCESSFULLY");
 			} else {
-				System.out.println("Error deleting file, register is deleted anyways...");
+//				System.out.println("Error deleting file, register is deleted anyways...");
 			}
 			if (boo) {
 				return new ResponseEntity<>("Register deleted", HttpStatus.OK);
@@ -323,44 +344,4 @@ public class ProductRestController {
 				return new ResponseEntity<>("Error deleting register", HttpStatus.NO_CONTENT);
 			}
 		}
-
-	/// ******************************************* \\\
-	
-	@ResponseStatus(code = HttpStatus.OK)
-	@RequestMapping(value = "/vector", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-	@ResponseBody
-	public Integer[] array() {
-		Integer [] ex = new Integer[5];
-		ex[0] = 6;
-		ex[1] = 6;
-		ex[2] = 6;
-		ex[3] = 6;
-		ex[4] = 6;
-			return ex;
-	}
-	
-//	@ResponseStatus(code = HttpStatus.OK)
-//	@RequestMapping(value = "/vector/{exp}", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-//	@ResponseBody
-//	public Integer[] arrayPrint1(@PathVariable("exp") Integer[] expe) {
-//		System.out.println("LO QUE ENTRA ES ESTO:::::>"+expe);
-//		for (int i = 0; i < expe.length; i++) {
-//			System.out.println("VALORES DEL VECTOR "+expe[i]);
-//		}
-//	
-//			return expe;
-//	}
-	
-	// ESTRUTURA POST DEL ARRAY DE ID's
-    @ResponseStatus(code = HttpStatus.FOUND)
-    @RequestMapping(value = "/vector/{exp}", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-    @ResponseBody
-    public Integer[] arrayPrint2(@PathVariable("exp") Integer expe){
-    	System.out.println("DENTRO DEL METODO");
-    	Integer[] exp = new Integer[expe];
-        for (int i = 0; i < expe; i++) {
-            System.out.println("VALORES DEL VECTOR "+exp[i]);
-        }
-            return exp;
-    }
 }
