@@ -36,8 +36,8 @@ public class ComboController {
 		this.genS = genS;
 	}
 
-	// crear combo con un producto asignado
-	@RequestMapping(value = "/producto/combo/{id}", method = RequestMethod.POST, produces = {
+	// create combo with a specific product
+	@RequestMapping(value = "/combo/producto/{id}", method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> saveCombo(@RequestBody Combo combo, @PathVariable("id") Long id) {
@@ -51,14 +51,13 @@ public class ComboController {
 			genS.saveObject(comboPro);
 			return new ResponseEntity<>("Successfully Created", HttpStatus.CREATED);
 		} else {
-			return new ResponseEntity<>("An error has ocurred: Make sure all the parameters are valid",
-					HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("An error has ocurred: Make sure all the parameters are valid",HttpStatus.BAD_REQUEST);
 		}
 	}
 
 	// consultar combo
 	@ResponseStatus(code = HttpStatus.FOUND)
-	@RequestMapping(value = "/combo/producto", method = RequestMethod.GET, produces = {
+	@RequestMapping(value = "/combo", method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public List<Combo> findAllCombo() {
@@ -67,7 +66,7 @@ public class ComboController {
 	}
 
 	// consultar por id
-	@RequestMapping(value = "/combo/producto/{id}", method = RequestMethod.GET, produces = {
+	@RequestMapping(value = "/combo/{id}", method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> findComboById(@PathVariable("id") Long id) {
@@ -80,7 +79,7 @@ public class ComboController {
 	}
 
 	// deletes a combo
-	@RequestMapping(value = "/combo/producto/{id}", method = RequestMethod.DELETE, produces = {
+	@RequestMapping(value = "/combo/{id}", method = RequestMethod.DELETE, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteCombo(@PathVariable("id") Long id) {
@@ -96,7 +95,7 @@ public class ComboController {
 	}
 
 	//UPDATE COMBO
-	@RequestMapping(value = "/combo/producto/{id}", method = RequestMethod.PUT, produces = {
+	@RequestMapping(value = "/combo/{id}", method = RequestMethod.PUT, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateCombo(@PathVariable("id") Long id, @RequestBody Combo combo) {
