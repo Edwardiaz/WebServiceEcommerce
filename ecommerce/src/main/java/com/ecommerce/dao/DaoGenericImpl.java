@@ -76,8 +76,8 @@ public class DaoGenericImpl implements IGenericDao {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 
 	@Override

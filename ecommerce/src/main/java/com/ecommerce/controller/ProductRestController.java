@@ -228,7 +228,7 @@ public class ProductRestController {
 		@ResponseBody
 		public ResponseEntity<?> uploadManyFileToPro(@RequestPart("files") List<MultipartFile> files, @PathVariable("id")Long id, HttpServletRequest servletRequest) {
 			HttpHeaders headers = new HttpHeaders();
-			ProductsImage img = new ProductsImage(), proima = new ProductsImage();//you should add img to the loop... later
+			ProductsImage img = new ProductsImage(), proima = new ProductsImage();//***
 			
 	        List<String> fileNames = new ArrayList<String>();
 	        
@@ -261,7 +261,7 @@ public class ProductRestController {
 	        }
 		}
 	//************************************************************
-		
+		//filter images for specific id prod...
 		@ResponseStatus(code = HttpStatus.FOUND)
 		@RequestMapping(value = "/imagen/producto/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE })
 		@ResponseBody
@@ -269,7 +269,7 @@ public class ProductRestController {
 //			logger.debug(" ********** Id "+id);
 			List<ProductsImage> list = relS.findByidProducts(id);
 			if (list.size() > 0) {
-				System.out.println("MI LISTAAAAAAA "+list);
+//				System.out.println("MI LISTAAAAAAA "+list);
 				return new ResponseEntity<>(list, HttpStatus.FOUND);
 			} else if(list.size()==0){
 				logger.error("Register doesn't have images or doesn't exist, ID: "+id);
@@ -336,7 +336,7 @@ public class ProductRestController {
 			if (destinationFile.delete()) {
 //				System.out.println("FILE DELETED SUCCESSFULLY");
 			} else {
-//				System.out.println("Error deleting file, register is deleted anyways...");
+				logger.error("Error deleting file, register is deleted anyways...");
 			}
 			if (boo) {
 				return new ResponseEntity<>("Register deleted", HttpStatus.OK);

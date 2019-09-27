@@ -3,6 +3,8 @@ package com.ecommerce.controller;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,6 +27,7 @@ import com.ecommerce.service.IGenericService;
 @RequestMapping("/api")
 public class ComboController {
 
+	private Logger logger = LogManager.getLogger(ComboController.class);
 	private IAllListService findAll;
 	private IByIdService findById;
 	private IGenericService genS;
@@ -90,6 +93,7 @@ public class ComboController {
 		if (delMsg) {
 			return new ResponseEntity<>(delMsg, HttpStatus.OK);
 		} else {
+			logger.error("error deleting register...");
 			return new ResponseEntity<>(delMsg, HttpStatus.NO_CONTENT);
 		}
 	}
