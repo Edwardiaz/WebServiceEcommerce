@@ -3,6 +3,9 @@ package com.ecommerce.controller;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +30,7 @@ import com.ecommerce.service.IGenericService;
 @RequestMapping("/api")
 public class ClientController {
 
+	private static final Logger logger = LogManager.getLogger(ClientController.class);
 	private IGenericService genS;
 	private IAllListService listS;
 	private IByIdService byIdS;
@@ -51,8 +55,7 @@ public class ClientController {
 	}
 
 	// RETRIEVE SINGLE ELEMENT
-	@RequestMapping(value = "/billingAddress/{id}", method = RequestMethod.GET, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/billingAddress/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> billingAddressById(@PathVariable("id") Long id) {
 		BillingAddress obj = byIdS.getBillingAddressById(id);
@@ -71,11 +74,11 @@ public class ClientController {
 		BillingAddress obj = new BillingAddress();
 		obj.setIdBillingAddress(id);
 		boolean msj = genS.deleteObject(obj);
-
+		
 		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
 		} else {
-			System.out.println("Hibernate: Trying to delete non existent field");
+			logger.error("Hibernate: Trying to delete non existent field");
 			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		}
 	}

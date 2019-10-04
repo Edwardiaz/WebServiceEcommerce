@@ -1,0 +1,226 @@
+
+URIS ACTUALIZADAS:
+>-COMBO:
+Crear combo con un producto asignado	POST		api/combo/producto/{id}
+Consultar combos			GET		api/combo/
+Consultar por id			GET		api/combo/{id}
+Elimina un combo			DELETE		api/combo/{id}
+Actualiza un combo			PUT		api/combo/{id}
+
+>-COMBO & PRODUCTO (tabla relacional):
+Consultar combos 			GET		api/procombo
+Consultar por id			GET		api/procombo/{id}
+
+>-Categoria:
+Crear categoria				POST		api/categoria
+Consulta general de categoria		GET		api/categoria
+Consulta por Id de categoria		GET		api/categoria/{id}
+Eliminar categoria			DELETE		api/categoria/{id}
+Actualizar categoria			PUT		api/categoria/{id}
+
+>-Producto y categoria(entidad relacional):
+Consulta general			GET		api/procat
+Consulta por ID				GET		api/procat/{id}
+
+>-Producto:
+-Crear productos y asignar categoria	POST		api/product/category/{id}
+-Consultar productos			GET		api/producto
+-Consultar productos por ID		GET		api/producto/{id}
+-Eliminar producto			DELETE		api/producto/{id}
+-Actualizar registro de producto	PUT		api/producto/{id}
+-Crear producto y asignar		POST		api/producto/categoria/{id}
+ categoria con imagenes
+-Asignar imagenes a un producto		POST		api/imagenes/producto/{id}
+ ya existente
+
+>-Imagenes:
+-Consultar imagenes de un producto(id) 	 GET		api/imagen/producto/{id}
+-Consultar todas las imagenes existentes GET		api/imagen
+-Consultar imagenes por id		 GET		api/imagen/{id}
+-Eliminar imagen			 DELETE		api/imagen/{id}
+
+PAGE:
+Consultar lista:         GET       api/page
+Consultar por id:        GET       api/page/{id}
+Guardar un registro:     POST      api/page
+Eliminar por id:         DELETE    api/page/{id}
+Actualizar un registro:  PUT       api/page/{id}
+
+USERS:
+Consultar lista:         GET       api/users
+Consultar por id:        GET       api/users/{id}
+Guardar un registro:     POST      api/users
+Eliminar por id:         DELETE    api/users/{id}
+Actualizar un registro:  PUT       api/users/{id}
+
+ROLE:
+Consultar lista:         GET       api/role
+Consultar por id:        GET       api/role/{id}
+Guardar un registro:     POST      api/role
+Eliminar por id:         DELETE    api/role/{id}
+Actualizar un registro:  PUT       api/role/{id}
+
+OPTIONS:
+Consultar lista:         GET       api/optionss
+Consultar por id:        GET       api/optionss/{id}
+Guardar un registro:     POST      api/optionss
+Eliminar por id:         DELETE    api/optionss/{id}
+Actualizar un registro:  PUT       api/optionss/{id}
+
+ADDRESS:
+Consultar lista:         GET       api/address
+Consultar por id:        GET       api/address/{id}
+Guardar un registro:     POST      api/address
+Eliminar por id:         DELETE    api/address/{id}
+Actualizar un registro:  PUT       api/address/{id}
+
+EMAIL:
+Consultar lista:         GET       api/email
+Consultar por id:        GET       api/email/{id}
+Guardar un registro:     POST      api/email
+Eliminar por id:         DELETE    api/email/{id}
+Actualizar un registro:  PUT       api/email/{id}
+
+TELEPHONE:
+Consultar lista:         GET       api/telephone
+Consultar por id:        GET       api/telephone/{id}
+Guardar un registro:     POST      api/telephone
+Eliminar por id:         DELETE    api/telephone/{id}
+Actualizar un registro:  PUT       api/telephone/{id}
+
+CONTRY:
+Consultar lista:         GET       api/country
+Consultar por id:        GET       api/country/{id}
+Guardar un registro:     POST      api/country
+Eliminar por id:         DELETE    api/country/{id}
+Actualizar un registro:  PUT       api/country/{id}
+
+STATE:
+Consultar lista:         GET       api/state
+Consultar por id:        GET       api/state/{id}
+Guardar un registro:     POST      api/state
+Eliminar por id:         DELETE    api/state/{id}
+Actualizar un registro:  PUT       api/state/{id}
+
+SETTINGS:
+Consultar lista:         GET       api/settings
+Consultar por id:        GET       api/settings/{id}
+Guardar un registro:     POST      api/settings
+Eliminar por id:         DELETE    api/settings/{id}
+Actualizar un registro:  PUT       api/settings/{id}
+
+TIMEZONE:
+Consultar lista:         GET       api/timeZone
+Consultar por id:        GET       api/timeZone/{id}
+Guardar un registro:     POST      api/timeZone
+Eliminar por id:         DELETE    api/timeZone/{id}
+Actualizar un registro:  PUT       api/timeZone/{id}
+
+
+BillingAddress:
+Consultar lista:         GET       api/billingAddress
+Consultar por id:        GET       api/billingAddress/{id}
+Guardar un registro:     POST      api/billingAddress
+Eliminar por id:         DELETE    api/billingAddress/{id}
+Actualizar un registro:  PUT       api/billingAddress/{id}
+
+Client:
+Consultar lista:         GET       api/client
+Consultar por id:        GET       api/client/{id}
+Guardar un registro:     POST      api/client
+Eliminar por id:         DELETE    api/client/{id}
+Actualizar un registro:  PUT       api/client/{id}
+
+CategoryClient:
+Consultar lista:         GET       api/categoryClient
+Consultar por id:        GET       api/categoryClient/{id}
+Guardar un registro:     POST      api/categoryClient
+Eliminar por id:         DELETE    api/categoryClient/{id}
+Actualizar un registro:  PUT       api/categoryClient/{id}
+
+Invoice:
+Consultar lista:         GET       api/invoice
+Consultar por id:        GET       api/invoice/{id}
+Guardar un registro:     POST      api/invoice
+Eliminar por id:         DELETE    api/invoice/{id}
+Actualizar un registro:  PUT       api/invoice/{id}
+
+
+InvoiceDetail:
+Consultar lista:         GET       api/invoiceDetail
+Consultar por id:        GET       api/invoiceDetail/{id}
+Guardar un registro:     POST      api/invoiceDetail
+Eliminar por id:         DELETE    api/invoiceDetail/{id}
+Actualizar un registro:  PUT       api/invoiceDetail/{id}
+
+
+Orders:
+Consultar lista:         GET       api/orders
+Consultar por id:        GET       api/orders/{id}
+Guardar un registro:     POST      api/orders
+Eliminar por id:         DELETE    api/orders/{id}
+Actualizar un registro:  PUT       api/orders/{id}
+
+
+OrdersDetail:
+Consultar lista:         GET       api/ordersDetail
+Consultar por id:        GET       api/ordersDetail/{id}
+Guardar un registro:     POST      api/ordersDetail
+Eliminar por id:         DELETE    api/ordersDetail/{id}
+Actualizar un registro:  PUT       api/ordersDetail/{id}
+
+
+OrderStatus:
+Consultar lista:         GET       api/orderStatus
+Consultar por id:        GET       api/orderStatus/{id}
+Guardar un registro:     POST      api/orderStatus
+Eliminar por id:         DELETE    api/orderStatus/{id}
+Actualizar un registro:  PUT       api/orderStatus/{id}
+
+
+TypeAttribute:
+Consultar lista:         GET       api/typeAttribute
+Consultar por id:        GET       api/typeAttribute/{id}
+Guardar un registro:     POST      api/typeAttribute
+Eliminar por id:         DELETE    api/typeAttribute/{id}
+Actualizar un registro:  PUT       api/typeAttribute/{id}
+
+
+ConfigProducts:
+Consultar lista:         GET       api/configProducts
+Consultar por id:        GET       api/configProducts/{id}
+Guardar un registro:     POST      api/configProducts
+Eliminar por id:         DELETE    api/configProducts/{id}
+Actualizar un registro:  PUT       api/configProducts/{id}
+
+
+ConfigPromotions:
+Consultar lista:         GET       api/configPromotions
+Consultar por id:        GET       api/configPromotions/{id}
+Guardar un registro:     POST      api/configPromotions
+Eliminar por id:         DELETE    api/configPromotions/{id}
+Actualizar un registro:  PUT       api/configPromotions/{id}
+
+
+Status:
+Consultar lista:         GET       api/status
+Consultar por id:        GET       api/status/{id}
+Guardar un registro:     POST      api/status
+Eliminar por id:         DELETE    api/status/{id}
+Actualizar un registro:  PUT       api/status/{id}
+
+
+Promotions:
+Consultar lista:         GET       api/promotions
+Consultar por id:        GET       api/promotions/{id}
+Guardar un registro:     POST      api/promotions
+Eliminar por id:         DELETE    api/promotions/{id}
+Actualizar un registro:  PUT       api/promotions/{id}
+
+
+Supplier:
+Consultar lista:         GET       api/supplier
+Consultar por id:        GET       api/supplier/{id}
+Guardar un registro:     POST      api/supplier
+Eliminar por id:         DELETE    api/supplier/{id}
+Actualizar un registro:  PUT       api/supplier/{id}

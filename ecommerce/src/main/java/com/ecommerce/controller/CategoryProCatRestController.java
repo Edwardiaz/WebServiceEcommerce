@@ -2,6 +2,9 @@ package com.ecommerce.controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,6 +25,7 @@ import com.ecommerce.service.CategoryService;
 @RequestMapping("/api")
 public class CategoryProCatRestController {
 
+	private Logger logger  = LogManager.getLogger(CategoryProCatRestController.class);
 	private CategoryService catService;
 
 	@Autowired
@@ -29,19 +33,20 @@ public class CategoryProCatRestController {
 		this.catService = catService;
 	}
 	
-	// metodo insertar
+	// method create
 	@RequestMapping(value = "/categoria", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> saveCategory(@RequestBody Category cat) {
 				
-		if(cat.getIdCategory() == null || cat.getIdCategory() == 0 || cat.getIdCategoryPadre()== null || cat.getIdCategoryPadre()==0) {
+		if((cat.getIdCategory() == null || cat.getIdCategory() == 0) && cat.getIdCategoryPadre() > 0) {
 			return new ResponseEntity<>(catService.saveCategory(cat), HttpStatus.CREATED);
-		}else {
+		} else {
+			logger.error("Hibernate: Error creating new data...");
 			return new ResponseEntity<>(cat, HttpStatus.BAD_REQUEST);
 		}
 	}
 
-	// metodo consultar
+	// method retrieve
 	@ResponseStatus(code = HttpStatus.FOUND)
 	@RequestMapping(value = "/categoria", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
@@ -49,10 +54,9 @@ public class CategoryProCatRestController {
 		
 		List<Category> list = catService.findAllCategory();
 		return list;
-		
 	}
 
-	// metodo find by id
+	// method find by id
 	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> getProductById(@PathVariable("id") Long id) {
@@ -65,7 +69,7 @@ public class CategoryProCatRestController {
 		
 	}
  
-	// metodo delete
+	// method delete
 	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteCategory(@PathVariable("id") Long id) {	
@@ -78,7 +82,7 @@ public class CategoryProCatRestController {
 		}
 	}
 
-	//metodo update
+	//method update
 	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody Category cat) {
@@ -101,7 +105,7 @@ public class CategoryProCatRestController {
 	
 	///******************************************* \\
 	
-	//metodo save
+	//method save
 	@RequestMapping(value = "/procat", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> saveProCat(@RequestBody ProductsCategory cat) {
@@ -113,7 +117,7 @@ public class CategoryProCatRestController {
 		}
 	}
 
-	// metodo consultar
+	// method retrieve
 	@ResponseStatus(code = HttpStatus.FOUND)
 	@RequestMapping(value = "/procat", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
@@ -122,11 +126,10 @@ public class CategoryProCatRestController {
 		return list;
 	}
 
-	// metodo find by id
+	// method find by id
 	@RequestMapping(value = "/procat/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> getProCatById(@PathVariable("id") Long id) { 
-		
 		ProductsCategory proCat = catService.findByIdProductsCategory(id);
 		
 		if(proCat != null) {
@@ -136,7 +139,7 @@ public class CategoryProCatRestController {
 	    }
 	}
  
-	// metodo delete
+	// method delete
 	@RequestMapping(value = "/procat/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteProCat(@PathVariable("id") Long id) {
@@ -149,7 +152,7 @@ public class CategoryProCatRestController {
 		}
 	}
 
-	//metodo update
+	//method update
 	@RequestMapping(value = "/procat/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateProCat(@PathVariable("id") Long id, @RequestBody ProductsCategory cat) {
