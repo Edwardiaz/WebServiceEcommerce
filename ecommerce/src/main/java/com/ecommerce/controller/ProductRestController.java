@@ -17,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,7 @@ import com.ecommerce.service.IRelationService;
 import com.ecommerce.service.IRetrieveImageService;
 import com.ecommerce.service.ProductoService;
 
+@CrossOrigin(origins = "http://192.168.100.72:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/api")
 public class ProductRestController {
@@ -102,7 +104,8 @@ public class ProductRestController {
 	}
 
 	//retrieve method
-	@ResponseStatus(code = HttpStatus.FOUND)//Debo crear una funcion para llamar este httpStatus
+//	@CrossOrigin(origins = "http://localhost:3000/catalogo")
+	@ResponseStatus(code = HttpStatus.OK)//Debo crear una funcion para llamar este httpStatus
 	@RequestMapping(value = "/producto", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public List<Products> getProducts() {
