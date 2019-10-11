@@ -37,7 +37,8 @@ import com.ecommerce.service.IRelationService;
 import com.ecommerce.service.IRetrieveImageService;
 import com.ecommerce.service.ProductoService;
 
-@CrossOrigin(origins = "http://192.168.100.72:3000", maxAge = 3600)
+//@CrossOrigin(origins = "http://192.168.100.72:3000", maxAge = 3600)
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class ProductRestController {
@@ -105,7 +106,7 @@ public class ProductRestController {
 
 	//retrieve method
 //	@CrossOrigin(origins = "http://localhost:3000/catalogo")
-	@ResponseStatus(code = HttpStatus.OK)//Debo crear una funcion para llamar este httpStatus
+	@ResponseStatus(code = HttpStatus.OK)
 	@RequestMapping(value = "/producto", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public List<Products> getProducts() {
@@ -208,6 +209,7 @@ public class ProductRestController {
 	                try {
 	                	System.out.println("RUTA DE GUARDADO::::>"+imageFile);
 	                	img.setImageName(fileName);
+//	                	img.setImageName(imageFile.getPath());
 	                	img.setImageCode(2);
 	                	img.setIdProduct(pro.getIdProducts());
 	                	genS.saveObject(img);
