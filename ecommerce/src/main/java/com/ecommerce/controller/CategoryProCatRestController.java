@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import com.ecommerce.entity.Category;
 import com.ecommerce.entity.ProductsCategory;
 import com.ecommerce.service.CategoryService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class CategoryProCatRestController {
@@ -47,7 +49,7 @@ public class CategoryProCatRestController {
 	}
 
 	// method retrieve
-	@ResponseStatus(code = HttpStatus.FOUND)
+	@ResponseStatus(code = HttpStatus.OK)
 	@RequestMapping(value = "/categoria", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public List<Category> getCategoria() {
