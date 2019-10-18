@@ -108,10 +108,10 @@ public class ProductRestController {
 	@ResponseStatus(code = HttpStatus.OK)
 	@RequestMapping(value = "/producto", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public List<Products> getProducts() {
+	public List<Products> getProducts(HttpServletRequest request) {
 		ProductsImage img = new ProductsImage();
 		List<Products> list = proService.findAll();
-		img.getImageName();
+		System.out.println("IP ENTRANTE:::::::> "+request.getRemoteAddr());
 			return list;
 	}
 	
@@ -284,14 +284,15 @@ public class ProductRestController {
 	            	
 	                String fileName = multipartFile.getOriginalFilename();
 	                fileNames.add(fileName);
+	                String urls=System.getProperty("catalina.base");
 //	                File imageFile = new File(servletRequest.getServletContext().getRealPath("/Eclipse Workspace2/"), fileName);
 //	                File imageFile = new File("C:\\xampp\\tomcat\\conf\\Catalina\\localhost\\"+fileName);
-	                File imageFile = new File("C:\\Users\\Jorge.Diaz\\Documents\\GitHub\\WebServiceEcommerce\\ecommerce\\src\\main\\webapp\\WEB-INF\\images"+fileName);
+	                File imageFile = new File(urls+fileName);
 //	                C:\Users\Jorge.Diaz\Documents\GitHub\WebServiceEcommerce\ecommerce\src\main\webapp\WEB-INF\images
 	                try {
 	                	System.out.println("RUTA DE GUARDADO::::>"+imageFile);
-//	                	img.setImageName(fileName);
-	                	img.setImageName(imageFile.getPath());
+	                	img.setImageName(fileName);
+//	                	img.setImageName(imageFile.getPath());
 	                	img.setImageCode(3);
 	                	img.setIdProduct(id);
 	                	genS.saveObject(img);
