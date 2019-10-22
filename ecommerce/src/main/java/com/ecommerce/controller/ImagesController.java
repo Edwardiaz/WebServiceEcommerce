@@ -2,6 +2,7 @@ package com.ecommerce.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,6 +52,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpHeaders;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 @MultipartConfig
@@ -70,18 +73,41 @@ public class ImagesController {
 		this.catService = catService;
 		this.storageService = storageService;
 	}
+	
+	@RequestMapping(value = "/up", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+	@ResponseBody
+	public ResponseEntity<String> uploadData(@RequestParam("file") MultipartFile file) throws Exception {
+		if (file == null) {
+			throw new RuntimeException("You must select the a file for uploading");
+		}
+		InputStream inputStream = file.getInputStream();
+		String originalName = file.getOriginalFilename();
+		String name = file.getName();
+		String contentType = file.getContentType();
+		long size = file.getSize();
+//		logger.info("inputStream: " + inputStream);
+//		logger.info("originalName: " + originalName);
+//		logger.info("name: " + name);
+//		logger.info("contentType: " + contentType);
+//		logger.info("size: " + size);
+		// Do processing with uploaded file data in Service layer
+		return new ResponseEntity<String>(originalName, HttpStatus.OK);
+	}
+	
+	
 	    
 	    //metodo para consultar las imagenes guardadas
-	    @GetMapping("/")
-	    public String listUploadedFiles(Model model) throws IOException {
-
-	        model.addAttribute("files", storageService.loadAll().map(
-	                path -> MvcUriComponentsBuilder.fromMethodName(ImagesController.class,
-	                        "serveFile", path.getFileName().toString()).build().toString())
-	                .collect(Collectors.toList()));
-
-	        return "uploadForm";
-	    }
+//		@RequestMapping(value = "/list", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+//	    @ResponseBody
+//	    public ResponseEntity<?> listUploadedFiles(/*Model model*/) throws IOException {
+//
+///*model.addAttribute("files", */List<?> list = storageService.loadAll().map(path -> MvcUriComponentsBuilder
+//						.fromMethodName(ImagesController.class,
+//	                        "serveFile", path.getFileName().toString()).build().toString())
+//	                .collect(Collectors.toList());
+//
+//	        return new ResponseEntity<>(list, HttpStatus.OK);
+//	    }
 	    
 	    
 	//carga el recurso si ex9iste para mandarla al navegador y descargarlo...
@@ -96,15 +122,15 @@ public class ImagesController {
 
 	    
 	    //
-	    @PostMapping("/")
-	    public String handleFileUpload(@RequestParam("file") MultipartFile file,
+	    @RequestMapping(value = "/store", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	    public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file,
 	            RedirectAttributes redirectAttributes) {
 
 	        storageService.store(file);
 	        redirectAttributes.addFlashAttribute("message",
 	                "You successfully uploaded " + file.getOriginalFilename() + "!");
 
-	        return "redirect:/";
+	        return new ResponseEntity<>("file UPLOADED "+file.getOriginalFilename(), HttpStatus.OK);
 	    }
 	    
 	    //EXCEPTION CUSTOM
