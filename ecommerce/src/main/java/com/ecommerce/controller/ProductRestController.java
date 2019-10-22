@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -294,8 +295,7 @@ public class ProductRestController {
 //	                File imageFile = new File(servletRequest.getServletContext().getRealPath("/Eclipse Workspace2/"), fileName);
 //	                File imageFile = new File("C:\\xampp\\tomcat\\conf\\Catalina\\localhost\\"+fileName);
 	                
-	                //aqui hago referencia a mi carpeta local que sera distinta a la url que se muestra al renderizar la img
-	                File imageFile = new File("D:\\apache-tomcat-9.0.20\\webapps\\ROOT\\images"+fileName);
+	                File imageFile = new File("C:\\Users\\Jorge.Díaz\\Documents\\GitHub\\WebServiceEcommerce\\ecommerce\\src\\main\\webapp\\images\\"+fileName);
 //	                
 	                try {
 	                	System.out.println("RUTA DE GUARDADO::::>"+imageFile);
@@ -346,16 +346,19 @@ public class ProductRestController {
 			return listProIma;
 		}
 		
-		@ResponseStatus(code = HttpStatus.FOUND)
-		@RequestMapping(value = "/image", method = RequestMethod.GET, produces = { MediaType.IMAGE_PNG_VALUE})
+//		@ResponseStatus(code = HttpStatus.FOUND)
+		@RequestMapping(value = "/image", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
 		@ResponseBody
-		public List<ProductsImage> findAllImages() {
+		public ResponseEntity<?> findAllImages(HttpServletRequest request) {
+			//List<ProductsImage>  listProIma
 			ProductsImage ima = new ProductsImage();
 			List<ProductsImage> listProIma = retrieveService.findAllProImage();
-			String url = "192.168.100.72:8090/"+ima.getImageName();
-			//aqui debes dejar quemada tu ip mas la ubicacion de la img
+			HttpHeaders header = new HttpHeaders();
 			
-			return listProIma;
+			//TIENE QUE SER UNA CONSULTA POR ID PARA SABER QUE IMAGEN SE VA CARGAR Y QUE URL SE VA MANDAR
+			String url = "http://localhost:8080/ecommerce/images/";
+			header.add("La URL es: ", url);
+			return new ResponseEntity<>(url, header, HttpStatus.OK);
 		}
 
 		@RequestMapping(value = "/imagen/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
