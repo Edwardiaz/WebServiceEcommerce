@@ -14,13 +14,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 <<<<<<< HEAD
-<<<<<<< HEAD
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-=======
->>>>>>> parent of 1834da0... Commit N°37
 =======
 >>>>>>> parent of 1834da0... Commit N°37
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,7 +61,6 @@ public class ImagesController {
 		this.proService = proService;
 		this.catService = catService;
 	}
-<<<<<<< HEAD
 <<<<<<< HEAD
 	
 	@RequestMapping(value = "/up", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -134,10 +130,6 @@ public class ImagesController {
 	
 	
 	/*@Autowired
-=======
-
-	@Autowired
->>>>>>> parent of 1834da0... Commit N°37
 =======
 
 	@Autowired
