@@ -115,6 +115,7 @@ public class ProductRestController {
 	@RequestMapping(value = "/producto", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public List<Products> getProducts(HttpServletRequest request) {
 //		ProductsImage img = new ProductsImage();
 		List<Products> list = proService.findAll();
@@ -123,6 +124,8 @@ public class ProductRestController {
 		System.out.println("Login de usuario: " + request.getRemoteUser());
 		return list;
 =======
+=======
+>>>>>>> parent of 1834da0... Commit N°37
 	public List<Products> getProducts() {
 		ProductsImage img = new ProductsImage();
 		List<Products> list = proService.findAll();
