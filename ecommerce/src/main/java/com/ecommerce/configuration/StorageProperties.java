@@ -1,11 +1,15 @@
 package com.ecommerce.configuration;
 
-import org.springframework.stereotype.Component;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@Component
+@ConfigurationProperties("storage")
 public class StorageProperties {
 
- 
+    /*
+     
+      Ubicacion donde se guardaran los archivos
+      
+     */
     private String location = "upload-dir";
 
     public String getLocation() {

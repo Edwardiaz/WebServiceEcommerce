@@ -14,7 +14,6 @@ public interface IntStorageService {
 	    void store(MultipartFile file);
 
 	    Stream<Path> loadAll();
-	    Stream<Path> findAllProImage();
 
 	    Path load(String filename);
 
