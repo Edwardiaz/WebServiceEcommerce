@@ -105,55 +105,14 @@ public class ProductRestController {
 	}
 
 	//retrieve method
+//	@CrossOrigin(origins = "http://localhost:3000/catalogo")
 	@ResponseStatus(code = HttpStatus.OK)
 	@RequestMapping(value = "/producto", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public List<Products> getProducts() {
-		ProductsImage img = new ProductsImage();
 		List<Products> list = proService.findAll();
-		img.getImageName();
 			return list;
 	}
-	
-	/*
-	 
-	 List<String> fileNames = new ArrayList<String>();
-	        if (pro.getIdProducts() == null || pro.getIdProducts() == 0) {
-	        	ProductsCategory procat = new ProductsCategory();
-				pro.setProductDeliveryDate(new Date());
-				pro.setUpdateDate(null);
-				proService.saveProducts(pro);
-				procat.setIdCategory(id);
-				procat.setIdProducts(pro.getIdProducts());
-				catService.saveProductsCategory(procat);
-				System.out.println("DATA SAVED SUCCESSFULLY..."+procat.getIdProductsCategory());
-			} else {
-				System.out.println("PRO IS EMPTY, SO DO IMAGE...>" + pro);
-			}
-	        
-	        if (null != files && files.size() > 0) {
-	        	
-	            for (MultipartFile multipartFile : files) {
-	            	
-	                String fileName = multipartFile.getOriginalFilename();
-	                fileNames.add(fileName);
-	                File imageFile = new File(servletRequest.getServletContext().getRealPath("/"), fileName);
-	                
-	                try {
-	                	System.out.println("RUTA DE GUARDADO::::>"+imageFile);
-	                	img.setImageName(fileName);
-//	                	img.setImageName(imageFile.getPath());
-	                	img.setImageCode(2);
-	                	img.setIdProduct(pro.getIdProducts());
-	                	genS.saveObject(img);
-	                	
-	                    multipartFile.transferTo(imageFile);
-	                } catch (IOException e){
-	                    e.printStackTrace();
-	                }
-	 
-	 
-	 */
 	
 	//find by id method
 	@RequestMapping(value = "/producto/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -284,14 +243,11 @@ public class ProductRestController {
 	            	
 	                String fileName = multipartFile.getOriginalFilename();
 	                fileNames.add(fileName);
-//	                File imageFile = new File(servletRequest.getServletContext().getRealPath("/Eclipse Workspace2/"), fileName);
-//	                File imageFile = new File("C:\\xampp\\tomcat\\conf\\Catalina\\localhost\\"+fileName);
-	                File imageFile = new File("C:\\Users\\Jorge.Diaz\\Documents\\GitHub\\WebServiceEcommerce\\ecommerce\\src\\main\\webapp\\WEB-INF\\images"+fileName);
-//	                C:\Users\Jorge.Diaz\Documents\GitHub\WebServiceEcommerce\ecommerce\src\main\webapp\WEB-INF\images
+	                File imageFile = new File(servletRequest.getServletContext().getRealPath("/"), fileName);
+	                
 	                try {
 	                	System.out.println("RUTA DE GUARDADO::::>"+imageFile);
-//	                	img.setImageName(fileName);
-	                	img.setImageName(imageFile.getPath());
+	                	img.setImageName(fileName);
 	                	img.setImageCode(3);
 	                	img.setIdProduct(id);
 	                	genS.saveObject(img);
