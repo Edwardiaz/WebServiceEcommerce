@@ -16,8 +16,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.ecommerce.entity.Products;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
 
 @Entity
 @Table(name = "products")
@@ -65,6 +69,10 @@ public class Products implements Serializable {
 	private float weight;
 	@Column(name = "idOrders", nullable = true)
 	private Long idOrders;
+//	@JsonInclude()
+//	@Transient
+//	private String url;
+//	private Set<String> url;
     
     @OneToMany(mappedBy = "products", fetch = FetchType.EAGER)
     private Set<ProductsCategory> productsCategorySet;
@@ -94,7 +102,7 @@ public class Products implements Serializable {
 	public Products(Long idProducts, char productCode, String sku, String nameProducts, String description,
 			String colour, Date updateDate, double price, int quantity, double taxes, double additionalShippingCost,
 			double wholeSalePrice, Date productDeliveryDate, float width, float height, float depth, float weight,
-			Long idOrders) {
+			Long idOrders/*, Set<String> url*/) {
 		super();
 		this.idProducts = idProducts;
 		this.productCode = productCode;
@@ -114,6 +122,7 @@ public class Products implements Serializable {
 		this.depth = depth;
 		this.weight = weight;
 		this.idOrders = idOrders;
+//		this.url = url;
 	}
 
 	public Products(Long idProducts) {
@@ -264,6 +273,13 @@ public class Products implements Serializable {
 		this.idOrders = idOrders;
 	}
 	
+//	public Set<String> getUrl() {
+//		return url;
+//	}
+//
+//	public void setUrl(Set<String> url) {
+//		this.url = url;
+//	}
 
 	public Set<ProductsCategory> getProductsCategorySet() {
 		return productsCategorySet;

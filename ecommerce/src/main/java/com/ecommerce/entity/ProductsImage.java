@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name = "productImage")
@@ -29,6 +32,9 @@ public class ProductsImage implements Serializable {
 	private Integer idCombo;
 	@Column(name = "idProducts")
 	private Long idProduct;
+	@JsonInclude
+	@Transient
+	private String url;
 	
 	@JoinColumn(name = "idProducts", insertable = false, updatable = false)
 	@ManyToOne
@@ -39,13 +45,14 @@ public class ProductsImage implements Serializable {
 	private Combo combo;
 	
 	public ProductsImage(Long idImageProduct, Integer imageCode, String imageName, Integer idCombo,
-			Long idProduct) {
+			Long idProduct, String url) {
 		super();
 		this.idImageProduct = idImageProduct;
 		this.imageCode = imageCode;
 		this.imageName = imageName;
 		this.idCombo = idCombo;
 		this.idProduct = idProduct;
+		this.url = url;
 	}
 
 	public ProductsImage() {
@@ -91,5 +98,15 @@ public class ProductsImage implements Serializable {
 	public void setImageCode(Integer imageCode) {
 		this.imageCode = imageCode;
 	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
+	
 	
 }
