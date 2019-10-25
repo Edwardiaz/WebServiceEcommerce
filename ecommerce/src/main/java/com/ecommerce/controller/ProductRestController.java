@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -72,18 +73,12 @@ public class ProductRestController {
 		return "E-commerce";
 	}
 
-	@RequestMapping("/uri")
-	@ResponseBody
-	public String uri() {
-		return "http://192.168.100.72:8090/ecommerce/images/";
-	}
-
 	// CRUD
 
 	// metodo insertar
 	@RequestMapping(value = "/pro", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public ResponseEntity<?> saveProducts(@RequestPart("d") Products pro) {
+	public ResponseEntity<?> saveProducts(@RequestBody Products pro) {
 		if (pro.getIdProducts() == null || pro.getIdProducts() == 0) {
 			pro.setProductDeliveryDate(new Date());
 			pro.setUpdateDate(null);
@@ -125,23 +120,20 @@ public class ProductRestController {
 	@RequestMapping(value = "/producto", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public List<Products> getProducts(HttpServletRequest request) {
-//		ProductsImage img = new ProductsImage();
 
 		List<Products> list = proService.findAll();
-		List<ProductsImage> listIma = imageService.findAllProImage();
-		Products prod = new Products();
-//		List<ProductsImage> listIma = relS.findByidProducts();
+
 		for (Products pro : list) {
 
-			for (ProductsImage proima : listIma) {
-				if (pro.getIdProducts() == proima.getIdProduct()) {
+			for (ProductsImage proima : pro.getProImageSet()) {
+				if (pro.getIdProducts() == proima.getIdProduct() && pro.getProImageSet() != null) {
 					String fileName = proima.getImageName();
 
 					proima.setUrl("http://192.168.100.72:8090/ecommerce/images/" + fileName);
 					genS.updateObject(proima);
-					
+
 					System.out.println("URL IMAGEN: " + proima.getUrl() + " CON ID: " + pro.getIdProducts());
-					System.out.println("LISTA IMAGEN: " + listIma);
+					System.out.println("LISTA IMAGEN: " + pro.getProImageSet());
 				}
 			}
 		}
@@ -156,10 +148,21 @@ public class ProductRestController {
 	public ResponseEntity<?> getProductById(@PathVariable("id") Long id) {
 
 		Products pro = proService.findByIdProducts(id);
+
 		if (pro != null) {
-			return new ResponseEntity<>(proService.findByIdProducts(id), HttpStatus.FOUND);
+			for (ProductsImage proima : pro.getProImageSet()) {
+				if (id == proima.getIdProduct()) {
+					String fileName = proima.getImageName();
+					proima.setUrl("http://192.168.100.72:8090/ecommerce/images/" + fileName);
+					genS.updateObject(proima);
+					
+					System.out.println("URL IMAGEN: " + proima.getUrl() + " CON ID: " + pro.getIdProducts());
+					System.out.println("LISTA IMAGEN: " + pro.getProImageSet());
+				}
+			}
+			return new ResponseEntity<>(pro,HttpStatus.FOUND);
 		} else {
-			return new ResponseEntity<>(proService.findByIdProducts(id), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("ERROR: No register found...", HttpStatus.NOT_FOUND);
 		}
 	}
 
