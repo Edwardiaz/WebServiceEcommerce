@@ -68,7 +68,7 @@ public class PromotionSupplierController {
 	public ResponseEntity<?> deleteStatus(@PathVariable("id") Long id) {
 		Status obj = new Status();
 		obj.setIdStatus(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
@@ -142,7 +142,7 @@ public class PromotionSupplierController {
 	public ResponseEntity<?> deletePromotions(@PathVariable("id") Long id) {
 		Promotions obj = new Promotions();
 		obj.setIdPromotions(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
@@ -217,7 +217,7 @@ public class PromotionSupplierController {
 	public ResponseEntity<?> deleteSupplier(@PathVariable("id") Long id) {
 		Supplier obj = new Supplier();
 		obj.setIdSupplier(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
@@ -289,7 +289,7 @@ public class PromotionSupplierController {
 		public ResponseEntity<?> deleteProductsSupplier(@PathVariable("id") Long id) {
 			ProductsSupplier obj = new ProductsSupplier();
 			obj.setIdProductSupplier(id);
-			boolean msj = genS.deleteObject(obj);
+			boolean msj = genS.deleteObject(obj, id);
 
 			if (msj) {
 				return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);

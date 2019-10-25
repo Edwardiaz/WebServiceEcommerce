@@ -88,7 +88,7 @@ public class ComboController {
 	public ResponseEntity<?> deleteCombo(@PathVariable("id") Long id) {
 		Combo combo = new Combo();
 		combo.setIdCombo(id);
-		boolean delMsg = genS.deleteObject(combo);
+		boolean delMsg = genS.deleteObject(combo, id);
 
 		if (delMsg) {
 			return new ResponseEntity<>(delMsg, HttpStatus.OK);

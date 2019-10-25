@@ -70,7 +70,7 @@ public class InvoiceOrderController {
 	public ResponseEntity<?> deleteInvoice(@PathVariable("id") Long id) {
 		Invoice obj = new Invoice();
 		obj.setIdInvoice(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
@@ -144,7 +144,7 @@ public class InvoiceOrderController {
 	public ResponseEntity<?> deleteInvoiceDetail(@PathVariable("id") Long id) {
 		InvoiceDetail obj = new InvoiceDetail();
 		obj.setIdInvoiceDetail(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
@@ -226,7 +226,7 @@ public class InvoiceOrderController {
 	public ResponseEntity<?> deleteOrders(@PathVariable("id") Long id) {
 		Orders obj = new Orders();
 		obj.setIdOrders(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
@@ -300,7 +300,7 @@ public class InvoiceOrderController {
 	public ResponseEntity<?> deleteOrdersDetail(@PathVariable("id") Long id) {
 		OrdersDetail obj = new OrdersDetail();
 		obj.setIdOrdersDetails(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
@@ -375,7 +375,7 @@ public class InvoiceOrderController {
 	public ResponseEntity<?> deleteOrderStatus(@PathVariable("id") Long id) {
 		OrderStatus obj = new OrderStatus();
 		obj.setIdOrderStatus(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);

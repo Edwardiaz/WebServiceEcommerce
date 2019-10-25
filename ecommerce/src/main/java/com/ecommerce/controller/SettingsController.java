@@ -64,7 +64,7 @@ public class SettingsController {
 	public ResponseEntity<?> deleteSettingsShop(@PathVariable("id") Long id) {
 		Settings obj = new Settings();
 		obj.setIdSettings(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
@@ -136,7 +136,7 @@ public class SettingsController {
 	public ResponseEntity<?> deleteEmail(@PathVariable("id") Long id) {
 		Email obj = new Email();
 		obj.setIdEmail(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
@@ -207,7 +207,7 @@ public class SettingsController {
 	public ResponseEntity<?> deleteState(@PathVariable("id") Long id) {
 		State obj = new State();
 		obj.setIdState(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
@@ -278,7 +278,7 @@ public class SettingsController {
 	public ResponseEntity<?> deleteTimeZone(@PathVariable("id") Long id) {
 		TimeZone obj = new TimeZone();
 		obj.setIdTimeZone(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
@@ -349,7 +349,7 @@ public class SettingsController {
 		public ResponseEntity<?> deleteTelephone(@PathVariable("id") Long id) {
 			Telephone obj = new Telephone();
 			obj.setIdTelephone(id);
-			boolean msj = genS.deleteObject(obj);
+			boolean msj = genS.deleteObject(obj, id);
 
 			if (msj) {
 				return new ResponseEntity<>(msj, HttpStatus.OK);
@@ -421,7 +421,7 @@ public class SettingsController {
 		public ResponseEntity<?> deleteAddress(@PathVariable("id") Long id) {
 			Address obj = new Address();
 			obj.setIdAddress(id);
-			boolean msj = genS.deleteObject(obj);
+			boolean msj = genS.deleteObject(obj, id);
 
 			if (msj) {
 				return new ResponseEntity<>(msj, HttpStatus.OK);
@@ -493,7 +493,7 @@ public class SettingsController {
 	public ResponseEntity<?> deleteCountry(@PathVariable("id") Long id) {
 		Country obj = new Country();
 		obj.setIdCountry(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ecommerce.configuration.HibernateUtil;
+import com.ecommerce.entity.Users;
 
 @Component
 public class DaoGenericImpl implements IGenericDao {
@@ -32,9 +33,9 @@ public class DaoGenericImpl implements IGenericDao {
 	public List<Object> saveObjectList2(List<Object> obj) {
 
 		Transaction transaction = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()){
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-			 session.save(obj);
+			session.save(obj);
 			transaction.commit();
 			return obj;
 		} catch (Exception e) {
@@ -67,17 +68,24 @@ public class DaoGenericImpl implements IGenericDao {
 	}
 
 	@Override
-	public boolean deleteObject(Object obj) {
+	public boolean deleteObject(Object obj, Long id) {
 		Transaction transaction = null;
+
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-			session.delete(obj);
-			transaction.commit();
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+
+			obj = session.get(obj.getClass(), new Long(id));
+			
+			if (obj != null) {
+				session.delete(obj);
+				transaction.commit();
+				return true;
+			} else {
+				return false;
+			}
+
 		}
+
 	}
 
 	@Override

@@ -331,7 +331,7 @@ public class ProductRestController {
 		public ResponseEntity<?> deleteImage(@PathVariable("id") Long id) {
 			ProductsImage ima = retrieveService.findByIdImage(id);
 			String originalFilename = (ima.getImageName());
-			boolean boo = genS.deleteObject(ima);
+			boolean boo = genS.deleteObject(ima, id);
 //			System.out.println("FILE NAME:::::> "+originalFilename);
 			File destinationFile = new File(
 					"C:/Users/Jorge.Diaz/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"

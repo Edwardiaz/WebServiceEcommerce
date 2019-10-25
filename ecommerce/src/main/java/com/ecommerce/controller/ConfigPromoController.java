@@ -72,7 +72,7 @@ public class ConfigPromoController {
 	public ResponseEntity<?> deleteSettingsShop(@PathVariable("id") Long id) {
 		TypeAttribute obj = new TypeAttribute();
 		obj.setIdTypeAttribute(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
@@ -155,7 +155,7 @@ public class ConfigPromoController {
 	public ResponseEntity<?> deleteConfigProducts(@PathVariable("id") Long id) {
 		ConfigProducts obj = new ConfigProducts();
 		obj.setIdConfigProducts(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
@@ -233,7 +233,7 @@ public class ConfigPromoController {
 	public ResponseEntity<?> deleteConfigPromotions(@PathVariable("id") Long id) {
 		ConfigPromotions obj = new ConfigPromotions();
 		obj.setIdConfigPromotions(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
@@ -309,7 +309,7 @@ public class ConfigPromoController {
 	public ResponseEntity<?> deleteProductsConfigProducts(@PathVariable("id") Long id) {
 		ProductsConfigProducts obj = new ProductsConfigProducts();
 		obj.setIdProductsConfigProducts(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);

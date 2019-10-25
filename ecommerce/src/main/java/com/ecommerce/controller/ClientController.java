@@ -73,7 +73,7 @@ public class ClientController {
 	public ResponseEntity<?> deleteBillingAddress(@PathVariable("id") Long id) {
 		BillingAddress obj = new BillingAddress();
 		obj.setIdBillingAddress(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 		
 		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
@@ -149,7 +149,7 @@ public class ClientController {
 	public ResponseEntity<?> deleteClient(@PathVariable("id") Long id) {
 		Client obj = new Client();
 		obj.setIdClient(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
@@ -232,7 +232,7 @@ public class ClientController {
 	public ResponseEntity<?> deleteCategoryClient(@PathVariable("id") Long id) {
 		CategoryClient obj = new CategoryClient();
 		obj.setIdCategoryClient(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
@@ -308,7 +308,7 @@ public class ClientController {
 	public ResponseEntity<?> deleteClientCategoryClient(@PathVariable("id") Long id) {
 		ClientCategoryClient obj = new ClientCategoryClient();
 		obj.setIdClientCategoryClient(id);
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, id);
 
 		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);

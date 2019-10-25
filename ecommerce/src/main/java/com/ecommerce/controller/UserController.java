@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import com.ecommerce.service.IGenericService;
 import com.ecommerce.service.IUsersRoleService;
 import com.ecommerce.service.IUsersService;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/api")
 public class UserController {
@@ -54,7 +56,8 @@ public class UserController {
 	@ResponseBody
 	public ResponseEntity<?> saveUsers(@RequestBody Users users) {
 		
-		
+		if(users.getPassword() != null && users.getFirstLastName() != null && users.getFirstName() != null && users.getUsers() != null && users.getAddress() != null && users.getEmail() != null) {
+			
 		if (users.getIdUsers() == null || users.getIdUsers() == 0) {
 			users.setCreationDate(new Date()); //Setting date from the system
 			users.setUpdateDate(null); //Since User is new, updateDate is null
@@ -63,6 +66,12 @@ public class UserController {
 			
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
+		
+		}else {
+			System.out.println("*********** " +users.getPassword());
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+		
 	}
 
 	// UPDATE SINGLE ENTRY USERS
@@ -82,7 +91,7 @@ public class UserController {
 			if (p != null && users.getIdUsers() != null) { 
 				return new ResponseEntity<>(users, HttpStatus.OK); // return statement successful
 			} else if ( p == null && users.getIdUsers() != null) {
-				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
 			} else if ( p == null && users.getIdUsers() == null) {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			} else {
@@ -103,13 +112,16 @@ public class UserController {
 		Users obj = new Users();
 		obj.setIdUsers(idobj);
 
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, idobj);
 
-		if (msj) {
+		if (msj == true) {
+			System.out.println("***** boolean found **** "+msj);
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		} else if(msj == false) {
+			System.out.println("***** boolean not found ***** "+msj);
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 	}
 
 	// RETRIEVE SINGLE USER
@@ -195,7 +207,7 @@ public class UserController {
 		UsersRole obj = new UsersRole();
 		obj.setIdUseRole(idobj);
 		
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, idobj);
 
 		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);

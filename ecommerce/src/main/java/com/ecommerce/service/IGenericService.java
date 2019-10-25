@@ -12,7 +12,7 @@ public interface IGenericService {
 
 	public Object updateObject(Object obj);
 	
-	public boolean deleteObject(Object obj);
+	public boolean deleteObject(Object obj, Long id);
 	
 	public MultipartFile imageUpload();
 	

@@ -61,7 +61,7 @@ public class PageController {
 	public ResponseEntity<?> deleteUsers(@PathVariable("id") Long idPage) {
 		Page page = new Page();
 		page.setIdPage(idPage);
-		boolean msj = genS.deleteObject(page);
+		boolean msj = genS.deleteObject(page, idPage);
 
 		if (msj) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);

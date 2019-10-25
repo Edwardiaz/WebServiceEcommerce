@@ -108,7 +108,7 @@ public class RoleController {
 		Role obj = new Role();
 		obj.setIdRole(idobj);
 
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, idobj);
 
 		if (msj) {
 			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
@@ -187,7 +187,7 @@ public class RoleController {
 		RoleOptions obj = new RoleOptions();
 		obj.setIdRoleOptions(idobj);
 		
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, idobj);
 
 		if (msj) {
 			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
@@ -265,7 +265,7 @@ public class RoleController {
 		Optionss obj = new Optionss();
 		obj.setIdOptionss(idobj);
 		
-		boolean msj = genS.deleteObject(obj);
+		boolean msj = genS.deleteObject(obj, idobj);
 
 		if (msj) {
 			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
