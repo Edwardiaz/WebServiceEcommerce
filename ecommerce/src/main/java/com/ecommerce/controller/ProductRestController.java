@@ -72,6 +72,12 @@ public class ProductRestController {
 		return "E-commerce";
 	}
 
+	@RequestMapping("/uri")
+	@ResponseBody
+	public String uri() {
+		return "http://192.168.100.72:8090/ecommerce/images/";
+	}
+
 	// CRUD
 
 	// metodo insertar
@@ -123,17 +129,18 @@ public class ProductRestController {
 
 		List<Products> list = proService.findAll();
 		List<ProductsImage> listIma = imageService.findAllProImage();
-
+		Products prod = new Products();
 //		List<ProductsImage> listIma = relS.findByidProducts();
 		for (Products pro : list) {
 
 			for (ProductsImage proima : listIma) {
-				if (pro.getIdProducts() == proima.getIdImageProduct()) {
+				if (pro.getIdProducts() == proima.getIdProduct()) {
 					String fileName = proima.getImageName();
 
 					proima.setUrl("http://192.168.100.72:8090/ecommerce/images/" + fileName);
 					genS.updateObject(proima);
-					System.out.println("URL IMAGEN: " + proima.getUrl() + "CON ID: " + pro.getIdProducts());
+					
+					System.out.println("URL IMAGEN: " + proima.getUrl() + " CON ID: " + pro.getIdProducts());
 					System.out.println("LISTA IMAGEN: " + listIma);
 				}
 			}
