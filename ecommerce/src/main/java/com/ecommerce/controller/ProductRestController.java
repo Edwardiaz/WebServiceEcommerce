@@ -129,7 +129,9 @@ public class ProductRestController {
 				if (pro.getIdProducts() == proima.getIdProduct() && pro.getProImageSet() != null) {
 					String fileName = proima.getImageName();
 
-					proima.setUrl("http://192.168.100.72:8090/ecommerce/images/" + fileName);
+//					proima.setUrl("http://192.168.100.72:8090/ecommerce/images/" + fileName);
+					proima.setUrl("http://192.168.1.12:8080/ecommerce/images/" + fileName);
+
 					genS.updateObject(proima);
 
 					System.out.println("URL IMAGEN: " + proima.getUrl() + " CON ID: " + pro.getIdProducts());
@@ -153,7 +155,9 @@ public class ProductRestController {
 			for (ProductsImage proima : pro.getProImageSet()) {
 				if (id == proima.getIdProduct()) {
 					String fileName = proima.getImageName();
-					proima.setUrl("http://192.168.100.72:8090/ecommerce/images/" + fileName);
+//					proima.setUrl("http://192.168.100.72:8090/ecommerce/images/" + fileName);
+					proima.setUrl("http://192.168.1.12:8080/ecommerce/images/" + fileName);
+
 					genS.updateObject(proima);
 					
 					System.out.println("URL IMAGEN: " + proima.getUrl() + " CON ID: " + pro.getIdProducts());
@@ -174,9 +178,9 @@ public class ProductRestController {
 		boolean pro = proService.deletePro(id);
 
 		if (pro) {
-			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
+			return new ResponseEntity<>(pro, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>("Sorry, there was a problem deleting the file... try again",
+			return new ResponseEntity<>("Sorry, there was a problem deleting the file... try again: "+pro,
 					HttpStatus.NO_CONTENT);
 		}
 	}
@@ -330,7 +334,9 @@ public class ProductRestController {
 		if (list.size() > 0) {
 			for (ProductsImage proima : list) {
 				String fileName = proima.getImageName();
-				proima.setUrl("http://192.168.100.72:8090/ecommerce/images/" + fileName);
+//				proima.setUrl("http://192.168.100.72:8090/ecommerce/images/" + fileName);
+				proima.setUrl("http://192.168.1.12:8080/ecommerce/images/" + fileName);
+
 				genS.updateObject(proima);
 			}
 
