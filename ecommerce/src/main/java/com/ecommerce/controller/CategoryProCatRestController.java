@@ -36,7 +36,7 @@ public class CategoryProCatRestController {
 	}
 	
 	// method create
-	@RequestMapping(value = "/categoria", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/category", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> saveCategory(@RequestBody Category cat) {
 				
@@ -50,7 +50,7 @@ public class CategoryProCatRestController {
 
 	// method retrieve
 	@ResponseStatus(code = HttpStatus.OK)
-	@RequestMapping(value = "/categoria", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/category", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public List<Category> getCategoria() {
 		
@@ -59,7 +59,7 @@ public class CategoryProCatRestController {
 	}
 
 	// method find by id
-	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/category/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> getProductById(@PathVariable("id") Long id) {
 		Category cat = catService.findByIdCategory(id);
@@ -72,7 +72,7 @@ public class CategoryProCatRestController {
 	}
  
 	// method delete
-	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/category/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteCategory(@PathVariable("id") Long id) {	
 		boolean pro = catService.deleteCategory(id);
@@ -85,7 +85,7 @@ public class CategoryProCatRestController {
 	}
 
 	//method update
-	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/category/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody Category cat) {
 		

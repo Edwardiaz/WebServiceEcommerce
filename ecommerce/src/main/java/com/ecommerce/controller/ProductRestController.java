@@ -129,8 +129,7 @@ public class ProductRestController {
 				if (pro.getIdProducts() == proima.getIdProduct() && pro.getProImageSet() != null) {
 					String fileName = proima.getImageName();
 
-//					proima.setUrl("http://192.168.100.72:8090/ecommerce/images/" + fileName);
-					proima.setUrl("http://192.168.1.12:8080/ecommerce/images/" + fileName);
+					proima.setUrl("http://192.168.100.47:8090/ecommerce/images/" + fileName);
 
 					genS.updateObject(proima);
 
@@ -155,8 +154,7 @@ public class ProductRestController {
 			for (ProductsImage proima : pro.getProImageSet()) {
 				if (id == proima.getIdProduct()) {
 					String fileName = proima.getImageName();
-//					proima.setUrl("http://192.168.100.72:8090/ecommerce/images/" + fileName);
-					proima.setUrl("http://192.168.1.12:8080/ecommerce/images/" + fileName);
+					proima.setUrl("http://192.168.100.47:8090/ecommerce/images/" + fileName);
 
 					genS.updateObject(proima);
 					
@@ -205,17 +203,17 @@ public class ProductRestController {
 			if (prod != null && pro.getIdProducts() != null) {
 //				pro.setUpdateDate(new Date());
 				// proService.updateProducts(pro)
-				return new ResponseEntity<>("Register Updated Succesfully", HttpStatus.OK);
+				return new ResponseEntity<>(prod, HttpStatus.OK);
 			} else if (prod == null && pro.getIdProducts() != null) {
-				return new ResponseEntity<>("REGISTER NOT FOUND", HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			} else if (prod == null && pro.getIdProducts() == null) {
-				return new ResponseEntity<>("Some parameters are invalid", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			} else {
-				return new ResponseEntity<>("Some parameters are invalid or bad syntax in the request",
+				return new ResponseEntity<>(null,
 						HttpStatus.BAD_REQUEST);
 			}
 		} else {
-			return new ResponseEntity<>("ID mismatch", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -334,8 +332,7 @@ public class ProductRestController {
 		if (list.size() > 0) {
 			for (ProductsImage proima : list) {
 				String fileName = proima.getImageName();
-//				proima.setUrl("http://192.168.100.72:8090/ecommerce/images/" + fileName);
-				proima.setUrl("http://192.168.1.12:8080/ecommerce/images/" + fileName);
+				proima.setUrl("http://192.168.100.47:8090/ecommerce/images/" + fileName);
 
 				genS.updateObject(proima);
 			}
