@@ -102,7 +102,7 @@ public class RoleController {
 		}
 	}
 
-	// DELETE SINGLE ENTRY USERS
+	// DELETE SINGLE ENTRY Role
 	@RequestMapping(value = "/role/{id}", method = RequestMethod.DELETE, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
@@ -112,11 +112,12 @@ public class RoleController {
 
 		boolean msj = genS.deleteObject(obj, idobj);
 
-		if (msj) {
-			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>("Sorry, there was a problem deleting the file... try again!", HttpStatus.NO_CONTENT);
+		if (msj == true) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
+		} else if(msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 	}
 
 	// *************************************************RoleOptions*******************************************************
@@ -191,11 +192,12 @@ public class RoleController {
 		
 		boolean msj = genS.deleteObject(obj, idobj);
 
-		if (msj) {
-			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>("Sorry, there was a problem deleting the file... try again!", HttpStatus.NO_CONTENT);
+		if (msj == true) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
+		} else if(msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 	}
 
 	// *************************************************Options*******************************************************
@@ -259,7 +261,7 @@ public class RoleController {
 		}
 	}
 
-	// DELETE SINGLE ENTRY USERS
+	// DELETE SINGLE ENTRY options
 	@RequestMapping(value = "/optionss/{id}", method = RequestMethod.DELETE, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
@@ -269,11 +271,12 @@ public class RoleController {
 		
 		boolean msj = genS.deleteObject(obj, idobj);
 
-		if (msj) {
-			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>("Sorry, there was a problem deleting the file... try again!", HttpStatus.NO_CONTENT);
+		if (msj == true) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
+		} else if(msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 	}
 
 }

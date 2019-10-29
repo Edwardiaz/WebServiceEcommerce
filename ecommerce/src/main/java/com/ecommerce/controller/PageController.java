@@ -63,11 +63,12 @@ public class PageController {
 		page.setIdPage(idPage);
 		boolean msj = genS.deleteObject(page, idPage);
 
-		if (msj) {
+		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		}else {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		} else if(msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 	}
 
 	// SAVE NEW SINGLE ELEMENT

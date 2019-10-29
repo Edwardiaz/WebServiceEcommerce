@@ -75,12 +75,14 @@ public class ClientController {
 		obj.setIdBillingAddress(id);
 		boolean msj = genS.deleteObject(obj, id);
 		
-		if (msj) {
+		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else {
+		} else if(msj == false) {
 			logger.error("Hibernate: Trying to delete non existent field");
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		
 	}
 
 	// SAVE NEW SINGLE ELEMENT
@@ -151,11 +153,12 @@ public class ClientController {
 		obj.setIdClient(id);
 		boolean msj = genS.deleteObject(obj, id);
 
-		if (msj) {
+		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		} else if(msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 	}
 
 	// SAVE NEW SINGLE ELEMENT
@@ -234,11 +237,12 @@ public class ClientController {
 		obj.setIdCategoryClient(id);
 		boolean msj = genS.deleteObject(obj, id);
 
-		if (msj) {
+		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		} else if(msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 	}
 
 	// SAVE NEW SINGLE ELEMENT
@@ -310,11 +314,12 @@ public class ClientController {
 		obj.setIdClientCategoryClient(id);
 		boolean msj = genS.deleteObject(obj, id);
 
-		if (msj) {
+		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		} else if(msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 	}
 
 	// SAVE NEW SINGLE ELEMENT

@@ -74,11 +74,12 @@ public class ConfigPromoController {
 		obj.setIdTypeAttribute(id);
 		boolean msj = genS.deleteObject(obj, id);
 
-		if (msj) {
+		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		} else if(msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 	}
 
 	// SAVE NEW SINGLE ELEMENT
@@ -157,11 +158,12 @@ public class ConfigPromoController {
 		obj.setIdConfigProducts(id);
 		boolean msj = genS.deleteObject(obj, id);
 
-		if (msj) {
+		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		} else if(msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 	}
 
 	// SAVE NEW SINGLE ELEMENT
@@ -235,11 +237,12 @@ public class ConfigPromoController {
 		obj.setIdConfigPromotions(id);
 		boolean msj = genS.deleteObject(obj, id);
 
-		if (msj) {
+		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		} else if(msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 	}
 
 	// SAVE NEW SINGLE ELEMENT
@@ -311,11 +314,12 @@ public class ConfigPromoController {
 		obj.setIdProductsConfigProducts(id);
 		boolean msj = genS.deleteObject(obj, id);
 
-		if (msj) {
+		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		} else if(msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 	}
 
 	// SAVE NEW SINGLE ELEMENT

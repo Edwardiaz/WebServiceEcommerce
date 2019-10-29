@@ -66,11 +66,12 @@ public class SettingsController {
 		obj.setIdSettings(id);
 		boolean msj = genS.deleteObject(obj, id);
 
-		if (msj) {
+		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		} else if(msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 	}
 
 	// SAVE NEW SINGLE ELEMENT
@@ -138,11 +139,12 @@ public class SettingsController {
 		obj.setIdEmail(id);
 		boolean msj = genS.deleteObject(obj, id);
 
-		if (msj) {
+		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		} else if(msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 	}
 
 	// SAVE NEW SINGLE ELEMENT
@@ -209,11 +211,12 @@ public class SettingsController {
 		obj.setIdState(id);
 		boolean msj = genS.deleteObject(obj, id);
 
-		if (msj) {
+		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		} else if(msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 	}
 
 	// SAVE NEW SINGLE ELEMENT
@@ -280,11 +283,12 @@ public class SettingsController {
 		obj.setIdTimeZone(id);
 		boolean msj = genS.deleteObject(obj, id);
 
-		if (msj) {
+		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		} else if(msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 	}
 
 	// SAVE NEW SINGLE ELEMENT
@@ -351,11 +355,12 @@ public class SettingsController {
 			obj.setIdTelephone(id);
 			boolean msj = genS.deleteObject(obj, id);
 
-			if (msj) {
+			if (msj == true) {
 				return new ResponseEntity<>(msj, HttpStatus.OK);
-			} else {
-				return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+			} else if(msj == false) {
+				return new ResponseEntity<>(msj, HttpStatus.OK);
 			}
+			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		}
 
 		// SAVE NEW SINGLE ELEMENT
@@ -423,11 +428,12 @@ public class SettingsController {
 			obj.setIdAddress(id);
 			boolean msj = genS.deleteObject(obj, id);
 
-			if (msj) {
+			if (msj == true) {
 				return new ResponseEntity<>(msj, HttpStatus.OK);
-			} else {
-				return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+			} else if(msj == false) {
+				return new ResponseEntity<>(msj, HttpStatus.OK);
 			}
+			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 		}
 
 		// SAVE NEW SINGLE ELEMENT
@@ -495,11 +501,12 @@ public class SettingsController {
 		obj.setIdCountry(id);
 		boolean msj = genS.deleteObject(obj, id);
 
-		if (msj) {
+		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		} else if(msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 	}
 
 	// SAVE NEW SINGLE ELEMENT

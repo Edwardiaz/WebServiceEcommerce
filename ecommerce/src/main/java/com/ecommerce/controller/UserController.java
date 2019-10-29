@@ -115,10 +115,8 @@ public class UserController {
 		boolean msj = genS.deleteObject(obj, idobj);
 
 		if (msj == true) {
-			System.out.println("***** boolean found **** "+msj);
 			return new ResponseEntity<>(msj, HttpStatus.OK);
 		} else if(msj == false) {
-			System.out.println("***** boolean not found ***** "+msj);
 			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
@@ -209,11 +207,12 @@ public class UserController {
 		
 		boolean msj = genS.deleteObject(obj, idobj);
 
-		if (msj) {
+		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+		} else if(msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
 	}
 
 	
