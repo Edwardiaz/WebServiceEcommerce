@@ -312,7 +312,7 @@ public class ProductRestController {
 			}
 
 			headers.add("Number of files Uploaded successfully ", String.valueOf(files.size()));
-			return new ResponseEntity<>("Files saved succesfully to the selected product...", headers, HttpStatus.OK);
+			return new ResponseEntity<>(img, headers, HttpStatus.OK);
 		} else {
 			headers.add("No files were detected: ", "Please select at least one file");
 			return new ResponseEntity<>(
