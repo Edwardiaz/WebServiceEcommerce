@@ -90,34 +90,34 @@ public class ProductRestController {
 	}
 
 	// metodo insertar con categoria
-	@RequestMapping(value = "/product/category/{id}", method = RequestMethod.POST, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
-	@ResponseBody
-	public ResponseEntity<?> saveProductsCate(@RequestBody Products pro, @PathVariable("id") Long id) {
-		System.out.println("ENTRO AL METODO saveProductsCate");
-		if (pro.getIdProducts() == null || pro.getIdProducts() == 0) {
-			ProductsCategory procat = new ProductsCategory();
-			pro.setProductDeliveryDate(new Date());
-			pro.setUpdateDate(null);
-			procat.setIdCategory(id);
-
-			logger.error("ID DE LA URI:::::> " + id);
-			System.out.println("ID CATEGORIA:::::> " + procat.getIdCategory());
-
-			Products pr = proService.saveProductsCate(pro);
-			procat.setIdProducts(pr.getIdProducts());
-			catService.saveProductsCategory(procat);
-			return new ResponseEntity<>(procat, HttpStatus.CREATED);
-		} else {
-			System.out.println("ERROR: BAD REQUEST");
-			return new ResponseEntity<>("Some Parameter are invalid", HttpStatus.BAD_REQUEST);
-		}
-	}
+//	@RequestMapping(value = "/product/category/{id}", method = RequestMethod.POST, produces = {
+//			MediaType.APPLICATION_JSON_VALUE })
+//	@ResponseBody
+//	public ResponseEntity<?> saveProductsCate(@RequestBody Products pro, @PathVariable("id") Long id) {
+//		System.out.println("ENTRO AL METODO saveProductsCate");
+//		if (pro.getIdProducts() == null || pro.getIdProducts() == 0) {
+//			ProductsCategory procat = new ProductsCategory();
+//			pro.setProductDeliveryDate(new Date());
+//			pro.setUpdateDate(null);
+//			procat.setIdCategory(id);
+//
+//			logger.error("ID DE LA URI:::::> " + id);
+//			System.out.println("ID CATEGORIA:::::> " + procat.getIdCategory());
+//
+//			Products pr = proService.saveProductsCate(pro);
+//			procat.setIdProducts(pr.getIdProducts());
+//			catService.saveProductsCategory(procat);
+//			return new ResponseEntity<>(procat, HttpStatus.CREATED);
+//		} else {
+//			System.out.println("ERROR: BAD REQUEST");
+//			return new ResponseEntity<>("Some Parameter are invalid", HttpStatus.BAD_REQUEST);
+//		}
+//	}
 
 	// retrieve method
 //	@CrossOrigin(origins = "http://localhost:3000/catalogo")
 	@ResponseStatus(code = HttpStatus.OK)
-	@RequestMapping(value = "/producto", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/product", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public List<Products> getProducts(HttpServletRequest request) {
 
@@ -143,7 +143,7 @@ public class ProductRestController {
 	}
 
 	// find by id method
-	@RequestMapping(value = "/producto/{id}", method = RequestMethod.GET, produces = {
+	@RequestMapping(value = "/product/{id}", method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> getProductById(@PathVariable("id") Long id) {
@@ -169,7 +169,7 @@ public class ProductRestController {
 	}
 
 	// delete method
-	@RequestMapping(value = "/producto/{id}", method = RequestMethod.DELETE, produces = {
+	@RequestMapping(value = "/product/{id}", method = RequestMethod.DELETE, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteProducts(@PathVariable("id") Long id) {
@@ -184,7 +184,7 @@ public class ProductRestController {
 	}
 
 	// update method
-	@RequestMapping(value = "/producto/{id}", method = RequestMethod.PUT, produces = {
+	@RequestMapping(value = "/product/{id}", method = RequestMethod.PUT, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateProducts(@PathVariable Long id, @RequestBody Products pro) {
@@ -217,7 +217,7 @@ public class ProductRestController {
 	}
 
 	// method create a product, images(a lot) & category
-	@RequestMapping(value = "/producto/categoria/{id}", method = RequestMethod.POST, produces = {
+	@RequestMapping(value = "/product/category/{id}", method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> uploadManyFiles(@RequestPart("files") List<MultipartFile> files,
@@ -278,7 +278,7 @@ public class ProductRestController {
 	}
 
 	// METODO PARA CARGAR MUCHAS MUCHAS IMAGENES A UN PRODUCTO EXISTENTE
-	@RequestMapping(value = "/imagenes/producto/{id}", method = RequestMethod.POST, headers = ("content-type=multipart/*"), produces = {
+	@RequestMapping(value = "/images/product/{id}", method = RequestMethod.POST, headers = ("content-type=multipart/*"), produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> uploadManyFileToPro(@RequestPart("files") List<MultipartFile> files,
@@ -350,7 +350,7 @@ public class ProductRestController {
 
 	// filter images for specific id prod...
 	@ResponseStatus(code = HttpStatus.FOUND)
-	@RequestMapping(value = "/imagen/producto/{id}", method = RequestMethod.GET, produces = {
+	@RequestMapping(value = "/image/product/{id}", method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> findByidProducts(@PathVariable("id") Long id) {
