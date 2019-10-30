@@ -165,6 +165,30 @@ public class RoleOptions implements Serializable {
 	public void setConsultar(boolean consultar) {
 		this.consultar = consultar;
 	}
+	
+	
+	public Role getRoleobj() {
+		return roleobj;
+	}
+
+
+
+	public void setRoleobj(Role roleobj) {
+		this.roleobj = roleobj;
+	}
+
+
+
+	public Optionss getOptionssobj() {
+		return optionssobj;
+	}
+
+
+
+	public void setOptionssobj(Optionss optionssobj) {
+		this.optionssobj = optionssobj;
+	}
+
 
 
 	@Override

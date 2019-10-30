@@ -158,6 +158,19 @@ public class UserController {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	// SAVE Array UsersRole
+	@ResponseStatus(code = HttpStatus.FOUND)//Debo crear una funcion para llamar este httpStatus
+	@RequestMapping(value = "/usersRole/ids", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public Integer[] arrayPrint(@RequestBody Integer[] ids) {
+		for (int i = 0; i < ids.length; i++) {
+			System.out.println("VALORES DEL VECTOR "+ids[i]);
+		}
+	
+			return ids;
+	}
+
 
 	// SAVE NEW SINGLE UsersRole
 	@RequestMapping(value = "/usersRole", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
