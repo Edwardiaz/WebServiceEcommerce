@@ -67,10 +67,10 @@ public class ProductRestController {
 		this.imageService = imageService;
 	}
 
-	@RequestMapping("")
+	@RequestMapping(value = "", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public String index() {
-		return "E-commerce";
+	public ResponseEntity<?> index() {
+		return new ResponseEntity<>("E-commerce", HttpStatus.I_AM_A_TEAPOT);
 	}
 
 	// CRUD
@@ -157,12 +157,12 @@ public class ProductRestController {
 					proima.setUrl("http://192.168.100.47:8090/ecommerce/images/" + fileName);
 
 					genS.updateObject(proima);
-					
+
 					System.out.println("URL IMAGEN: " + proima.getUrl() + " CON ID: " + pro.getIdProducts());
 					System.out.println("LISTA IMAGEN: " + pro.getProImageSet());
 				}
 			}
-			return new ResponseEntity<>(pro,HttpStatus.FOUND);
+			return new ResponseEntity<>(pro, HttpStatus.FOUND);
 		} else {
 			return new ResponseEntity<>("ERROR: No register found...", HttpStatus.NOT_FOUND);
 		}
@@ -178,7 +178,7 @@ public class ProductRestController {
 		if (pro) {
 			return new ResponseEntity<>(pro, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>("Sorry, there was a problem deleting the file... try again: "+pro,
+			return new ResponseEntity<>("Sorry, there was a problem deleting the file... try again: " + pro,
 					HttpStatus.NO_CONTENT);
 		}
 	}
@@ -209,8 +209,7 @@ public class ProductRestController {
 			} else if (prod == null && pro.getIdProducts() == null) {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			} else {
-				return new ResponseEntity<>(null,
-						HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			}
 		} else {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -256,9 +255,10 @@ public class ProductRestController {
 								+ fileName);
 
 				try {
-					System.out.println("RUTA DE GUARDADO::::>" + imageFile);
+					System.out.println("RUTA DE GUARDADO ::::>" + imageFile);
 					img.setImageName(fileName);
 					img.setIdProduct(pro.getIdProducts());
+					img.setUrl("http://192.168.100.47:8090/ecommerce/images/" + fileName);
 					genS.saveObject(img);
 
 					multipartFile.transferTo(imageFile);
@@ -284,7 +284,7 @@ public class ProductRestController {
 	public ResponseEntity<?> uploadManyFileToPro(@RequestPart("files") List<MultipartFile> files,
 			@PathVariable("id") Long id, HttpServletRequest servletRequest) {
 		HttpHeaders headers = new HttpHeaders();
-		ProductsImage img = new ProductsImage(), proima = new ProductsImage();// ***
+		ProductsImage img = new ProductsImage();// ***
 
 		List<String> fileNames = new ArrayList<String>();
 
@@ -297,12 +297,12 @@ public class ProductRestController {
 				File imageFile = new File(
 						"C:\\Users\\Jorge.Díaz\\Documents\\GitHub\\WebServiceEcommerce\\ecommerce\\src\\main\\webapp\\images\\"
 								+ fileName);
-
 				try {
 					System.out.println("RUTA DE GUARDADO::::>" + imageFile);
 					img.setImageName(fileName);
 					img.setImageCode(3);
 					img.setIdProduct(id);
+					img.setUrl("http://192.168.100.47:8090/ecommerce/images/" + fileName);
 					genS.saveObject(img);
 
 					multipartFile.transferTo(imageFile);
@@ -313,6 +313,33 @@ public class ProductRestController {
 
 			headers.add("Number of files Uploaded successfully ", String.valueOf(files.size()));
 			return new ResponseEntity<>(img, headers, HttpStatus.OK);
+
+		} else if (files.isEmpty() == true || files == null) {
+			
+//			System.out.println("ENTRO AL METODO CON :::::> "+files.size());
+//			for (MultipartFile multipartFile : files) {
+//			String fileName = "default.jpg";
+//			fileNames.add(fileName);
+//			File imageFile = new File(
+//					"C:\\Users\\Jorge.Díaz\\Documents\\GitHub\\WebServiceEcommerce\\ecommerce\\src\\main\\webapp\\images\\"
+//							+ fileName);
+//
+//			try {
+//				System.out.println("RUTA DE GUARDADO::::>" + imageFile);
+//				img.setImageName(fileName);
+//				img.setImageCode(3);
+//				img.setIdProduct(id);
+//				genS.saveObject(img);
+//
+//				multipartFile.transferTo(imageFile);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//			headers.add("Number of files Uploaded successfully:",
+//					"Default image uploaded, " + String.valueOf(files.size()) + " external files found");
+			return new ResponseEntity<>("empty file", headers, HttpStatus.OK);
+			
 		} else {
 			headers.add("No files were detected: ", "Please select at least one file");
 			return new ResponseEntity<>(
