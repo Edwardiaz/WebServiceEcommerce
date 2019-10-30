@@ -40,13 +40,15 @@ public class CategoryProCatRestController {
 	@ResponseBody
 	public ResponseEntity<?> saveCategory(@RequestBody Category cat) {
 				
-		if((cat.getIdCategory() == null || cat.getIdCategory() == 0) && (cat.getIdCategoryPadre() >= 0 || cat.getIdCategoryPadre()==null)) {
+		if(cat.getIdCategory() == null || cat.getIdCategory() == 0 && cat.getIdCategoryPadre() >= 0 || cat.getIdCategoryPadre()==null) {
+			
 			return new ResponseEntity<>(catService.saveCategory(cat), HttpStatus.CREATED);
 		} else {
 			logger.error("Hibernate: Error creating new data...");
 			return new ResponseEntity<>(cat, HttpStatus.BAD_REQUEST);
 		}
 	}
+	
 
 	// method retrieve
 	@ResponseStatus(code = HttpStatus.OK)
@@ -78,9 +80,9 @@ public class CategoryProCatRestController {
 		boolean pro = catService.deleteCategory(id);
 		
 		if (pro) {
-			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
+			return new ResponseEntity<>(pro, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>("Sorry there was a problem deleting the file... try again", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -90,6 +92,7 @@ public class CategoryProCatRestController {
 	public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody Category cat) {
 		
 		if(cat.getIdCategory() == id) {
+			System.out.println("ID A ACTUALIZAR: ::::>"+cat.getIdCategory());
 			Category cate = catService.updateCategory(cat);
 			if(cate != null && cat.getIdCategory() != null) {
 				return new ResponseEntity<>(catService.updateCategory(cat), HttpStatus.OK); 
@@ -101,7 +104,7 @@ public class CategoryProCatRestController {
 				return new ResponseEntity<>("Parametros invalidos o mala sintaxis en la peticion", HttpStatus.BAD_REQUEST);
 			}
 		}else {
-			return new ResponseEntity<>("ID NO COINCIDEN", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("ID NO COINCIDEN: "+cat.getIdCategory(), HttpStatus.BAD_REQUEST);
 		}
 	}
 	
