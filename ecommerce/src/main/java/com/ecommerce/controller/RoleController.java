@@ -202,7 +202,7 @@ public class RoleController {
 
 	// *************************************************Options*******************************************************
 
-	// SHOW COMPLETE LIST
+	// SHOW COMPLETE LIST 
 	@ResponseStatus(code = HttpStatus.FOUND)
 	@RequestMapping(value = "/optionss", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
@@ -211,7 +211,7 @@ public class RoleController {
 		return list;
 	}
 
-	// RETRIEVE SINGLE
+	// RETRIEVE SINGLE Id from URL
 	@RequestMapping(value = "/optionss/{id}", method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
