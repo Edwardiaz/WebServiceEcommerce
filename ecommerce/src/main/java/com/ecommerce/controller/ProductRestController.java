@@ -173,12 +173,15 @@ public class ProductRestController {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteProducts(@PathVariable("id") Long id) {
-		boolean pro = proService.deletePro(id);
 
+		Products prod = new Products();
+//		prod.setIdProducts(id); 
+		boolean pro = proService.deletePro(id);
+//		boolean pro = genS.deleteObject(prod, id);
 		if (pro) {
 			return new ResponseEntity<>(pro, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>("Sorry, there was a problem deleting the file... try again: " + pro,
+			return new ResponseEntity<>(null,
 					HttpStatus.NO_CONTENT);
 		}
 	}
@@ -188,7 +191,7 @@ public class ProductRestController {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateProducts(@PathVariable Long id, @RequestBody Products pro) {
-System.out.println("**************** ID que viene del FRONT " + id);
+		System.out.println("**************** ID que viene del FRONT " + id);
 		if (pro.getIdProducts() == id) {
 			Products p = proService.findByIdProducts(id);
 			if (p != null) {
@@ -315,8 +318,8 @@ System.out.println("**************** ID que viene del FRONT " + id);
 			return new ResponseEntity<>(img, headers, HttpStatus.OK);
 
 		} else if (files.isEmpty() == true || files.size() == 0) {
-			
-			System.out.println("ENTRO AL METODO CON :::::> "+files.size());
+
+			System.out.println("ENTRO AL METODO CON :::::> " + files.size());
 //			for (MultipartFile multipartFile : files) {
 //			String fileName = "default.jpg";
 //			fileNames.add(fileName);
@@ -337,9 +340,9 @@ System.out.println("**************** ID que viene del FRONT " + id);
 //			}
 //		}
 //			headers.add("Number of files Uploaded successfully:", "Default image uploaded, " + String.valueOf(files.size()) + " external files found");
-			
+
 			return new ResponseEntity<>("empty file", headers, HttpStatus.OK);
-			
+
 		} else {
 			headers.add("No files were detected: ", "Please select at least one file");
 			return new ResponseEntity<>(
@@ -373,25 +376,25 @@ System.out.println("**************** ID que viene del FRONT " + id);
 			return new ResponseEntity<>("Error: register doesn't exist...", HttpStatus.NO_CONTENT);
 		}
 	}
-	
-	// filter products for specific id cat...
-		@ResponseStatus(code = HttpStatus.FOUND)
-		@RequestMapping(value = "/products/category/{id}", method = RequestMethod.GET, produces = {
-				MediaType.APPLICATION_JSON_VALUE })
-		@ResponseBody
-		public ResponseEntity<?> findByidCategory(@PathVariable("id") Long id) {
 
-			List<ProductsCategory> list = relS.findByidCategory(id);
-			if (list.size() > 0) {
-				System.out.println("LISTAAA " + list);
-				return new ResponseEntity<>(list, HttpStatus.FOUND);
-			} else if (list.size() == 0) {
-				logger.error("Register doesn't have products or doesn't exist, ID: " + id);
-				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			} else {
-				return new ResponseEntity<>("Error: register doesn't exist...", HttpStatus.NO_CONTENT);
-			}
+	// filter products for specific id cat...
+	@ResponseStatus(code = HttpStatus.FOUND)
+	@RequestMapping(value = "/products/category/{id}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> findByidCategory(@PathVariable("id") Long id) {
+
+		List<ProductsCategory> list = relS.findByidCategory(id);
+		if (list.size() > 0) {
+			System.out.println("LISTAAA " + list);
+			return new ResponseEntity<>(list, HttpStatus.FOUND);
+		} else if (list.size() == 0) {
+			logger.error("Register doesn't have products or doesn't exist, ID: " + id);
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>("Error: register doesn't exist...", HttpStatus.NO_CONTENT);
 		}
+	}
 
 	@ResponseStatus(code = HttpStatus.FOUND)
 	@RequestMapping(value = "/imagen", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -442,7 +445,7 @@ System.out.println("**************** ID que viene del FRONT " + id);
 	public ResponseEntity<?> deleteImage(@PathVariable("id") Long id) {
 		ProductsImage ima = retrieveService.findByIdImage(id);
 		String originalFilename = (ima.getImageName());
-		boolean boo = genS.deleteObject(ima);
+		boolean boo = genS.deleteObject(ima, null);
 //			System.out.println("FILE NAME:::::> "+originalFilename);
 		File destinationFile = new File(
 				"C:/Users/Jorge.Diaz/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"
