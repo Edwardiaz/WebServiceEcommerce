@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import com.ecommerce.entity.Category;
 import com.ecommerce.entity.ProductsCategory;
 import com.ecommerce.service.CategoryService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class CategoryProCatRestController {
@@ -34,21 +36,23 @@ public class CategoryProCatRestController {
 	}
 	
 	// method create
-	@RequestMapping(value = "/categoria", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/category", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> saveCategory(@RequestBody Category cat) {
 				
-		if((cat.getIdCategory() == null || cat.getIdCategory() == 0) && cat.getIdCategoryPadre() > 0) {
+		if(cat.getIdCategory() == null || cat.getIdCategory() == 0 && cat.getIdCategoryPadre() >= 0 || cat.getIdCategoryPadre()==null) {
+			
 			return new ResponseEntity<>(catService.saveCategory(cat), HttpStatus.CREATED);
 		} else {
 			logger.error("Hibernate: Error creating new data...");
 			return new ResponseEntity<>(cat, HttpStatus.BAD_REQUEST);
 		}
 	}
+	
 
 	// method retrieve
-	@ResponseStatus(code = HttpStatus.FOUND)
-	@RequestMapping(value = "/categoria", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseStatus(code = HttpStatus.OK)
+	@RequestMapping(value = "/category", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public List<Category> getCategoria() {
 		
@@ -57,7 +61,7 @@ public class CategoryProCatRestController {
 	}
 
 	// method find by id
-	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/category/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> getProductById(@PathVariable("id") Long id) {
 		Category cat = catService.findByIdCategory(id);
@@ -70,24 +74,25 @@ public class CategoryProCatRestController {
 	}
  
 	// method delete
-	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/category/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteCategory(@PathVariable("id") Long id) {	
 		boolean pro = catService.deleteCategory(id);
 		
 		if (pro) {
-			return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
+			return new ResponseEntity<>(pro, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>("Sorry there was a problem deleting the file... try again", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 	}
 
 	//method update
-	@RequestMapping(value = "/categoria/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/category/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody Category cat) {
 		
 		if(cat.getIdCategory() == id) {
+			System.out.println("ID A ACTUALIZAR: ::::>"+cat.getIdCategory());
 			Category cate = catService.updateCategory(cat);
 			if(cate != null && cat.getIdCategory() != null) {
 				return new ResponseEntity<>(catService.updateCategory(cat), HttpStatus.OK); 
@@ -99,7 +104,7 @@ public class CategoryProCatRestController {
 				return new ResponseEntity<>("Parametros invalidos o mala sintaxis en la peticion", HttpStatus.BAD_REQUEST);
 			}
 		}else {
-			return new ResponseEntity<>("ID NO COINCIDEN", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("ID NO COINCIDEN: "+cat.getIdCategory(), HttpStatus.BAD_REQUEST);
 		}
 	}
 	

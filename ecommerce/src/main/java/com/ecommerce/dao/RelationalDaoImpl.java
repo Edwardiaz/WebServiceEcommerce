@@ -10,6 +10,8 @@ import com.ecommerce.configuration.HibernateUtil;
 import com.ecommerce.entity.ClientCategoryClient;
 import com.ecommerce.entity.ConfigProducts;
 import com.ecommerce.entity.ConfigPromotions;
+import com.ecommerce.entity.Products;
+import com.ecommerce.entity.ProductsCategory;
 import com.ecommerce.entity.ProductsConfigProducts;
 import com.ecommerce.entity.ProductsImage;
 import com.ecommerce.entity.ProductsSupplier;
@@ -163,6 +165,15 @@ public class RelationalDaoImpl implements IRelationService{
 		List<ProductsImage> list = new ArrayList<ProductsImage>();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			list = session.createQuery("from ProductsImage where idProducts = :id", ProductsImage.class).setParameter("id", id).list();
+		return list;
+		}
+	}
+	
+	@Override
+	public List<ProductsCategory> findByidCategory(Long id) {
+		List<ProductsCategory> list = new ArrayList<ProductsCategory>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = session.createQuery("from ProductsCategory where idCategory = :id", ProductsCategory.class).setParameter("id", id).list();
 		return list;
 		}
 	}

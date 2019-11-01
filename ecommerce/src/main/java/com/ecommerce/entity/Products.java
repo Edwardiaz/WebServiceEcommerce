@@ -30,7 +30,7 @@ public class Products implements Serializable {
 	@Column(name = "idProducts")
 	private Long idProducts;
 	@Column(name = "productCode")
-	private char productCode;
+	private String productCode;
 	@Column(name = "sku")
 	private String sku;
 	@Column(name = "nameProducts")
@@ -91,7 +91,7 @@ public class Products implements Serializable {
 	public Products() {
 	}
 
-	public Products(Long idProducts, char productCode, String sku, String nameProducts, String description,
+	public Products(Long idProducts, String productCode, String sku, String nameProducts, String description,
 			String colour, Date updateDate, double price, int quantity, double taxes, double additionalShippingCost,
 			double wholeSalePrice, Date productDeliveryDate, float width, float height, float depth, float weight,
 			Long idOrders) {
@@ -128,11 +128,11 @@ public class Products implements Serializable {
 		this.idProducts = idProducts;
 	}
 
-	public char getProductCode() {
+	public String getProductCode() {
 		return productCode;
 	}
 
-	public void setProductCode(char productCode) {
+	public void setProductCode(String productCode) {
 		this.productCode = productCode;
 	}
 

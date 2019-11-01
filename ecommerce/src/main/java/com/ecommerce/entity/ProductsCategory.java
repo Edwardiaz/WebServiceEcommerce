@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name = "productsCategory")
@@ -27,6 +30,9 @@ public class ProductsCategory implements Serializable{
 	private Long idPro;
 	@Column(name = "idCategory")
 	private Long idCat;
+	@JsonInclude
+	@Transient
+	private String name;
 	
 	@JoinColumn(name = "idCategory", insertable = false, updatable = false)
 	@ManyToOne

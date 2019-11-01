@@ -11,20 +11,18 @@ import com.ecommerce.entity.Category;
 import com.ecommerce.entity.ProductsCategory;
 
 @Component
-public class CategoryProCatDaoImpl implements InterfaceCategoryDao, InterfaceProCatDao{
+public class CategoryProCatDaoImpl implements InterfaceCategoryDao, InterfaceProCatDao {
 
 	@Override
 	public Category saveCategory(Category cat) {
 		Transaction transaction = null;
-		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.save(cat);
 			transaction.commit();
 			return cat;
-		}catch(Exception e) {
-			if(transaction != null) {
-				transaction.rollback();
-			}
+		} catch (Exception e) {
+			transaction.rollback();
 			e.printStackTrace();
 			return null;
 		}
@@ -32,14 +30,14 @@ public class CategoryProCatDaoImpl implements InterfaceCategoryDao, InterfacePro
 
 	@Override
 	public List<Category> findAllCategory() {
-		try(Session sesion = HibernateUtil.getSessionFactory().openSession()){
-			return sesion.createQuery("from Category", Category.class).list();	
+		try (Session sesion = HibernateUtil.getSessionFactory().openSession()) {
+			return sesion.createQuery("from Category", Category.class).list();
 		}
 	}
 
 	@Override
 	public Category findByIdCategory(Long id) {
-		try(Session sesion = HibernateUtil.getSessionFactory().openSession()){
+		try (Session sesion = HibernateUtil.getSessionFactory().openSession()) {
 			Category cat = sesion.get(Category.class, id);
 			return cat;
 		}
@@ -51,11 +49,11 @@ public class CategoryProCatDaoImpl implements InterfaceCategoryDao, InterfacePro
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Category cat = session.get(Category.class, id);
 		transaction = session.beginTransaction();
-		if(null != cat) {
+		if (null != cat) {
 			session.delete(cat);
 			transaction.commit();
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
@@ -63,7 +61,7 @@ public class CategoryProCatDaoImpl implements InterfaceCategoryDao, InterfacePro
 	@Override
 	public Category updateCategory(Category cat) {
 		Transaction transaccion = null;
-		try(Session sesion = HibernateUtil.getSessionFactory().openSession()) {
+		try (Session sesion = HibernateUtil.getSessionFactory().openSession()) {
 			transaccion = sesion.beginTransaction();
 			sesion.update(cat);
 			transaccion.commit();
@@ -75,13 +73,13 @@ public class CategoryProCatDaoImpl implements InterfaceCategoryDao, InterfacePro
 	@Override
 	public ProductsCategory updateProCat(ProductsCategory proCat) {
 		Transaction transaction = null;
-		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.update(proCat);
 			transaction.commit();
 			return proCat;
-		}catch(Exception e) {
-			if(transaction != null) {
+		} catch (Exception e) {
+			if (transaction != null) {
 				transaction.rollback();
 			}
 			e.printStackTrace();
@@ -91,7 +89,7 @@ public class CategoryProCatDaoImpl implements InterfaceCategoryDao, InterfacePro
 
 	@Override
 	public ProductsCategory findByIdProCat(Long id) {
-		try(Session sesion = HibernateUtil.getSessionFactory().openSession()){
+		try (Session sesion = HibernateUtil.getSessionFactory().openSession()) {
 			ProductsCategory pro = sesion.get(ProductsCategory.class, id);
 			return pro;
 		}
@@ -99,21 +97,21 @@ public class CategoryProCatDaoImpl implements InterfaceCategoryDao, InterfacePro
 
 	@Override
 	public List<ProductsCategory> findAllProCat() {
-		try(Session sesion = HibernateUtil.getSessionFactory().openSession()){
-			return sesion.createQuery("from ProductsCategory", ProductsCategory.class).list();	
+		try (Session sesion = HibernateUtil.getSessionFactory().openSession()) {
+			return sesion.createQuery("from ProductsCategory", ProductsCategory.class).list();
 		}
 	}
 
 	@Override
 	public ProductsCategory saveProCat(ProductsCategory procat) {
 		Transaction transaction = null;
-		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.save(procat);
 			transaction.commit();
 			return procat;
-		}catch(Exception e) {
-			if(transaction != null) {
+		} catch (Exception e) {
+			if (transaction != null) {
 				transaction.rollback();
 			}
 			e.printStackTrace();
@@ -127,7 +125,7 @@ public class CategoryProCatDaoImpl implements InterfaceCategoryDao, InterfacePro
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		ProductsCategory proCat = session.get(ProductsCategory.class, id);
 		transaction = session.beginTransaction();
-		if(null != proCat) {
+		if (null != proCat) {
 			session.delete(proCat);
 			transaction.commit();
 			return true;

@@ -5,6 +5,7 @@ import java.util.List;
 import com.ecommerce.entity.ClientCategoryClient;
 import com.ecommerce.entity.ConfigProducts;
 import com.ecommerce.entity.ConfigPromotions;
+import com.ecommerce.entity.ProductsCategory;
 import com.ecommerce.entity.ProductsConfigProducts;
 import com.ecommerce.entity.ProductsImage;
 import com.ecommerce.entity.ProductsSupplier;
@@ -35,4 +36,5 @@ public interface IRelationService {
 	public List<ProductsSupplier> findByProductsSup(Long id);
 	
 	public List<ProductsImage> findByidProducts(Long id);
+	public List<ProductsCategory> findByidCategory(Long id);
 }
