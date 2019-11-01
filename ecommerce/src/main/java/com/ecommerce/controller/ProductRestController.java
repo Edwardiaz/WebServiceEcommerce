@@ -90,29 +90,29 @@ public class ProductRestController {
 	}
 
 	// metodo insertar con categoria
-//	@RequestMapping(value = "/product/category/{id}", method = RequestMethod.POST, produces = {
-//			MediaType.APPLICATION_JSON_VALUE })
-//	@ResponseBody
-//	public ResponseEntity<?> saveProductsCate(@RequestBody Products pro, @PathVariable("id") Long id) {
-//		System.out.println("ENTRO AL METODO saveProductsCate");
-//		if (pro.getIdProducts() == null || pro.getIdProducts() == 0) {
-//			ProductsCategory procat = new ProductsCategory();
-//			pro.setProductDeliveryDate(new Date());
-//			pro.setUpdateDate(null);
-//			procat.setIdCategory(id);
-//
-//			logger.error("ID DE LA URI:::::> " + id);
-//			System.out.println("ID CATEGORIA:::::> " + procat.getIdCategory());
-//
-//			Products pr = proService.saveProductsCate(pro);
-//			procat.setIdProducts(pr.getIdProducts());
-//			catService.saveProductsCategory(procat);
-//			return new ResponseEntity<>(procat, HttpStatus.CREATED);
-//		} else {
-//			System.out.println("ERROR: BAD REQUEST");
-//			return new ResponseEntity<>("Some Parameter are invalid", HttpStatus.BAD_REQUEST);
-//		}
-//	}
+	@RequestMapping(value = "/producto/categoria/{id}", method = RequestMethod.POST, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> saveProductsCate(@RequestBody Products pro, @PathVariable("id") Long id) {
+		System.out.println("ENTRO AL METODO saveProductsCate");
+		if (pro.getIdProducts() == null || pro.getIdProducts() == 0) {
+			ProductsCategory procat = new ProductsCategory();
+			pro.setProductDeliveryDate(new Date());
+			pro.setUpdateDate(null);
+			procat.setIdCategory(id);
+
+			logger.error("ID DE LA URI:::::> " + id);
+			System.out.println("ID CATEGORIA:::::> " + procat.getIdCategory());
+
+			Products pr = proService.saveProductsCate(pro);
+			procat.setIdProducts(pr.getIdProducts());
+			catService.saveProductsCategory(procat);
+			return new ResponseEntity<>(procat, HttpStatus.CREATED);
+		} else {
+			System.out.println("ERROR: BAD REQUEST");
+			return new ResponseEntity<>("Some Parameter are invalid", HttpStatus.BAD_REQUEST);
+		}
+	}
 
 	// retrieve method
 //	@CrossOrigin(origins = "http://localhost:3000/catalogo")
@@ -188,7 +188,7 @@ public class ProductRestController {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateProducts(@PathVariable Long id, @RequestBody Products pro) {
-
+System.out.println("**************** ID que viene del FRONT " + id);
 		if (pro.getIdProducts() == id) {
 			Products p = proService.findByIdProducts(id);
 			if (p != null) {
@@ -314,9 +314,9 @@ public class ProductRestController {
 			headers.add("Number of files Uploaded successfully ", String.valueOf(files.size()));
 			return new ResponseEntity<>(img, headers, HttpStatus.OK);
 
-		} else if (files.isEmpty() == true || files == null) {
+		} else if (files.isEmpty() == true || files.size() == 0) {
 			
-//			System.out.println("ENTRO AL METODO CON :::::> "+files.size());
+			System.out.println("ENTRO AL METODO CON :::::> "+files.size());
 //			for (MultipartFile multipartFile : files) {
 //			String fileName = "default.jpg";
 //			fileNames.add(fileName);
@@ -336,8 +336,8 @@ public class ProductRestController {
 //				e.printStackTrace();
 //			}
 //		}
-//			headers.add("Number of files Uploaded successfully:",
-//					"Default image uploaded, " + String.valueOf(files.size()) + " external files found");
+//			headers.add("Number of files Uploaded successfully:", "Default image uploaded, " + String.valueOf(files.size()) + " external files found");
+			
 			return new ResponseEntity<>("empty file", headers, HttpStatus.OK);
 			
 		} else {
@@ -373,6 +373,25 @@ public class ProductRestController {
 			return new ResponseEntity<>("Error: register doesn't exist...", HttpStatus.NO_CONTENT);
 		}
 	}
+	
+	// filter products for specific id cat...
+		@ResponseStatus(code = HttpStatus.FOUND)
+		@RequestMapping(value = "/products/category/{id}", method = RequestMethod.GET, produces = {
+				MediaType.APPLICATION_JSON_VALUE })
+		@ResponseBody
+		public ResponseEntity<?> findByidCategory(@PathVariable("id") Long id) {
+
+			List<ProductsCategory> list = relS.findByidCategory(id);
+			if (list.size() > 0) {
+				System.out.println("LISTAAA " + list);
+				return new ResponseEntity<>(list, HttpStatus.FOUND);
+			} else if (list.size() == 0) {
+				logger.error("Register doesn't have products or doesn't exist, ID: " + id);
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			} else {
+				return new ResponseEntity<>("Error: register doesn't exist...", HttpStatus.NO_CONTENT);
+			}
+		}
 
 	@ResponseStatus(code = HttpStatus.FOUND)
 	@RequestMapping(value = "/imagen", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
