@@ -90,6 +90,14 @@ public class UsersRole implements Serializable {
 		this.users = users;
 	}
 
+	public Role getRoleobj() {
+		return roleobj;
+	}
+
+	public void setRoleobj(Role roleobj) {
+		this.roleobj = roleobj;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
