@@ -180,5 +180,13 @@ public class Settings implements Serializable {
 	public void setDomain(String domain) {
 		this.domain = domain;
 	}
+
+	public TimeZone getTimeZone() {
+		return timeZone;
+	}
+
+	public void setTimeZone(TimeZone timeZone) {
+		this.timeZone = timeZone;
+	}
 	
 }
