@@ -37,7 +37,8 @@ public class SettingsController {
 		this.byIdS = byIdS;
 	}
 
-	// Here we have SettingsShop, Email, State, TimeZone, Telephone, Address, Country
+	// Here we have SettingsShop, Email, State, TimeZone, Telephone, Address,
+	// Country
 	// *************************************************SettingsShop*********************************************************
 
 	// SHOW COMPLETE LIST
@@ -49,7 +50,8 @@ public class SettingsController {
 	}
 
 	// RETRIEVE SINGLE ELEMENT
-	@RequestMapping(value = "/settings/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/settings/{id}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> settingsShopById(@PathVariable("id") Long id) {
 		Settings obj = byIdS.getSettingsShopById(id);
@@ -61,7 +63,8 @@ public class SettingsController {
 	}
 
 	// DELETE SINGLE ELEMENT
-	@RequestMapping(value = "/settings/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/settings/{id}", method = RequestMethod.DELETE, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteSettingsShop(@PathVariable("id") Long id) {
 		Settings obj = new Settings();
@@ -70,7 +73,7 @@ public class SettingsController {
 
 		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else if(msj == false) {
+		} else if (msj == false) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
@@ -81,14 +84,20 @@ public class SettingsController {
 	@ResponseBody
 	public ResponseEntity<?> saveSettingsShop(@RequestBody Settings obj) {
 		if (obj.getIdSettings() == null || obj.getIdSettings() == 0) {
-			return new ResponseEntity<>(genS.saveObject(obj), HttpStatus.CREATED);
-		} else {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			Settings saved = (Settings) genS.saveObject(obj);
+			if (saved != null) {
+				return new ResponseEntity<>(saved, HttpStatus.CREATED);
+			}else {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+		}else {
+			return new ResponseEntity<>(obj, HttpStatus.BAD_REQUEST);
 		}
 	}
 
 	// UPDATE SINGLE ELEMENT
-	@RequestMapping(value = "/settings/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/settings/{id}", method = RequestMethod.PUT, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateSettingsShop(@PathVariable("id") Long id, @RequestBody Settings obj) {
 		if (obj.getIdSettings() == id) {
@@ -134,7 +143,8 @@ public class SettingsController {
 	}
 
 	// DELETE SINGLE ELEMENT
-	@RequestMapping(value = "/email/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/email/{id}", method = RequestMethod.DELETE, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteEmail(@PathVariable("id") Long id) {
 		Email obj = new Email();
@@ -143,7 +153,7 @@ public class SettingsController {
 
 		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else if(msj == false) {
+		} else if (msj == false) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
@@ -206,7 +216,8 @@ public class SettingsController {
 	}
 
 	// DELETE SINGLE ELEMENT
-	@RequestMapping(value = "/state/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/state/{id}", method = RequestMethod.DELETE, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteState(@PathVariable("id") Long id) {
 		State obj = new State();
@@ -215,7 +226,7 @@ public class SettingsController {
 
 		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else if(msj == false) {
+		} else if (msj == false) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
@@ -266,7 +277,8 @@ public class SettingsController {
 	}
 
 	// RETRIEVE SINGLE ELEMENT
-	@RequestMapping(value = "/timeZone/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/timeZone/{id}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> timeZoneById(@PathVariable("id") Long id) {
 		TimeZone obj = byIdS.getTimeZoneById(id);
@@ -278,7 +290,8 @@ public class SettingsController {
 	}
 
 	// DELETE SINGLE ELEMENT
-	@RequestMapping(value = "/timeZone/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/timeZone/{id}", method = RequestMethod.DELETE, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteTimeZone(@PathVariable("id") Long id) {
 		TimeZone obj = new TimeZone();
@@ -287,7 +300,7 @@ public class SettingsController {
 
 		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else if(msj == false) {
+		} else if (msj == false) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
@@ -305,7 +318,8 @@ public class SettingsController {
 	}
 
 	// UPDATE SINGLE ELEMENT
-	@RequestMapping(value = "/timeZone/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/timeZone/{id}", method = RequestMethod.PUT, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateTimeZone(@PathVariable("id") Long id, @RequestBody TimeZone obj) {
 		if (obj.getIdTimeZone() == id) {
@@ -328,153 +342,159 @@ public class SettingsController {
 
 	}
 	// *************************************************Telephone*********************************************************
-	
+
 	// SHOW COMPLETE LIST
-		@ResponseStatus(code = HttpStatus.FOUND)
-		@RequestMapping(value = "/telephone", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-		@ResponseBody
-		public List<Telephone> findAllTelephone() {
-			return listS.allTelephone();
-		}
+	@ResponseStatus(code = HttpStatus.FOUND)
+	@RequestMapping(value = "/telephone", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public List<Telephone> findAllTelephone() {
+		return listS.allTelephone();
+	}
 
-		// RETRIEVE SINGLE ELEMENT
-		@RequestMapping(value = "/telephone/{id}", method = RequestMethod.GET, produces = {	MediaType.APPLICATION_JSON_VALUE })
-		@ResponseBody
-		public ResponseEntity<?> telephoneById(@PathVariable("id") Long id) {
-			Telephone obj = byIdS.getTelephoneById(id);
-			if (obj != null) {
-				return new ResponseEntity<>(obj, HttpStatus.FOUND);
-			} else {
+	// RETRIEVE SINGLE ELEMENT
+	@RequestMapping(value = "/telephone/{id}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> telephoneById(@PathVariable("id") Long id) {
+		Telephone obj = byIdS.getTelephoneById(id);
+		if (obj != null) {
+			return new ResponseEntity<>(obj, HttpStatus.FOUND);
+		} else {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+	}
+
+	// DELETE SINGLE ELEMENT
+	@RequestMapping(value = "/telephone/{id}", method = RequestMethod.DELETE, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> deleteTelephone(@PathVariable("id") Long id) {
+		Telephone obj = new Telephone();
+		obj.setIdTelephone(id);
+		boolean msj = genS.deleteObject(obj, id);
+
+		if (msj == true) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
+		} else if (msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+	}
+
+	// SAVE NEW SINGLE ELEMENT
+	@RequestMapping(value = "/telephone", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> saveTelephone(@RequestBody Telephone obj) {
+		if (obj.getIdTelephone() == null || obj.getIdTelephone() == 0) {
+			return new ResponseEntity<>(genS.saveObject(obj), HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	// UPDATE SINGLE ELEMENT
+	@RequestMapping(value = "/telephone/{id}", method = RequestMethod.PUT, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> updateTelephone(@PathVariable("id") Long id, @RequestBody Telephone obj) {
+		if (obj.getIdTelephone() == id) {
+			Telephone ret = (Telephone) genS.updateObject(obj);
+			if (ret != null && obj.getIdTelephone() != null) {
+				return new ResponseEntity<>(obj, HttpStatus.OK);
+			} else if (ret == null && obj.getIdTelephone() != null) {
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			}
-		}
-
-		// DELETE SINGLE ELEMENT
-		@RequestMapping(value = "/telephone/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
-		@ResponseBody
-		public ResponseEntity<?> deleteTelephone(@PathVariable("id") Long id) {
-			Telephone obj = new Telephone();
-			obj.setIdTelephone(id);
-			boolean msj = genS.deleteObject(obj, id);
-
-			if (msj == true) {
-				return new ResponseEntity<>(msj, HttpStatus.OK);
-			} else if(msj == false) {
-				return new ResponseEntity<>(msj, HttpStatus.OK);
-			}
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
-		}
-
-		// SAVE NEW SINGLE ELEMENT
-		@RequestMapping(value = "/telephone", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-		@ResponseBody
-		public ResponseEntity<?> saveTelephone(@RequestBody Telephone obj) {
-			if (obj.getIdTelephone() == null || obj.getIdTelephone() == 0) {
-				return new ResponseEntity<>(genS.saveObject(obj), HttpStatus.CREATED);
+			} else if (ret == null && obj.getIdTelephone() == null) {
+				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			} else {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			}
-		}
 
-		// UPDATE SINGLE ELEMENT
-		@RequestMapping(value = "/telephone/{id}", method = RequestMethod.PUT, produces = {	MediaType.APPLICATION_JSON_VALUE })
-		@ResponseBody
-		public ResponseEntity<?> updateTelephone(@PathVariable("id") Long id, @RequestBody Telephone obj) {
-			if (obj.getIdTelephone() == id) {
-				Telephone ret = (Telephone) genS.updateObject(obj);
-				if (ret != null && obj.getIdTelephone() != null) {
-					return new ResponseEntity<>(obj, HttpStatus.OK);
-				} else if (ret == null && obj.getIdTelephone() != null) {
-					return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-				} else if (ret == null && obj.getIdTelephone() == null) {
-					return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-				} else {
-					return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-				}
+		} else {
 
-			} else {
-
-				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-
-			}
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 
 		}
-		
-		// *************************************************Address*********************************************************
-		
-		// SHOW COMPLETE LIST
-		@ResponseStatus(code = HttpStatus.FOUND)
-		@RequestMapping(value = "/address", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-		@ResponseBody
-		public List<Address> findAllAddress() {
-			return listS.allAddress();
-		}
 
-		// RETRIEVE SINGLE ELEMENT
-		@RequestMapping(value = "/address/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-		@ResponseBody
-		public ResponseEntity<?> addressById(@PathVariable("id") Long id) {
-			Address obj = byIdS.getAddressById(id);
-			if (obj != null) {
-				return new ResponseEntity<>(obj, HttpStatus.FOUND);
-			} else {
+	}
+
+	// *************************************************Address*********************************************************
+
+	// SHOW COMPLETE LIST
+	@ResponseStatus(code = HttpStatus.FOUND)
+	@RequestMapping(value = "/address", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public List<Address> findAllAddress() {
+		return listS.allAddress();
+	}
+
+	// RETRIEVE SINGLE ELEMENT
+	@RequestMapping(value = "/address/{id}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> addressById(@PathVariable("id") Long id) {
+		Address obj = byIdS.getAddressById(id);
+		if (obj != null) {
+			return new ResponseEntity<>(obj, HttpStatus.FOUND);
+		} else {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+	}
+
+	// DELETE SINGLE ELEMENT
+	@RequestMapping(value = "/address/{id}", method = RequestMethod.DELETE, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> deleteAddress(@PathVariable("id") Long id) {
+		Address obj = new Address();
+		obj.setIdAddress(id);
+		boolean msj = genS.deleteObject(obj, id);
+
+		if (msj == true) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
+		} else if (msj == false) {
+			return new ResponseEntity<>(msj, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+	}
+
+	// SAVE NEW SINGLE ELEMENT
+	@RequestMapping(value = "/address", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> saveAddress(@RequestBody Address obj) {
+		if (obj.getIdAddress() == null || obj.getIdAddress() == 0) {
+			return new ResponseEntity<>(genS.saveObject(obj), HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	// UPDATE SINGLE ELEMENT
+	@RequestMapping(value = "/address/{id}", method = RequestMethod.PUT, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> updateAddress(@PathVariable("id") Long id, @RequestBody Address obj) {
+		if (obj.getIdAddress() == id) {
+			Address ret = (Address) genS.updateObject(obj);
+			if (ret != null && obj.getIdAddress() != null) {
+				return new ResponseEntity<>(obj, HttpStatus.OK);
+			} else if (ret == null && obj.getIdAddress() != null) {
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			}
-		}
-
-		// DELETE SINGLE ELEMENT
-		@RequestMapping(value = "/address/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
-		@ResponseBody
-		public ResponseEntity<?> deleteAddress(@PathVariable("id") Long id) {
-			Address obj = new Address();
-			obj.setIdAddress(id);
-			boolean msj = genS.deleteObject(obj, id);
-
-			if (msj == true) {
-				return new ResponseEntity<>(msj, HttpStatus.OK);
-			} else if(msj == false) {
-				return new ResponseEntity<>(msj, HttpStatus.OK);
-			}
-			return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
-		}
-
-		// SAVE NEW SINGLE ELEMENT
-		@RequestMapping(value = "/address", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-		@ResponseBody
-		public ResponseEntity<?> saveAddress(@RequestBody Address obj) {
-			if (obj.getIdAddress() == null || obj.getIdAddress() == 0) {
-				return new ResponseEntity<>(genS.saveObject(obj), HttpStatus.CREATED);
+			} else if (ret == null && obj.getIdAddress() == null) {
+				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			} else {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			}
-		}
 
-		// UPDATE SINGLE ELEMENT
-		@RequestMapping(value = "/address/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
-		@ResponseBody
-		public ResponseEntity<?> updateAddress(@PathVariable("id") Long id, @RequestBody Address obj) {
-			if (obj.getIdAddress() == id) {
-				Address ret = (Address) genS.updateObject(obj);
-				if (ret != null && obj.getIdAddress() != null) {
-					return new ResponseEntity<>(obj, HttpStatus.OK);
-				} else if (ret == null && obj.getIdAddress() != null) {
-					return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-				} else if (ret == null && obj.getIdAddress() == null) {
-					return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-				} else {
-					return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-				}
+		} else {
 
-			} else {
-
-				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-
-			}
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 
 		}
-		
+
+	}
+
 	// *************************************************Country*********************************************************
-		
+
 	// SHOW COMPLETE LIST
 	@ResponseStatus(code = HttpStatus.FOUND)
 	@RequestMapping(value = "/country", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -484,7 +504,8 @@ public class SettingsController {
 	}
 
 	// RETRIEVE SINGLE ELEMENT
-	@RequestMapping(value = "/country/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/country/{id}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> countryById(@PathVariable("id") Long id) {
 		Country obj = byIdS.getCountryById(id);
@@ -496,7 +517,8 @@ public class SettingsController {
 	}
 
 	// DELETE SINGLE ELEMENT
-	@RequestMapping(value = "/country/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/country/{id}", method = RequestMethod.DELETE, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteCountry(@PathVariable("id") Long id) {
 		Country obj = new Country();
@@ -505,7 +527,7 @@ public class SettingsController {
 
 		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else if(msj == false) {
+		} else if (msj == false) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
@@ -523,7 +545,8 @@ public class SettingsController {
 	}
 
 	// UPDATE SINGLE ELEMENT
-	@RequestMapping(value = "/country/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/country/{id}", method = RequestMethod.PUT, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateAddress(@PathVariable("id") Long id, @RequestBody Country obj) {
 		if (obj.getIdCountry() == id) {
@@ -545,6 +568,5 @@ public class SettingsController {
 		}
 
 	}
-	
-	
+
 }
