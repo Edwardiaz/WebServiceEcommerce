@@ -93,16 +93,6 @@ public class Category implements Serializable{
 		this.idCategoryPadre = idCategoryPadre;
 	}
 
-	public Set<Category> getCategoriaSet() {
-		return categoriaSet;
-	}
-
-	public void setCategoriaSet(Set<Category> categoriaSet) {
-		this.categoriaSet = categoriaSet;
-	}
-	
-	
-
 //	public Set<ProductsCategory> getProductsCategorySet() {
 //		return productsCategorySet;
 //	}
