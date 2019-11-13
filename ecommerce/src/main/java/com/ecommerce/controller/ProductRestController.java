@@ -442,7 +442,7 @@ System.out.println("**************** ID que viene del FRONT " + id);
 	public ResponseEntity<?> deleteImage(@PathVariable("id") Long id) {
 		ProductsImage ima = retrieveService.findByIdImage(id);
 		String originalFilename = (ima.getImageName());
-		boolean boo = genS.deleteObject(ima);
+		boolean boo = genS.deleteObject(ima, null);
 //			System.out.println("FILE NAME:::::> "+originalFilename);
 		File destinationFile = new File(
 				"C:/Users/Jorge.Diaz/Documents/GitHub/WebServiceEcommerce/ecommerce/src/main/webapp/WEB-INF/images"
