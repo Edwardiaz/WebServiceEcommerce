@@ -111,9 +111,7 @@ public class CategoryProCatDaoImpl implements InterfaceCategoryDao, InterfacePro
 			transaction.commit();
 			return procat;
 		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
+			transaction.rollback();
 			e.printStackTrace();
 			return null;
 		}
