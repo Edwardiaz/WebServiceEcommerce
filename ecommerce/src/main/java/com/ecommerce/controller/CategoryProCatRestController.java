@@ -158,7 +158,7 @@ public class CategoryProCatRestController {
 	}
 
 	//method update
-	@RequestMapping(value = "/procat/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/procat/category/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateProCat(@PathVariable("id") Long id, @RequestBody ProductsCategory cat) {
 		
@@ -171,10 +171,10 @@ public class CategoryProCatRestController {
 			}else if(procat == null && cat.getIdProductsCategory() == null) {
 				return new ResponseEntity<>("SOME PARAMETERS ARE INVALID", HttpStatus.BAD_REQUEST);
 			}else {
-				return new ResponseEntity<>("Parametros invalidos o mala sintaxis en la peticion", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>("Some parameter are invalid or bad syntax", HttpStatus.BAD_REQUEST);
 			}
 		}else {
-			return new ResponseEntity<>("ID NO COINCIDEN", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("ID's mismatch", HttpStatus.BAD_REQUEST);
 		}
 	}
 }

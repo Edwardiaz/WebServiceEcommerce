@@ -37,4 +37,5 @@ public interface IRelationService {
 	
 	public List<ProductsImage> findByidProducts(Long id);
 	public List<ProductsCategory> findByidCategory(Long id);
+	public List<ProductsCategory> findByIdProAndCate(Long id);
 }
