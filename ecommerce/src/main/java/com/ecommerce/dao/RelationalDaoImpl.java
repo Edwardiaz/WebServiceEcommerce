@@ -179,10 +179,10 @@ public class RelationalDaoImpl implements IRelationService{
 	}
 
 	@Override
-	public List<ProductsCategory> findByIdProAndCate(Long idProd, Long idCat) {
+	public List<ProductsCategory> findByIdProAndCate(Long idProd) {
 		List<ProductsCategory> list = new ArrayList<ProductsCategory>();
 		try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-			list = session.createQuery("from productsCategory where idProducts = :idProd and idCategory = :idCat", ProductsCategory.class).setParameter("idProd",idProd).setParameter("idCat", idCat).list();
+			list = session.createQuery("from ProductsCategory where idProducts = :idProd", ProductsCategory.class).setParameter("id", idProd).list();
 		}
 		return list;
 	}

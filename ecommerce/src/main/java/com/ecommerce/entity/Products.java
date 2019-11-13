@@ -71,13 +71,10 @@ public class Products implements Serializable {
 	
 	@JsonInclude
 	@Transient
-	private Float subTotal = (float) 0;
+	private Double subTotal = 0.00;
 	@JsonInclude
 	@Transient
 	private Integer quantityCart = 1;
-	@JsonInclude
-	@Transient
-	private Long listCat;
     
     @OneToMany(mappedBy = "products", fetch = FetchType.EAGER)
     private Set<ProductsCategory> productsCategorySet;
@@ -107,7 +104,7 @@ public class Products implements Serializable {
 	public Products(Long idProducts, String productCode, String sku, String nameProducts, String description,
 			String colour, Date updateDate, double price, int quantity, double taxes, double additionalShippingCost,
 			double wholeSalePrice, Date productDeliveryDate, float width, float height, float depth, float weight,
-			Long idOrders, Float subTotal, Integer quantityCart) {
+			Long idOrders, Double subTotal, Integer quantityCart, List<Long> catpro) {
 		super();
 		this.idProducts = idProducts;
 		this.productCode = productCode;
@@ -129,14 +126,7 @@ public class Products implements Serializable {
 		this.idOrders = idOrders;
 		this.subTotal = subTotal;
 		this.quantityCart = quantityCart;
-	}
-
-	public Long getListCat() {
-		return listCat;
-	}
-
-	public void setListCat(Long listCat) {
-		this.listCat = listCat;
+		this.catpro = catpro;
 	}
 
 	public Products(Long idProducts) {
@@ -304,11 +294,11 @@ public class Products implements Serializable {
 		this.productsCategorySet = productsCategorySet;
 	}
 
-	public Float getSubTotal() {
+	public Double getSubTotal() {
 		return subTotal;
 	}
 
-	public void setSubTotal(Float subTotal) {
+	public void setSubTotal(Double subTotal) {
 		this.subTotal = subTotal;
 	}
 

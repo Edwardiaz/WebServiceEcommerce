@@ -14,19 +14,19 @@ public class ProductsDaoImpl implements InterfaceProductsDao{
 
 	@Override
 	public Products saveProduct(Products pro) {
-//		Transaction transaction = null;
-//		try(Session session = HibernateUtil.getSessionFactory().openSession()){
-//			transaction = session.beginTransaction();
-//			session.save(pro);
-//			transaction.commit();
-//			return pro;
-//		} catch (Exception e) {
-//			if(transaction != null) {
-//				transaction.rollback();
-//			}
-//			e.printStackTrace();
+		Transaction transaction = null;
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+			transaction = session.beginTransaction();
+			session.save(pro);
+			transaction.commit();
+			return pro;
+		} catch (Exception e) {
+			if(transaction != null) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
 			return null;
-//		}
+		}
 	}
 	
 	@Override
