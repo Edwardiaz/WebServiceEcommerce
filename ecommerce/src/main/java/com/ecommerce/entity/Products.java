@@ -2,7 +2,6 @@ package com.ecommerce.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,10 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 import com.ecommerce.entity.Products;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name = "products")
@@ -68,13 +65,6 @@ public class Products implements Serializable {
 	private float weight;
 	@Column(name = "idOrders", nullable = true)
 	private Long idOrders;
-	
-	@JsonInclude
-	@Transient
-	private Double subTotal = 0.00;
-	@JsonInclude
-	@Transient
-	private Integer quantityCart = 1;
     
     @OneToMany(mappedBy = "products", fetch = FetchType.EAGER)
     private Set<ProductsCategory> productsCategorySet;
@@ -104,7 +94,7 @@ public class Products implements Serializable {
 	public Products(Long idProducts, String productCode, String sku, String nameProducts, String description,
 			String colour, Date updateDate, double price, int quantity, double taxes, double additionalShippingCost,
 			double wholeSalePrice, Date productDeliveryDate, float width, float height, float depth, float weight,
-			Long idOrders, Double subTotal, Integer quantityCart, List<Long> catpro) {
+			Long idOrders) {
 		super();
 		this.idProducts = idProducts;
 		this.productCode = productCode;
@@ -124,21 +114,10 @@ public class Products implements Serializable {
 		this.depth = depth;
 		this.weight = weight;
 		this.idOrders = idOrders;
-		this.subTotal = subTotal;
-		this.quantityCart = quantityCart;
-		this.catpro = catpro;
 	}
 
 	public Products(Long idProducts) {
 		this.idProducts = idProducts;
-	}
-
-	public Integer getQuantityCart() {
-		return quantityCart;
-	}
-
-	public void setQuantityCart(Integer quantityCart) {
-		this.quantityCart = quantityCart;
 	}
 
 	public Long getIdProducts() {
@@ -292,14 +271,6 @@ public class Products implements Serializable {
 
 	public void setProductsCategorySet(Set<ProductsCategory> productsCategorySet) {
 		this.productsCategorySet = productsCategorySet;
-	}
-
-	public Double getSubTotal() {
-		return subTotal;
-	}
-
-	public void setSubTotal(Double subTotal) {
-		this.subTotal = subTotal;
 	}
 
 	@Override

@@ -30,7 +30,9 @@ public class ProductsCategory implements Serializable{
 	private Long idPro;
 	@Column(name = "idCategory")
 	private Long idCat;
-	
+	@JsonInclude
+	@Transient
+	private String name;
 	
 	@JoinColumn(name = "idCategory", insertable = false, updatable = false)
 	@ManyToOne
@@ -51,6 +53,10 @@ public class ProductsCategory implements Serializable{
 		this.idCat = idCat;
 	}
 
+	public ProductsCategory(Long idProductsCategory) {
+		this.idProductsCategory = idProductsCategory;
+	}
+
 	public Long getIdProductsCategory() {
 		return idProductsCategory;
 	}
@@ -59,42 +65,20 @@ public class ProductsCategory implements Serializable{
 		this.idProductsCategory = idProductsCategory;
 	}
 
-	public Long getIdPro() {
+	public Long getIdProducts() {
 		return idPro;
 	}
 
-	public void setIdPro(Long idPro) {
-		this.idPro = idPro;
+	public void setIdProducts(Long idProducts) {
+		this.idPro = idProducts;
 	}
 
-	public Long getIdCat() {
+	public Long getIdCategory() {
 		return idCat;
 	}
 
-	public void setIdCat(Long idCat) {
-		this.idCat = idCat;
+	public void setIdCategory(Long idCategory) {
+		this.idCat = idCategory;
 	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-//	public Products getProducts() {
-//		return products;
-//	}
-//
-//	public void setProducts(Products products) {
-//		this.products = products;
-//	}
-
-//	public ProductsCategory(Long idProductsCategory) {
-//		this.idProductsCategory = idProductsCategory;
-//	}
-
-	
 	
 }
