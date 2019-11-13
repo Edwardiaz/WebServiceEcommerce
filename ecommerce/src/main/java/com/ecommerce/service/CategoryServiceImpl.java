@@ -54,9 +54,9 @@ public class CategoryServiceImpl implements CategoryService{
 	// ********************************************* \\
 
 	@Override
-    public ProductsCategory saveProductsCategory(ProductsCategory cat) {
-        return interProCatDao.saveProCat(cat);
-    }
+	public ProductsCategory saveProductsCategory(ProductsCategory cat) {
+		return interProCatDao.saveProCat(cat);
+	}
 
 	@Override
 	@Transactional(readOnly = true)

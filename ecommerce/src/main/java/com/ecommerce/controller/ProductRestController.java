@@ -33,7 +33,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-//import com.ecommerce.entity.ProImageMirror;
 import com.ecommerce.entity.Products;
 import com.ecommerce.entity.ProductsCategory;
 import com.ecommerce.entity.ProductsImage;
@@ -74,7 +73,9 @@ public class ProductRestController {
 	public ResponseEntity<?> index() {
 		return new ResponseEntity<>("E-commerce", HttpStatus.I_AM_A_TEAPOT);
 	}
+
 	// CRUD
+
 	// metodo insertar
 	@RequestMapping(value = "/pro", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
@@ -84,12 +85,14 @@ public class ProductRestController {
 			pro.setUpdateDate(null);
 			return new ResponseEntity<>(proService.saveProducts(pro), HttpStatus.CREATED);
 		} else {
-			return new ResponseEntity<>("Error, Some Parameter are invalid or method not valid",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Error, Some Parameter are invalid or method not valid",
+					HttpStatus.BAD_REQUEST);
 		}
 	}
 
 	// metodo insertar con categoria
-	@RequestMapping(value = "/producto/categoria/{id}", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/producto/categoria/{id}", method = RequestMethod.POST, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> saveProductsCate(@RequestBody Products pro, @PathVariable("id") Long id) {
 		System.out.println("ENTRO AL METODO saveProductsCate");
@@ -97,13 +100,13 @@ public class ProductRestController {
 			ProductsCategory procat = new ProductsCategory();
 			pro.setProductDeliveryDate(new Date());
 			pro.setUpdateDate(null);
-			procat.setIdCategory(id);
+			procat.setIdCat(id);
 
 			logger.error("ID DE LA URI:::::> " + id);
-			System.out.println("ID CATEGORIA:::::> " + procat.getIdCategory());
+			System.out.println("ID CATEGORIA:::::> " + procat.getIdCat());
 
 			Products pr = proService.saveProductsCate(pro);
-			procat.setIdProducts(pr.getIdProducts());
+			procat.setIdPro(pr.getIdProducts());
 			catService.saveProductsCategory(procat);
 			return new ResponseEntity<>(procat, HttpStatus.CREATED);
 		} else {
@@ -112,32 +115,32 @@ public class ProductRestController {
 		}
 	}
 
-	// Update product with category//
-	@RequestMapping(value = "/product/{id}", method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE })
+	// Update product with category
+	@RequestMapping(value = "/product/{id}", method = RequestMethod.PUT, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public ResponseEntity<?> updateProductsAndCategory(@PathVariable Long id,
-			@RequestBody Products pro/* , @RequestBody ProductsCategory catPro */) {
+	public ResponseEntity<?> updateProductsAndCategory(@PathVariable Long id, @RequestBody Products pro/* , @RequestBody ProductsCategory catPro */) {
 		System.out.println("**************** ID que viene del FRONT " + id);
 		if (pro.getIdProducts() == id) {
 			Products p = proService.findByIdProducts(id);
 			ProductsCategory newCatPro = new ProductsCategory();
 			for (ProductsCategory procat : p.getProductsCategorySet()) {
-				System.out.println("pro.getListCat()::::::> " + pro.getListCat());
-				if (procat.getIdProducts() == id) {
-
+				System.out.println("pro.getListCat()::::::> "+pro.getListCat());
+				if (procat.getIdPro() == id) {
+					
 					catService.deleteProductsCategory(procat.getIdProductsCategory());
 				}
 
 				if (p != null) {
 					pro.setProductDeliveryDate(p.getProductDeliveryDate());
 					pro.setUpdateDate(new Date());
-					newCatPro.setIdProducts(id);
-					newCatPro.setIdCategory(pro.getListCat());
+					newCatPro.setIdPro(id);
+					newCatPro.setIdCat(pro.getListCat());
 				} else {
 					pro.setProductDeliveryDate(null);
 					pro.setUpdateDate(new Date());
-					newCatPro.setIdProducts(id);
-					newCatPro.setIdCategory(pro.getListCat());
+					newCatPro.setIdPro(id);
+					newCatPro.setIdCat(pro.getListCat());
 				}
 				Products prod = proService.updateProducts(pro);
 				ProductsCategory catPro = catService.saveProductsCategory(newCatPro);
@@ -159,7 +162,7 @@ public class ProductRestController {
 		return new ResponseEntity<>("FATAL ERROR code 204", HttpStatus.NO_CONTENT);
 	}
 
-	// retrieve method//
+	// retrieve method
 //	@CrossOrigin(origins = "http://localhost:3000/catalogo")
 	@ResponseStatus(code = HttpStatus.OK)
 	@RequestMapping(value = "/product", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -174,7 +177,7 @@ public class ProductRestController {
 				if (pro.getIdProducts() == proima.getIdProduct() && pro.getProImageSet() != null) {
 					String fileName = proima.getImageName();
 
-					proima.setUrl("http://192.168.100.31:8090/ecommerce/images/" + fileName);
+					proima.setUrl("http://192.168.100.33:8090/ecommerce/images/" + fileName);
 
 					genS.updateObject(proima);
 
@@ -187,8 +190,9 @@ public class ProductRestController {
 		return list;
 	}
 
-	// find by id method//
-	@RequestMapping(value = "/product/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE })
+	// find by id method
+	@RequestMapping(value = "/product/{id}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> getProductById(@PathVariable("id") Long id, HttpServletRequest request) {
 
@@ -198,7 +202,7 @@ public class ProductRestController {
 			for (ProductsImage proima : pro.getProImageSet()) {
 				if (id == proima.getIdProduct()) {
 					String fileName = proima.getImageName();
-					proima.setUrl("http://192.168.100.31:8090/ecommerce/images/" + fileName);
+					proima.setUrl("http://192.168.100.33:8090/ecommerce/images/" + fileName);
 
 					genS.updateObject(proima);
 
@@ -212,13 +216,14 @@ public class ProductRestController {
 		}
 	}
 
-	// delete method//
-	@RequestMapping(value = "/product/{id}", method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_JSON_VALUE })
+	// delete method
+	@RequestMapping(value = "/product/{id}", method = RequestMethod.DELETE, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteProducts(@PathVariable("id") Long id) {
 
 		Products prod = new Products();
-//		prod.setIdProductducts(id); 
+//		prod.setIdProducts(id); 
 		boolean pro = proService.deletePro(id);
 //		boolean pro = genS.deleteObject(prod, id);
 		if (pro) {
@@ -229,7 +234,8 @@ public class ProductRestController {
 	}
 
 	// update method
-	@RequestMapping(value = "/product0/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/product0/{id}", method = RequestMethod.PUT, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateProducts(@PathVariable Long id, @RequestBody Products pro) {
 		System.out.println("**************** ID que viene del FRONT " + id);
@@ -260,8 +266,9 @@ public class ProductRestController {
 		}
 	}
 
-	// method create a product, images(a lot) & category/////
-	@RequestMapping(value = "/product/category/{id}", method = RequestMethod.POST, produces = {	MediaType.APPLICATION_JSON_VALUE })
+	// method create a product, images(a lot) & category
+	@RequestMapping(value = "/product/category/{id}", method = RequestMethod.POST, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> uploadManyFiles(@RequestPart("files") List<MultipartFile> files,
 			@RequestPart("data") Products pro, @PathVariable("id") Long id, HttpServletRequest servletRequest) {
@@ -279,8 +286,8 @@ public class ProductRestController {
 			pro.setProductDeliveryDate(new Date());
 			pro.setUpdateDate(null);
 			proService.saveProducts(pro);
-			procat.setIdCategory(id);
-			procat.setIdProducts(pro.getIdProducts());
+			procat.setIdCat(id);
+			procat.setIdPro(pro.getIdProducts());
 			catService.saveProductsCategory(procat);
 			System.out.println("DATA SAVED SUCCESSFULLY..." + procat.getIdProductsCategory());
 		} else {
@@ -288,90 +295,37 @@ public class ProductRestController {
 		}
 
 		if (null != files && files.size() > 0) {
+
 			for (MultipartFile multipartFile : files) {
+
 				String fileName = multipartFile.getOriginalFilename();
 				fileNames.add(fileName);
 				File imageFile = new File(
-						"C:\\Users\\Jorge.D�az\\Documents\\GitHub\\WebServiceEcommerce\\ecommerce\\src\\main\\webapp\\images\\"+ fileName);
+						"C:\\Users\\Jorge.D�az\\Documents\\GitHub\\WebServiceEcommerce\\ecommerce\\src\\main\\webapp\\images\\"
+								+ fileName);
+
 				try {
 					System.out.println("RUTA DE GUARDADO ::::>" + imageFile);
 					img.setImageName(fileName);
 					img.setIdProduct(pro.getIdProducts());
-					img.setUrl("http://192.168.100.31:8090/ecommerce/images/" + fileName);
+					img.setUrl("http://192.168.100.33:8090/ecommerce/images/" + fileName);
 					genS.saveObject(img);
+
 					multipartFile.transferTo(imageFile);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
+
 			headers.add("Number of files Uploaded successfully: ", String.valueOf(files.size()));
 			return new ResponseEntity<>(files, headers, HttpStatus.OK);
 		} else {
 			headers.add("No files were detected: ", "Please select at least one file");
-			return new ResponseEntity<>("Data successfully saved, but no files were detected, you can update the register with images later...",
+			return new ResponseEntity<>(
+					"Data successfully saved, but no files were detected, you can update the register with images later...",
 					headers, HttpStatus.OK);
 		}
 	}
-	
-	
-//	@RequestMapping(value = "/mirror/product/category/{id}", method = RequestMethod.POST, produces = {	MediaType.APPLICATION_JSON_VALUE })
-//	@ResponseBody
-//	public ResponseEntity<?> uploadManyFilesMirror(@RequestPart("files") List<MultipartFile> files,
-//			@RequestPart("data") ProImageMirror prod, @PathVariable("id") Long id, HttpServletRequest servletRequest) {
-//		HttpHeaders headers = new HttpHeaders();
-//		ProductsImage img = new ProductsImage(), proima = new ProductsImage();
-//		Products pro = new Products();
-//		pro.setIdProducts(prod.getIdProducts());
-//		pro.setProductCode(prod.getProductCode());
-//		pro.setSku(prod.getSku());
-//		pro.setNameProducts(prod.getNameProducts());
-//		pro.setPrice(prod.getPrice());
-//		pro.setQuantity(prod.getQuantity());
-//		pro.setDescription(prod.getDescription());
-//		// lambda for saving files... it works
-////			Products pro = new Products();
-////			files.forEach(file -> img.setImageName(file.getOriginalFilename()));
-////			files.forEach(file -> genS.saveObject(img));
-//		List<String> fileNames = new ArrayList<String>();
-//		if (pro.getIdProducts() == null || pro.getIdProducts() == 0) {
-//			ProductsCategory procat = new ProductsCategory();
-//			pro.setProductDeliveryDate(new Date());
-//			pro.setUpdateDate(null);
-//			proService.saveProducts(pro);
-//			procat.setIdCategory(id);
-//			procat.setIdProducts(pro.getIdProducts());
-//			catService.saveProductsCategory(procat);
-//			System.out.println("DATA SAVED SUCCESSFULLY..." + procat.getIdProductsCategory());
-//		} else {
-//			System.out.println("PRO IS EMPTY, SO DO IMAGE...>" + pro);
-//		}
-//
-//		if (null != files && files.size() > 0) {
-//			for (MultipartFile multipartFile : files) {
-//				String fileName = multipartFile.getOriginalFilename();
-//				fileNames.add(fileName);
-//				File imageFile = new File(
-//						"C:\\Users\\Jorge.D�az\\Documents\\GitHub\\WebServiceEcommerce\\ecommerce\\src\\main\\webapp\\images\\"+ fileName);
-//				try {
-//					System.out.println("RUTA DE GUARDADO ::::>" + imageFile);
-//					img.setImageName(fileName);
-//					img.setIdProduct(pro.getIdProducts());
-//					img.setUrl("http://192.168.100.31:8090/ecommerce/images/" + fileName);
-//					genS.saveObject(img);
-//					multipartFile.transferTo(imageFile);
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//			headers.add("Number of files Uploaded successfully: ", String.valueOf(files.size()));
-//			return new ResponseEntity<>(files, headers, HttpStatus.OK);
-//		} else {
-//			headers.add("No files were detected: ", "Please select at least one file");
-//			return new ResponseEntity<>("Data successfully saved, but no files were detected, you can update the register with images later...",
-//					headers, HttpStatus.OK);
-//		}
-//	}
-	
 
 	// METODO PARA CARGAR MUCHAS MUCHAS IMAGENES A UN PRODUCTO EXISTENTE
 	@RequestMapping(value = "/images/product/{id}", method = RequestMethod.POST, headers = ("content-type=multipart/*"), produces = {
@@ -391,24 +345,51 @@ public class ProductRestController {
 				String fileName = multipartFile.getOriginalFilename();
 				fileNames.add(fileName);
 				File imageFile = new File(
-						"C:\\Users\\Jorge.D�az\\Documents\\GitHub\\WebServiceEcommerce\\ecommerce\\src\\main\\webapp\\images\\"+ fileName);
+						"C:\\Users\\Jorge.D�az\\Documents\\GitHub\\WebServiceEcommerce\\ecommerce\\src\\main\\webapp\\images\\"
+								+ fileName);
 				try {
 					System.out.println("RUTA DE GUARDADO::::>" + imageFile);
 					img.setImageName(fileName);
 					img.setImageCode(3);
 					img.setIdProduct(id);
-					img.setUrl("http://192.168.100.31:8090/ecommerce/images/" + fileName);
+					img.setUrl("http://192.168.100.33:8090/ecommerce/images/" + fileName);
 					genS.saveObject(img);
+
 					multipartFile.transferTo(imageFile);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
+
 			headers.add("Number of files Uploaded successfully ", String.valueOf(files.size()));
 			return new ResponseEntity<>(img, headers, HttpStatus.OK);
+
 		} else if (files.isEmpty() == true || files.size() == 0) {
+
 			System.out.println("ENTRO AL METODO CON :::::> " + files.size());
+//			for (MultipartFile multipartFile : files) {
+//			String fileName = "default.jpg";
+//			fileNames.add(fileName);
+//			File imageFile = new File(
+//					"C:\\Users\\Jorge.D�az\\Documents\\GitHub\\WebServiceEcommerce\\ecommerce\\src\\main\\webapp\\images\\"
+//							+ fileName);
+//
+//			try {
+//				System.out.println("RUTA DE GUARDADO::::>" + imageFile);
+//				img.setImageName(fileName);
+//				img.setImageCode(3);
+//				img.setIdProduct(id);
+//				genS.saveObject(img);
+//
+//				multipartFile.transferTo(imageFile);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//			headers.add("Number of files Uploaded successfully:", "Default image uploaded, " + String.valueOf(files.size()) + " external files found");
+
 			return new ResponseEntity<>("empty file", headers, HttpStatus.OK);
+
 		} else {
 			headers.add("No files were detected: ", "Please select at least one file");
 			return new ResponseEntity<>(
@@ -428,9 +409,11 @@ public class ProductRestController {
 		if (list.size() > 0) {
 			for (ProductsImage proima : list) {
 				String fileName = proima.getImageName();
-				proima.setUrl("http://192.168.100.31:8090/ecommerce/images/" + fileName);
+				proima.setUrl("http://192.168.100.33:8090/ecommerce/images/" + fileName);
+
 				genS.updateObject(proima);
 			}
+
 			System.out.println("LISTAAA " + list);
 			return new ResponseEntity<>(list, HttpStatus.FOUND);
 		} else if (list.size() == 0) {
@@ -447,6 +430,7 @@ public class ProductRestController {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> findByidCategory(@PathVariable("id") Long id) {
+
 		List<ProductsCategory> list = relS.findByidCategory(id);
 		if (list.size() > 0) {
 			System.out.println("LISTAAA " + list);
@@ -458,6 +442,7 @@ public class ProductRestController {
 			return new ResponseEntity<>("Error: register doesn't exist...", HttpStatus.NO_CONTENT);
 		}
 	}
+
 	@ResponseStatus(code = HttpStatus.FOUND)
 	@RequestMapping(value = "/imagen", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
@@ -465,6 +450,7 @@ public class ProductRestController {
 		List<ProductsImage> listProIma = retrieveService.findAllProImage();
 		return listProIma;
 	}
+
 	@RequestMapping(value = "/imagen/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> imageById(@PathVariable("id") Long id) {
@@ -475,6 +461,7 @@ public class ProductRestController {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 	}
+
 	@RequestMapping(value = "/imagen/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateImage(@PathVariable("id") Long id, @RequestBody ProductsImage image) {
@@ -497,8 +484,10 @@ public class ProductRestController {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}
+
 	// DELETE single image
-	@RequestMapping(value = "/imagen/{id}", method = RequestMethod.DELETE, produces = {	MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/imagen/{id}", method = RequestMethod.DELETE, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteImage(@PathVariable("id") Long id) {
 		ProductsImage ima = retrieveService.findByIdImage(id);
