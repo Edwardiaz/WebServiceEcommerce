@@ -119,43 +119,47 @@ public class ProductRestController {
 	@RequestMapping(value = "/product/{id}", method = RequestMethod.PUT, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public ResponseEntity<?> updateProductsAndCategory(@PathVariable Long id, @RequestBody Products pro, @RequestBody ProductsCategory catPro) {
+	public ResponseEntity<?> updateProductsAndCategory(@PathVariable Long id, @RequestBody Products pro/* , @RequestBody ProductsCategory catPro */) {
 		System.out.println("**************** ID que viene del FRONT " + id);
 		if (pro.getIdProducts() == id) {
 			Products p = proService.findByIdProducts(id);
-//			ProductsCategory procat = new ProductsCategory();
-			Set<ProductsCategory> setProCat = p.getProductsCategorySet();
-			for (ProductsCategory iterador : setProCat) {
-				if (iterador.getIdPro() == id && catPro.getIdCat() == iterador.getIdCat()) {
-						
-						
-						if (p != null) {
-							pro.setProductDeliveryDate(p.getProductDeliveryDate());
-							pro.setUpdateDate(new Date());
-						} else {
-							pro.setProductDeliveryDate(null);
-							pro.setUpdateDate(null);
-						}
-						Products prod = proService.updateProducts(pro);
-
-						if (prod != null && (pro).getIdProducts() != null) {
-//				pro.setUpdateDate(new Date());
-							// proService.updateProducts(pro)
-							return new ResponseEntity<>(prod, HttpStatus.OK);
-						} else if (prod == null && (pro).getIdProducts() != null) {
-							return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-						} else if (prod == null && (pro).getIdProducts() == null) {
-							return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-						} else {
-							return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-						}
+			ProductsCategory newCatPro = new ProductsCategory();
+			for (ProductsCategory procat : p.getProductsCategorySet()) {
+				System.out.println("pro.getListCat()::::::> "+pro.getListCat());
+				if (procat.getIdPro() == id) {
 					
+					catService.deleteProductsCategory(procat.getIdProductsCategory());
 				}
-			} //
+
+				if (p != null) {
+					pro.setProductDeliveryDate(p.getProductDeliveryDate());
+					pro.setUpdateDate(new Date());
+					newCatPro.setIdPro(id);
+					newCatPro.setIdCat(pro.getListCat());
+				} else {
+					pro.setProductDeliveryDate(null);
+					pro.setUpdateDate(new Date());
+					newCatPro.setIdPro(id);
+					newCatPro.setIdCat(pro.getListCat());
+				}
+				Products prod = proService.updateProducts(pro);
+				ProductsCategory catPro = catService.saveProductsCategory(newCatPro);
+				if (prod != null && pro.getIdProducts() != null) {
+//				pro.setUpdateDate(new Date());
+					// proService.updateProducts(pro)
+					return new ResponseEntity<>(prod, HttpStatus.OK);
+				} else if (prod == null && pro.getIdProducts() != null) {
+					return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+				} else if (prod == null && pro.getIdProducts() == null) {
+					return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+				} else {
+					return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+				}
+			}
 		} else {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>("Fatal Error: no method found", HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>("FATAL ERROR code 204", HttpStatus.NO_CONTENT);
 	}
 
 	// retrieve method
