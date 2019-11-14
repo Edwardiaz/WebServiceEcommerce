@@ -96,7 +96,7 @@ public class ProductRestController {
 			logger.error("ID DE LA URI:::::> " + id);
 			System.out.println("ID CATEGORIA:::::> " + procat.getIdCategory());
 
-			Products pr = proService.saveProductsCate(pro);
+			Products pr = proService.saveProducts(pro);
 			procat.setIdProducts(pr.getIdProducts());
 			catService.saveProductsCategory(procat);
 			return new ResponseEntity<>(procat, HttpStatus.CREATED);

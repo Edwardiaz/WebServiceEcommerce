@@ -16,5 +16,5 @@ public interface InterfaceProductsDao {
 
 	public boolean deleteProduct(Long id);
 
-	public Products saveProductsCate(Products pro);
+//	public Products saveProductsCate(Products pro);
 }
