@@ -22,11 +22,11 @@ public interface IByIdService {
 	public OrdersDetail getOrdersDetailById(Long id);                   // RETRIEVE SINGLE OrdersDetail
 	public OrderStatus getOrderStatusById(Long id);                     // RETRIEVE SINGLE OrdersDetail
 	
-//<<<<<<< HEAD
-	public Combo getComboById(Long id);					//Retrieve single combo
+	public Combo getComboById(Long id);						//Retrieve single combo
 	public ComboProducts getComboProductsById(Long id); 	//Retrieve single comboProduct
+	public Client customerLogin(Client cl);                 //Login SINGLE Client
+	public Users adminsLogin(Users cl);                     //Login SINGLE Admin
 	
-//=======
 	public Status getStatusById(Long id);                                  // RETRIEVE SINGLE Status
 	public Promotions getPromotionsById(Long id);                          // RETRIEVE SINGLE Promotions
 	public TypeAttribute getTypeAttributeById(Long id);                    // RETRIEVE SINGLE TypeAttribute
@@ -35,5 +35,4 @@ public interface IByIdService {
 	public ProductsConfigProducts getProductsConfigProductsById(Long id);  // RETRIEVE SINGLE ProductsConfigProducts
 	public Supplier getSupplierById(Long id);                              // RETRIEVE SINGLE Supplier
 	public ProductsSupplier getProductsSupplierById(Long id);              // RETRIEVE SINGLE ProductsSupplier
-//>>>>>>> Feature_Roger
 }

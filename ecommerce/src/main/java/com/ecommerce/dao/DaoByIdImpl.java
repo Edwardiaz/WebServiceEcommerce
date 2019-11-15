@@ -1,5 +1,7 @@
 package com.ecommerce.dao;
 
+import javax.persistence.NoResultException;
+
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 
@@ -57,8 +59,8 @@ public class DaoByIdImpl implements IByIdDao {
 			return session.get(Country.class, new Long(id));
 		}
 	}
-	
-	//*************************************************************************
+
+	// *************************************************************************
 
 	@Override
 	public BillingAddress getBillingAddressById(Long id) {
@@ -125,29 +127,25 @@ public class DaoByIdImpl implements IByIdDao {
 //********************************************************************
 
 	@Override
-// <<<<<<< HEAD
 	public Combo getComboById(Long id) {
-		try(Session session = HibernateUtil.getSessionFactory().openSession()){
-		return session.get(Combo.class, id);
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(Combo.class, id);
 		}
 	}
-//=======
+
 	public Status getStatusById(Long id) {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			return session.get(Status.class, id);
-//>>>>>>> Feature_Roger
 		}
 	}
 
 	@Override
-//<<<<<<< HEAD
 	public ComboProducts getComboProductsById(Long id) {
-		try(Session session = HibernateUtil.getSessionFactory().openSession()){
-		return session.get(ComboProducts.class, id);
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return session.get(ComboProducts.class, id);
 		}
 	}
 
-//=======
 	public Promotions getPromotionsById(Long id) {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			return session.get(Promotions.class, new Long(id));
@@ -195,6 +193,34 @@ public class DaoByIdImpl implements IByIdDao {
 			return session.get(ProductsSupplier.class, new Long(id));
 		}
 	}
+
+	@Override
+	public Client customerLogin(Client cl) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			//Select * from comercio2.client where (mail = '' or userName = '') and password = '';
+			return (session.createQuery("from Client where (mail = :mail or userName = :user ) and password = :pass ", Client.class)
+					.setParameter("mail", cl.getMail())
+					.setParameter("user", cl.getUserName())
+					.setParameter("pass", cl.getPassword()).getSingleResult());
+			
+		} catch (NoResultException nre) {
+			return null;
+		}
+	}
+
+	@Override
+	public Users adminsLogin(Users us) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			//Select * from comercio2.client where (mail = '' or userName = '') and password = '';
+			return (session.createQuery("from Users where (email = :mail or users = :user ) and password = :pass ", Users.class)
+					.setParameter("mail", us.getEmail())
+					.setParameter("user", us.getUsers())
+					.setParameter("pass", us.getPassword()).getSingleResult());
+		} catch (NoResultException nre) {
+			return null;
+		}
+	}
 	
-//>>>>>>> Feature_Roger
+	
+
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,7 @@ import com.ecommerce.entity.ClientCategoryClient;
 import com.ecommerce.service.IAllListService;
 import com.ecommerce.service.IByIdService;
 import com.ecommerce.service.IGenericService;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class ClientController {
@@ -131,6 +132,18 @@ public class ClientController {
 	public List<Client> findAllClient() {
 		return listS.allClient();
 	}
+	
+	// Login Customer
+		@RequestMapping(value = "/customer", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+		@ResponseBody
+		public ResponseEntity<?> customerLogin(@RequestBody Client cl) {
+			Client obj = byIdS.customerLogin(cl);
+			if (obj != null) {
+				return new ResponseEntity<>(obj, HttpStatus.FOUND);
+			} else {
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			}
+		}
 
 	// RETRIEVE SINGLE ELEMENT
 	@RequestMapping(value = "/client/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })

@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecommerce.entity.Client;
 import com.ecommerce.entity.Users;
 import com.ecommerce.entity.UsersRole;
+import com.ecommerce.service.IByIdService;
 import com.ecommerce.service.IGenericService;
 import com.ecommerce.service.IUsersRoleService;
 import com.ecommerce.service.IUsersService;
@@ -30,13 +32,27 @@ public class UserController {
 	private IUsersService intService;
 	private IUsersRoleService usersRoleS;
 	private IGenericService genS;
+	private IByIdService byIdS;
 
 	// DEPENDENCY INJECTION
 	@Autowired
-	public UserController(IUsersService intService, IUsersRoleService usersRoleS, IGenericService genS) {
+	public UserController(IUsersService intService, IUsersRoleService usersRoleS, IGenericService genS, IByIdService byIdS) {
 		this.intService = intService;
 		this.usersRoleS = usersRoleS;
+		this.byIdS = byIdS;
 		this.genS = genS;
+	}
+	
+	// Login Customer
+	@RequestMapping(value = "/admins", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> customerLogin(@RequestBody Users us) {
+		Users obj = byIdS.adminsLogin(us);
+		if (obj != null) {
+			return new ResponseEntity<>(obj, HttpStatus.FOUND);
+		} else {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
 	}
 
 	//HERE WE HAVE BASIC CRUDS FOR USERS AND UsersRole
