@@ -105,8 +105,8 @@ public class ProductRestController {
 			logger.error("ID DE LA URI:::::> " + id);
 			System.out.println("ID CATEGORIA:::::> " + procat.getIdCat());
 
-			Products pr = proService.saveProductsCate(pro);
-			procat.setIdPro(pr.getIdProducts());
+			Products pr = proService.saveProducts(pro);
+			procat.setIdProducts(pr.getIdProducts());
 			catService.saveProductsCategory(procat);
 			return new ResponseEntity<>(procat, HttpStatus.CREATED);
 		} else {
@@ -127,7 +127,7 @@ public class ProductRestController {
 			for (ProductsCategory procat : p.getProductsCategorySet()) {
 				System.out.println("pro.getListCat()::::::> "+pro.getListCat());
 				if (procat.getIdPro() == id) {
-					
+
 					catService.deleteProductsCategory(procat.getIdProductsCategory());
 				}
 
@@ -223,7 +223,7 @@ public class ProductRestController {
 	public ResponseEntity<?> deleteProducts(@PathVariable("id") Long id) {
 
 		Products prod = new Products();
-//		prod.setIdProducts(id); 
+//		prod.setIdProducts(id);
 		boolean pro = proService.deletePro(id);
 //		boolean pro = genS.deleteObject(prod, id);
 		if (pro) {

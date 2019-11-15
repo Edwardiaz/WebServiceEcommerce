@@ -56,8 +56,8 @@ public class ProductoServiceImpl implements ProductoService {
 		return interProDao.updateProduct(pro);
 	}
 
-	@Override
-	public Products saveProductsCate(Products pro) {
-		return interProDao.saveProductsCate(pro);
-	}
+//	@Override
+//	public Products saveProductsCate(Products pro) {
+//		return interProDao.saveProductsCate(pro);
+//	}
 }

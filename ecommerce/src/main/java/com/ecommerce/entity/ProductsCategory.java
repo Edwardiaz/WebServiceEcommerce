@@ -11,16 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name = "productsCategory")
 public class ProductsCategory implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
@@ -30,8 +27,8 @@ public class ProductsCategory implements Serializable{
 	private Long idPro;
 	@Column(name = "idCategory")
 	private Long idCat;
-	
-	
+
+
 	@JoinColumn(name = "idCategory", insertable = false, updatable = false)
 	@ManyToOne
 	private Category category;
@@ -39,16 +36,17 @@ public class ProductsCategory implements Serializable{
 	@JoinColumn(name = "idProducts", insertable = false, updatable = false)
 	@ManyToOne
 	private Products products;
-	
+
 	public ProductsCategory() {
-		
+
 	}
-	
-	public ProductsCategory(Long idProductsCategory, Long idPro, Long idCat) {
+
+	public ProductsCategory(Long idProductsCategory, Long idProducts, Long idCategory, Category category) {
 		super();
 		this.idProductsCategory = idProductsCategory;
-		this.idPro = idPro;
-		this.idCat = idCat;
+		this.idProducts = idProducts;
+		this.idCategory = idCategory;
+		this.category = category;
 	}
 
 	public Long getIdProductsCategory() {
@@ -82,19 +80,4 @@ public class ProductsCategory implements Serializable{
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-
-//	public Products getProducts() {
-//		return products;
-//	}
-//
-//	public void setProducts(Products products) {
-//		this.products = products;
-//	}
-
-//	public ProductsCategory(Long idProductsCategory) {
-//		this.idProductsCategory = idProductsCategory;
-//	}
-
-	
-	
 }

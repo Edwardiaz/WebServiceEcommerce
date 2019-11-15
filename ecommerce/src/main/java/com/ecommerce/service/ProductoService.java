@@ -16,5 +16,5 @@ public interface ProductoService {
 	
 	public Products updateProducts(Products pro);
 	
-	public Products saveProductsCate(Products pro);
+//	public Products saveProductsCate(Products pro);
 }
