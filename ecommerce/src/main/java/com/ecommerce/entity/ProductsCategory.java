@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name = "productsCategory")
@@ -36,14 +34,12 @@ public class ProductsCategory implements Serializable {
 	public ProductsCategory() {
 	}
 
-	public ProductsCategory(Long idProductsCategory, Long idProducts, Long idCategory, Category category,
-			Products products) {
+	public ProductsCategory(Long idProductsCategory, Long idProducts, Long idCategory, Category category) {
 		super();
 		this.idProductsCategory = idProductsCategory;
 		this.idProducts = idProducts;
 		this.idCategory = idCategory;
 		this.category = category;
-		this.products = products;
 	}
 
 	public Long getIdProductsCategory() {
@@ -76,13 +72,5 @@ public class ProductsCategory implements Serializable {
 
 	public void setCategory(Category category) {
 		this.category = category;
-	}
-
-	public Products getProducts() {
-		return products;
-	}
-
-	public void setProducts(Products products) {
-		this.products = products;
 	}
 }
