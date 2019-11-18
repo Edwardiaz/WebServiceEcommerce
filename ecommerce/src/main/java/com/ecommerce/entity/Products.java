@@ -70,7 +70,7 @@ public class Products implements Serializable {
 	
 	@JsonInclude
 	@Transient
-	private Float subTotal = (float) 0;
+	private Float subTotal = (float)0;
 	@JsonInclude
 	@Transient
 	private Integer quantityCart = 1;
