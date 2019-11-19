@@ -46,6 +46,20 @@ public class UsersRole implements Serializable {
 		this.idRole = idRole;
 		this.roleActive = roleActive;
 	}
+	
+	
+
+	public Role getRoleobj() {
+		return roleobj;
+	}
+
+
+
+	public void setRoleobj(Role roleobj) {
+		this.roleobj = roleobj;
+	}
+
+
 
 	public UsersRole() {
 	}

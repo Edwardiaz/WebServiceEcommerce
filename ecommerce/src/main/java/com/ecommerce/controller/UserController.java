@@ -1,7 +1,9 @@
 package com.ecommerce.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +35,7 @@ public class UserController {
 	private IUsersRoleService usersRoleS;
 	private IGenericService genS;
 	private IByIdService byIdS;
+	private Users inSession;
 
 	// DEPENDENCY INJECTION
 	@Autowired
@@ -43,17 +46,38 @@ public class UserController {
 		this.genS = genS;
 	}
 	
-	// Login Customer
-	@RequestMapping(value = "/admins", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	// Login Admins
+	@RequestMapping(value = "/admins", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> customerLogin(@RequestBody Users us) {
 		Users obj = byIdS.adminsLogin(us);
+		//Map<String, Users> resp = new HashMap<String, Users>();
+		
+		//resp.put("credentials", obj);
+
 		if (obj != null) {
+			setInSession(obj);
+			System.out.println("Asignada in Session "+ inSession.getEmail() );
 			return new ResponseEntity<>(obj, HttpStatus.FOUND);
 		} else {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			System.out.println("no valid entry");
+			return new ResponseEntity<>("not valid", HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	// Session check
+		@RequestMapping(value = "/adminSession", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+		@ResponseBody
+		public ResponseEntity<?> adminSession() {
+			System.out.println("User "+inSession.getEmail() + " "+inSession.getUsers());
+			if(getInSession()!=null) {
+				return new ResponseEntity<>(getInSession(), HttpStatus.FOUND);
+			}else {
+				return new ResponseEntity<>("not valid", HttpStatus.NOT_FOUND);
+			}
+				
+
+		}
 
 	//HERE WE HAVE BASIC CRUDS FOR USERS AND UsersRole
 	// ***********************************************Users************************************************************
@@ -242,6 +266,14 @@ public class UserController {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
+	}
+
+	public Users getInSession() {
+		return inSession;
+	}
+
+	public void setInSession(Users inSession) {
+		this.inSession = inSession;
 	}
 
 	
