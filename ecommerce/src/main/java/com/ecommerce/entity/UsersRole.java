@@ -82,13 +82,13 @@ public class UsersRole implements Serializable {
 		this.roleActive = roleActive;
 	}
 
-	public Users getUsers() {
-		return users;
-	}
-
-	public void setUsers(Users users) {
-		this.users = users;
-	}
+//	public Users getUsers() {
+//		return users;
+//	}
+//
+//	public void setUsers(Users users) {
+//		this.users = users;
+//	}
 
 	public Role getRoleobj() {
 		return roleobj;

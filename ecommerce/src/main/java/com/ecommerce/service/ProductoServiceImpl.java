@@ -46,6 +46,7 @@ public class ProductoServiceImpl implements ProductoService {
 
 	// metodo find por id
 	@Override
+	@Transactional(readOnly = true)
 	public Products findByIdProducts(Long id) {
 		return interProDao.findByIdProduct(id);
 	}

@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -97,7 +98,7 @@ public class ProductRestController {
 			pro.setProductDeliveryDate(new Date());
 			pro.setUpdateDate(null);
 			procat.setIdCategory(id);
-
+			
 			logger.error("ID DE LA URI:::::> " + id);
 			System.out.println("ID CATEGORIA:::::> " + procat.getIdCategory());
 
@@ -111,11 +112,10 @@ public class ProductRestController {
 		}
 	}
 	
-	
-	//NEW METHOD 
+	//NEW METHOD UPLOAD IMAGE...
 	@RequestMapping(value = "/product/images/upload", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
-	public ResponseEntity<?> imageUpload(@RequestParam("files") MultipartFile file, @RequestParam("id") Long id){
+	public ResponseEntity<?> imageUpload(@RequestParam("files") List<MultipartFile> file, @RequestParam("id") Long id){
 		
 		Map<String, Object> response = new HashMap<>();
 		
@@ -123,13 +123,15 @@ public class ProductRestController {
 		ProductsImage proImage = new ProductsImage();
 		
 		if(!file.isEmpty()) {
-			String fileName = file.getOriginalFilename();
+			for(MultipartFile files : file) {
+			String fileName = UUID.randomUUID().toString() +"_"+ files.getOriginalFilename().replace(" ","");
 			Path filePath = 
-					Paths.get("").resolve(fileName).toAbsolutePath();
+					Paths.get("C:\\Users\\Jorge.Díaz\\Documents\\GitHub\\WebServiceEcommerce\\ecommerce\\src\\main\\webapp\\images").resolve(fileName).toAbsolutePath();
+//					
 			System.out.println("RUta del archivo: "+filePath);
 			try {
-				System.out.println("dentro del try: "+file.getInputStream());
-				Files.copy(file.getInputStream(), filePath);
+				System.out.println("dentro del try: "+files.getInputStream());
+				Files.copy(files.getInputStream(), filePath);
 			} catch (IOException e) {
 				System.out.println("detnro del catch: "+response.toString());
 				response.put("message", "There was a problem when uploading the file "+fileName);
@@ -142,15 +144,66 @@ public class ProductRestController {
 			genS.saveObject(proImage);
 			response.put("Imagen", proImage);
 			response.put("message", "Image uploaded sucessfuly");
+			}
 		}
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
+	// method create a product, images(a lot) & category/////
+		@RequestMapping(value = "/product/category/{id}", method = RequestMethod.POST, produces = {	MediaType.APPLICATION_JSON_VALUE })
+		@ResponseBody
+		public ResponseEntity<?> uploadManyFiles(@RequestPart("files") List<MultipartFile> files,
+				@RequestPart("data") Products pro, @PathVariable("id") Long id, HttpServletRequest servletRequest) {
+			HttpHeaders headers = new HttpHeaders();
+			ProductsImage img = new ProductsImage(), proima = new ProductsImage();
+			// lambda for saving files... it works
+//				Products pro = new Products();
+//				files.forEach(file -> img.setImageName(file.getOriginalFilename()));
+//				files.forEach(file -> genS.saveObject(img));
+			List<String> fileNames = new ArrayList<String>();
+			if (pro.getIdProducts() == null || pro.getIdProducts() == 0) {
+				ProductsCategory procat = new ProductsCategory();
+				pro.setProductDeliveryDate(new Date());
+				pro.setUpdateDate(null);
+				proService.saveProducts(pro);
+				procat.setIdCategory(id);
+				procat.setIdProducts(pro.getIdProducts());
+				catService.saveProductsCategory(procat);
+				System.out.println("DATA SAVED SUCCESSFULLY..." + procat.getIdProductsCategory());
+			} else {
+				System.out.println("PRO IS EMPTY, SO DO IMAGE...>" + pro);
+			}
+
+			if (null != files && files.size() > 0) {
+				for (MultipartFile multipartFile : files) {
+					String fileName = multipartFile.getOriginalFilename();
+					fileNames.add(fileName);
+					File imageFile = new File(
+							"C:\\Users\\Jorge.Dï¿½az\\Documents\\GitHub\\WebServiceEcommerce\\ecommerce\\src\\main\\webapp\\images\\"+ fileName);
+					try {
+						System.out.println("RUTA DE GUARDADO ::::>" + imageFile);
+						img.setImageName(fileName);
+						img.setIdProduct(pro.getIdProducts());
+						img.setUrl("http://192.168.100.32:8090/ecommerce/images/" + fileName);
+						genS.saveObject(img);
+						multipartFile.transferTo(imageFile);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				headers.add("Number of files Uploaded successfully: ", String.valueOf(files.size()));
+				return new ResponseEntity<>(files, headers, HttpStatus.OK);
+			} else {
+				headers.add("No files were detected: ", "Please select at least one file");
+				return new ResponseEntity<>("Data successfully saved, but no files were detected, you can update the register with images later...",
+						headers, HttpStatus.OK);
+			}
+		}
+	
 	// UPDATE PRODUCT WITH CATEGORY//
 	@RequestMapping(value = "/product/{id}", method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public ResponseEntity<?> updateProductsAndCategory(@PathVariable Long id,
-			@RequestBody Products pro/* , @RequestBody ProductsCategory catPro */) {
+	public ResponseEntity<?> updateProductsAndCategory(@PathVariable Long id, @RequestBody Products pro) {
 		System.out.println("**************** ID que viene del FRONT " + id);
 		if (pro.getIdProducts() == id) {
 			Products p = proService.findByIdProducts(id);
@@ -201,7 +254,6 @@ public class ProductRestController {
 	public List<Products> getProducts(HttpServletRequest request) {
 
 		List<Products> list = proService.findAll();
-
 		for (Products pro : list) {
 
 			for (ProductsImage proima : pro.getProImageSet()) {
@@ -259,91 +311,6 @@ public class ProductRestController {
 			return new ResponseEntity<>(pro, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-		}
-	}
-
-	// update method
-	@RequestMapping(value = "/product0/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
-	@ResponseBody
-	public ResponseEntity<?> updateProducts(@PathVariable Long id, @RequestBody Products pro) {
-		System.out.println("**************** ID que viene del FRONT " + id);
-		if (pro.getIdProducts() == id) {
-			Products p = proService.findByIdProducts(id);
-			if (p != null) {
-				pro.setProductDeliveryDate(p.getProductDeliveryDate());
-				pro.setUpdateDate(new Date());
-			} else {
-				pro.setProductDeliveryDate(null);
-				pro.setUpdateDate(new Date());
-			}
-			Products prod = proService.updateProducts(pro);
-
-			if (prod != null && pro.getIdProducts() != null) {
-//				pro.setUpdateDate(new Date());
-				// proService.updateProducts(pro)
-				return new ResponseEntity<>(prod, HttpStatus.OK);
-			} else if (prod == null && pro.getIdProducts() != null) {
-				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			} else if (prod == null && pro.getIdProducts() == null) {
-				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-			} else {
-				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-			}
-		} else {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
-	}
-
-	// method create a product, images(a lot) & category/////
-	@RequestMapping(value = "/product/category/{id}", method = RequestMethod.POST, produces = {	MediaType.APPLICATION_JSON_VALUE })
-	@ResponseBody
-	public ResponseEntity<?> uploadManyFiles(@RequestPart("files") List<MultipartFile> files,
-			@RequestPart("data") Products pro, @PathVariable("id") Long id, HttpServletRequest servletRequest) {
-		HttpHeaders headers = new HttpHeaders();
-		ProductsImage img = new ProductsImage(), proima = new ProductsImage();
-
-		// lambda for saving files... it works
-//			Products pro = new Products();
-//			files.forEach(file -> img.setImageName(file.getOriginalFilename()));
-//			files.forEach(file -> genS.saveObject(img));
-
-		List<String> fileNames = new ArrayList<String>();
-		if (pro.getIdProducts() == null || pro.getIdProducts() == 0) {
-			ProductsCategory procat = new ProductsCategory();
-			pro.setProductDeliveryDate(new Date());
-			pro.setUpdateDate(null);
-			proService.saveProducts(pro);
-			procat.setIdCategory(id);
-			procat.setIdProducts(pro.getIdProducts());
-			catService.saveProductsCategory(procat);
-			System.out.println("DATA SAVED SUCCESSFULLY..." + procat.getIdProductsCategory());
-		} else {
-			System.out.println("PRO IS EMPTY, SO DO IMAGE...>" + pro);
-		}
-
-		if (null != files && files.size() > 0) {
-			for (MultipartFile multipartFile : files) {
-				String fileName = multipartFile.getOriginalFilename();
-				fileNames.add(fileName);
-				File imageFile = new File(
-						"C:\\Users\\Jorge.Dï¿½az\\Documents\\GitHub\\WebServiceEcommerce\\ecommerce\\src\\main\\webapp\\images\\"+ fileName);
-				try {
-					System.out.println("RUTA DE GUARDADO ::::>" + imageFile);
-					img.setImageName(fileName);
-					img.setIdProduct(pro.getIdProducts());
-					img.setUrl("http://192.168.100.32:8090/ecommerce/images/" + fileName);
-					genS.saveObject(img);
-					multipartFile.transferTo(imageFile);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			headers.add("Number of files Uploaded successfully: ", String.valueOf(files.size()));
-			return new ResponseEntity<>(files, headers, HttpStatus.OK);
-		} else {
-			headers.add("No files were detected: ", "Please select at least one file");
-			return new ResponseEntity<>("Data successfully saved, but no files were detected, you can update the register with images later...",
-					headers, HttpStatus.OK);
 		}
 	}	
 

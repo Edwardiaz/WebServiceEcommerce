@@ -96,7 +96,13 @@ public class Users implements Serializable {
 	
 	}
 
-	
+	public Set<UsersRole> getListUsersRole() {
+		return listUsersRole;
+	}
+
+	public void setListUsersRole(Set<UsersRole> listUsersRole) {
+		this.listUsersRole = listUsersRole;
+	}
 
 	public Long getIdUsers() {
 		return idUsers;
