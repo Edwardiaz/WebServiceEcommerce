@@ -39,47 +39,59 @@ public class UserController {
 
 	// DEPENDENCY INJECTION
 	@Autowired
-	public UserController(IUsersService intService, IUsersRoleService usersRoleS, IGenericService genS, IByIdService byIdS) {
+	public UserController(IUsersService intService, IUsersRoleService usersRoleS, IGenericService genS,
+			IByIdService byIdS) {
 		this.intService = intService;
 		this.usersRoleS = usersRoleS;
 		this.byIdS = byIdS;
 		this.genS = genS;
 	}
-	
+
 	// Login Admins
 	@RequestMapping(value = "/admins", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> customerLogin(@RequestBody Users us) {
 		Users obj = byIdS.adminsLogin(us);
-		//Map<String, Users> resp = new HashMap<String, Users>();
-		
-		//resp.put("credentials", obj);
+		// Map<String, Users> resp = new HashMap<String, Users>();
+
+		// resp.put("credentials", obj);
 
 		if (obj != null) {
 			setInSession(obj);
-			System.out.println("Asignada in Session "+ inSession.getEmail() );
+			System.out.println("Asignada in Session " + inSession.getEmail());
 			return new ResponseEntity<>(obj, HttpStatus.FOUND);
 		} else {
 			System.out.println("no valid entry");
 			return new ResponseEntity<>("not valid", HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	// Session check
-		@RequestMapping(value = "/adminSession", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-		@ResponseBody
-		public ResponseEntity<?> adminSession() {
-			System.out.println("User "+inSession.getEmail() + " "+inSession.getUsers());
-			if(getInSession()!=null) {
-				return new ResponseEntity<>(getInSession(), HttpStatus.FOUND);
-			}else {
-				return new ResponseEntity<>("not valid", HttpStatus.NOT_FOUND);
-			}
-				
-
+	@RequestMapping(value = "/adminSession", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> adminSession() {
+		if (getInSession() != null) {
+			return new ResponseEntity<>(getInSession(), HttpStatus.FOUND);
+		} else {
+			return new ResponseEntity<>(null, HttpStatus.FOUND);
 		}
+	}
 
-	//HERE WE HAVE BASIC CRUDS FOR USERS AND UsersRole
+	// Log out
+	@RequestMapping(value = "/logMeOut", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<?> logMeOut() {
+		if (getInSession() != null) {
+			setInSession(null);
+			return new ResponseEntity<>(getInSession(), HttpStatus.FOUND);
+		} else {
+			return new ResponseEntity<>(getInSession(), HttpStatus.FOUND);
+		}
+	}
+
+	// HERE WE HAVE BASIC CRUDS FOR USERS AND UsersRole
 	// ***********************************************Users************************************************************
 
 	// SHOW COMPLETE LIST USERS
@@ -92,61 +104,63 @@ public class UserController {
 	}
 
 	// SAVE NEW SINGLE USERS
-	@RequestMapping(value = "/users", method = RequestMethod.POST, produces = {	MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/users", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> saveUsers(@RequestBody Users users) {
-		
-		if(users.getPassword() != null && users.getFirstLastName() != null && users.getFirstName() != null && users.getUsers() != null && users.getAddress() != null && users.getEmail() != null) {
-			
-		if (users.getIdUsers() == null || users.getIdUsers() == 0) {
-			users.setCreationDate(new Date()); //Setting date from the system
-			users.setUpdateDate(null); //Since User is new, updateDate is null
-			return new ResponseEntity<>(intService.saveUsers(users), HttpStatus.CREATED); // DAO to save new one
+
+		if (users.getPassword() != null && users.getFirstLastName() != null && users.getFirstName() != null
+				&& users.getUsers() != null && users.getAddress() != null && users.getEmail() != null) {
+
+			if (users.getIdUsers() == null || users.getIdUsers() == 0) {
+				users.setCreationDate(new Date()); // Setting date from the system
+				users.setUpdateDate(null); // Since User is new, updateDate is null
+				return new ResponseEntity<>(intService.saveUsers(users), HttpStatus.CREATED); // DAO to save new one
+			} else {
+
+				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			}
+
 		} else {
-			
+			System.out.println("*********** " + users.getPassword());
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
-		
-		}else {
-			System.out.println("*********** " +users.getPassword());
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
-		
+
 	}
 
 	// UPDATE SINGLE ENTRY USERS
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateUsers(@PathVariable("id") Long id, @RequestBody Users users) {
-		
+
 		if (users.getIdUsers() == id) {
-			Users u = intService.usersbyId(id); //Retrieving the object with the id
-			if(u != null) {
-			users.setCreationDate(u.getCreationDate()); //Setting Creation date from DB
-			}else {
+			Users u = intService.usersbyId(id); // Retrieving the object with the id
+			if (u != null) {
+				users.setCreationDate(u.getCreationDate()); // Setting Creation date from DB
+			} else {
 				users.setCreationDate(null);
 			}
-			users.setUpdateDate(new Date()); //Setting up date from the system
-			Users p = (Users) genS.updateObject(users); //Once Updated object 
-			if (p != null && users.getIdUsers() != null) { 
+			users.setUpdateDate(new Date()); // Setting up date from the system
+			Users p = (Users) genS.updateObject(users); // Once Updated object
+			if (p != null && users.getIdUsers() != null) {
 				return new ResponseEntity<>(users, HttpStatus.OK); // return statement successful
-			} else if ( p == null && users.getIdUsers() != null) {
+			} else if (p == null && users.getIdUsers() != null) {
 				return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
-			} else if ( p == null && users.getIdUsers() == null) {
+			} else if (p == null && users.getIdUsers() == null) {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			} else {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			}
-			
+
 		} else {
-			
+
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-			
+
 		}
 	}
 
 	// DELETE SINGLE ENTRY USERS
-	@RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> deleteUsers(@PathVariable("id") Long idobj) {
 		Users obj = new Users();
@@ -156,7 +170,7 @@ public class UserController {
 
 		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else if(msj == false) {
+		} else if (msj == false) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
@@ -167,7 +181,7 @@ public class UserController {
 	@ResponseBody
 	public ResponseEntity<?> userById(@PathVariable("id") Long idUsers) {
 		Users u = intService.usersbyId(idUsers);
-	
+
 		if (u != null) {
 			return new ResponseEntity<>(u, HttpStatus.FOUND);
 		} else {
@@ -187,7 +201,8 @@ public class UserController {
 	}
 
 	// RETRIEVE SINGLE
-	@RequestMapping(value = "/usersRole/{id}", method = RequestMethod.GET, produces = {	MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/usersRole/{id}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> usersRoleById(@PathVariable("id") Long idobj) {
 		UsersRole object = usersRoleS.getOne(idobj);
@@ -198,26 +213,25 @@ public class UserController {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	// SAVE Array UsersRole
-	@ResponseStatus(code = HttpStatus.FOUND)//Debo crear una funcion para llamar este httpStatus
-	@RequestMapping(value = "/usersRole/ids", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseStatus(code = HttpStatus.FOUND) // Debo crear una funcion para llamar este httpStatus
+	@RequestMapping(value = "/usersRole/ids", method = RequestMethod.POST, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public Integer[] arrayPrint(@RequestBody Integer[] ids) {
 		for (int i = 0; i < ids.length; i++) {
-			System.out.println("VALORES DEL VECTOR "+ids[i]);
+			System.out.println("VALORES DEL VECTOR " + ids[i]);
 		}
-	
-			return ids;
-	}
 
+		return ids;
+	}
 
 	// SAVE NEW SINGLE UsersRole
 	@RequestMapping(value = "/usersRole", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> saveUsersRole(@RequestBody UsersRole obj) {
-		
-		
+
 		if (obj.getIdUseRole() == null || obj.getIdUseRole() == 0) {
 			return new ResponseEntity<>(genS.saveObject(obj), HttpStatus.CREATED);
 		} else {
@@ -226,27 +240,28 @@ public class UserController {
 	}
 
 	// UPDATE SINGLE ENTRY UsersRole
-	@RequestMapping(value = "/usersRole/{id}", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/usersRole/{id}", method = RequestMethod.PUT, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<?> updateUsersRole(@PathVariable("id") Long id, @RequestBody UsersRole obj) {
-				
+
 		if (obj.getIdUseRole() == id) {
 
 			UsersRole u = (UsersRole) genS.updateObject(obj);
 			if (u != null && obj.getIdUseRole() != null) {
 				return new ResponseEntity<>(obj, HttpStatus.OK);
-			} else if ( u == null && obj.getIdUseRole() != null) {
+			} else if (u == null && obj.getIdUseRole() != null) {
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			} else if ( u == null && obj.getIdUseRole() == null) {
+			} else if (u == null && obj.getIdUseRole() == null) {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			} else {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			}
-			
+
 		} else {
-			
+
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-			
+
 		}
 	}
 
@@ -257,12 +272,12 @@ public class UserController {
 	public ResponseEntity<?> deleteUsersRole(@PathVariable("id") Long idobj) {
 		UsersRole obj = new UsersRole();
 		obj.setIdUseRole(idobj);
-		
+
 		boolean msj = genS.deleteObject(obj, idobj);
 
 		if (msj == true) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
-		} else if(msj == false) {
+		} else if (msj == false) {
 			return new ResponseEntity<>(msj, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(msj, HttpStatus.NO_CONTENT);
@@ -276,5 +291,4 @@ public class UserController {
 		this.inSession = inSession;
 	}
 
-	
 }
