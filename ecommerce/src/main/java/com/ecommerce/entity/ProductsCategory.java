@@ -24,9 +24,9 @@ public class ProductsCategory implements Serializable{
 	@Column(name = "idProductCategory")
 	private Long idProductsCategory;
 	@Column(name = "idProducts")
-	private Long idPro;
+	private Long idProducts;
 	@Column(name = "idCategory")
-	private Long idCat;
+	private Long idCategory;
 
 
 	@JoinColumn(name = "idCategory", insertable = false, updatable = false)
@@ -57,20 +57,21 @@ public class ProductsCategory implements Serializable{
 		this.idProductsCategory = idProductsCategory;
 	}
 
-	public Long getIdPro() {
-		return idPro;
+
+	public Long getIdProducts() {
+		return idProducts;
 	}
 
-	public void setIdPro(Long idPro) {
-		this.idPro = idPro;
+	public void setIdProducts(Long idProducts) {
+		this.idProducts = idProducts;
 	}
 
-	public Long getIdCat() {
-		return idCat;
+	public Long getIdCategory() {
+		return idCategory;
 	}
 
-	public void setIdCat(Long idCat) {
-		this.idCat = idCat;
+	public void setIdCategory(Long idCategory) {
+		this.idCategory = idCategory;
 	}
 
 	public Category getCategory() {

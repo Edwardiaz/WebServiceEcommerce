@@ -100,10 +100,10 @@ public class ProductRestController {
 			ProductsCategory procat = new ProductsCategory();
 			pro.setProductDeliveryDate(new Date());
 			pro.setUpdateDate(null);
-			procat.setIdCat(id);
+			procat.setIdCategory(id);
 
 			logger.error("ID DE LA URI:::::> " + id);
-			System.out.println("ID CATEGORIA:::::> " + procat.getIdCat());
+			System.out.println("ID CATEGORIA:::::> " + procat.getIdCategory());
 
 			Products pr = proService.saveProducts(pro);
 			procat.setIdProducts(pr.getIdProducts());
@@ -126,7 +126,7 @@ public class ProductRestController {
 			ProductsCategory newCatPro = new ProductsCategory();
 			for (ProductsCategory procat : p.getProductsCategorySet()) {
 				System.out.println("pro.getListCat()::::::> "+pro.getListCat());
-				if (procat.getIdPro() == id) {
+				if (procat.getIdProducts() == id) {
 
 					catService.deleteProductsCategory(procat.getIdProductsCategory());
 				}
@@ -134,13 +134,13 @@ public class ProductRestController {
 				if (p != null) {
 					pro.setProductDeliveryDate(p.getProductDeliveryDate());
 					pro.setUpdateDate(new Date());
-					newCatPro.setIdPro(id);
-					newCatPro.setIdCat(pro.getListCat());
+					newCatPro.setIdProducts(id);
+					newCatPro.setIdCategory(pro.getListCat());
 				} else {
 					pro.setProductDeliveryDate(null);
 					pro.setUpdateDate(new Date());
-					newCatPro.setIdPro(id);
-					newCatPro.setIdCat(pro.getListCat());
+					newCatPro.setIdProducts(id);
+					newCatPro.setIdCategory(pro.getListCat());
 				}
 				Products prod = proService.updateProducts(pro);
 				ProductsCategory catPro = catService.saveProductsCategory(newCatPro);
@@ -286,8 +286,8 @@ public class ProductRestController {
 			pro.setProductDeliveryDate(new Date());
 			pro.setUpdateDate(null);
 			proService.saveProducts(pro);
-			procat.setIdCat(id);
-			procat.setIdPro(pro.getIdProducts());
+			procat.setIdCategory(id);
+			procat.setIdProducts(pro.getIdProducts());
 			catService.saveProductsCategory(procat);
 			System.out.println("DATA SAVED SUCCESSFULLY..." + procat.getIdProductsCategory());
 		} else {
