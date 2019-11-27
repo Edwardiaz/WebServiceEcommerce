@@ -140,7 +140,7 @@ public class ProductRestController {
 			}
 			proImage.setImageName(fileName);
 			proImage.setIdProduct(id);
-			proImage.setUrl("http://192.168.100.32:8090/ecommerce/images/"+fileName);
+			proImage.setUrl("http://192.168.100.36:8090/ecommerce/images/"+fileName);
 			genS.saveObject(proImage);
 			response.put("Imagen", proImage);
 			response.put("message", "Image uploaded sucessfuly");
@@ -184,7 +184,7 @@ public class ProductRestController {
 						System.out.println("RUTA DE GUARDADO ::::>" + imageFile);
 						img.setImageName(fileName);
 						img.setIdProduct(pro.getIdProducts());
-						img.setUrl("http://192.168.100.32:8090/ecommerce/images/" + fileName);
+						img.setUrl("http://192.168.100.36:8090/ecommerce/images/" + fileName);
 						genS.saveObject(img);
 						multipartFile.transferTo(imageFile);
 					} catch (IOException e) {
@@ -260,7 +260,7 @@ public class ProductRestController {
 				if (pro.getIdProducts() == proima.getIdProduct() && pro.getProImageSet() != null) {
 					String fileName = proima.getImageName();
 
-					proima.setUrl("http://192.168.100.32:8090/ecommerce/images/" + fileName);
+					proima.setUrl("http://192.168.100.36:8090/ecommerce/images/" + fileName);
 
 					genS.updateObject(proima);
 
@@ -284,7 +284,7 @@ public class ProductRestController {
 			for (ProductsImage proima : pro.getProImageSet()) {
 				if (id == proima.getIdProduct()) {
 					String fileName = proima.getImageName();
-					proima.setUrl("http://192.168.100.32:8090/ecommerce/images/" + fileName);
+					proima.setUrl("http://192.168.100.36:8090/ecommerce/images/" + fileName);
 
 					genS.updateObject(proima);
 
@@ -338,7 +338,7 @@ public class ProductRestController {
 					img.setImageName(fileName);
 					img.setImageCode(3);
 					img.setIdProduct(id);
-					img.setUrl("http://192.168.100.32:8090/ecommerce/images/" + fileName);
+					img.setUrl("http://192.168.100.36:8090/ecommerce/images/" + fileName);
 					genS.saveObject(img);
 					multipartFile.transferTo(imageFile);
 				} catch (IOException e) {
@@ -369,7 +369,7 @@ public class ProductRestController {
 		if (list.size() > 0) {
 			for (ProductsImage proima : list) {
 				String fileName = proima.getImageName();
-				proima.setUrl("http://192.168.100.32:8090/ecommerce/images/" + fileName);
+				proima.setUrl("http://192.168.100.36:8090/ecommerce/images/" + fileName);
 				genS.updateObject(proima);
 			}
 			System.out.println("LISTAAA " + list);

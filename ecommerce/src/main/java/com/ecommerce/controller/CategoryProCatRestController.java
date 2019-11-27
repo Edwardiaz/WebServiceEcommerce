@@ -49,7 +49,6 @@ public class CategoryProCatRestController {
 		}
 	}
 	
-
 	// method retrieve
 	@ResponseStatus(code = HttpStatus.OK)
 	@RequestMapping(value = "/category", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
